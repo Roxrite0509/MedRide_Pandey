@@ -1,0 +1,85 @@
+Illegal constructor
+Global error: 
+TypeError {message: "Illegal constructor"}
+
+The above error occurred in the <Navigation> component:
+
+    at Navigation
+    at button
+    at _c (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/button.tsx:47:11)
+    at div
+    at div
+    at _c9 (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:114:12)
+    at div
+    at _c (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:20:11)
+    at div
+    at AmbulanceDashboard (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/pages/ambulance.tsx:108:20)
+    at component
+    at Route (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:280:16)
+    at Switch (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:336:17)
+    at div
+    at WebSocketProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-websocket.tsx:21:37)
+    at Router (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/App.tsx?v=hl9TA89od-yn-JhumoOjL:37:31)
+    at Provider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=2507acf5:38:15)
+    at TooltipProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=2507acf5:62:5)
+    at AuthProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-auth.ts:6:32)
+    at QueryClientProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=2507acf5:2934:3)
+    at ErrorBoundary (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ErrorBoundary.tsx:7:5)
+    at App
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+
+at Navigation
+at button
+at _c (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/button.tsx:47:11)
+at div
+at div
+at _c9 (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:114:12)
+at div
+at _c (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:20:11)
+at div
+at AmbulanceDashboard (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/pages/ambulance.tsx:108:20)
+at component
+at Route (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:280:16)
+at Switch (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:336:17)
+at div
+at WebSocketProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-websocket.tsx:21:37)
+at Router (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/App.tsx?v=hl9TA89od-yn-JhumoOjL:37:31)
+at Provider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=2507acf5:38:15)
+at TooltipProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=2507acf5:62:5)
+at AuthProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-auth.ts:6:32)
+at QueryClientProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=2507acf5:2934:3)
+at ErrorBoundary (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ErrorBoundary.tsx:7:5)
+at App
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+at t.value (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+Error caught by boundary: 
+TypeError {message: "Illegal constructor"}
+ 
+Object {componentStack: "↵    at Navigation↵    at button↵    at _c…"}
+
+at t.value (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+[vite] 
+TypeError {}
+
+[vite] 
+TypeError {}
+
+⚠️ WebSocket error: 
+Event {isTrusted: true}
+🔌 WebSocket closed (1006)
+📍 All ambulance locations: 
+(4) [{…}, {…}, {…}, {…}]
+🔍 Looking for ambulance with ID: 11
+⚠️ No ambulance found for ID: 11
+Available ambulance IDs: 
+(4) [9, 17, 18, 19]
+Available operator IDs: 
+(4) [7, 84, 85, 144]

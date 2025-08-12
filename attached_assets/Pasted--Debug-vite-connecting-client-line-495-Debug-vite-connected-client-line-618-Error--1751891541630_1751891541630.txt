@@ -1,0 +1,66 @@
+[Debug] [vite] connecting... (client, line 495)
+[Debug] [vite] connected. (client, line 618)
+[Error] ReferenceError: Cannot access uninitialized variable.
+	PatientDashboard (patient.tsx:51)
+	renderWithHooks (chunk-RPCDYKBN.js:11548)
+	mountIndeterminateComponent (chunk-RPCDYKBN.js:14926)
+	callCallback2 (chunk-RPCDYKBN.js:3674)
+	dispatchEvent
+	invokeGuardedCallbackDev (chunk-RPCDYKBN.js:3699)
+	invokeGuardedCallback (chunk-RPCDYKBN.js:3733)
+	beginWork$1 (chunk-RPCDYKBN.js:19765)
+	performUnitOfWork (chunk-RPCDYKBN.js:19198)
+	workLoopSync (chunk-RPCDYKBN.js:19137)
+	renderRootSync (chunk-RPCDYKBN.js:19116)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18874)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	(anonymous function) (chunk-RPCDYKBN.js:18627)
+[Error] ReferenceError: Cannot access uninitialized variable.
+	PatientDashboard (patient.tsx:51)
+	renderWithHooks (chunk-RPCDYKBN.js:11548)
+	mountIndeterminateComponent (chunk-RPCDYKBN.js:14926)
+	callCallback2 (chunk-RPCDYKBN.js:3674)
+	dispatchEvent
+	invokeGuardedCallbackDev (chunk-RPCDYKBN.js:3699)
+	invokeGuardedCallback (chunk-RPCDYKBN.js:3733)
+	beginWork$1 (chunk-RPCDYKBN.js:19765)
+	performUnitOfWork (chunk-RPCDYKBN.js:19198)
+	workLoopSync (chunk-RPCDYKBN.js:19137)
+	renderRootSync (chunk-RPCDYKBN.js:19116)
+	recoverFromConcurrentError (chunk-RPCDYKBN.js:18736)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18879)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	(anonymous function) (chunk-RPCDYKBN.js:18627)
+[Error] The above error occurred in the <PatientDashboard> component:
+
+PatientDashboard@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/pages/patient.tsx:37:27
+component
+Route@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:323:20
+Switch@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:379:25
+div
+WebSocketProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-websocket.tsx:22:45
+Router@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/App.tsx:35:38
+TooltipProviderProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-M3NVYRND.js:48:52
+TooltipProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js:63:12
+AuthProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-auth.ts:6:40
+QueryClientProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js:2805:9
+App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+	logCapturedError (chunk-RPCDYKBN.js:14032)
+	(anonymous function) (chunk-RPCDYKBN.js:14052)
+	callCallback (chunk-RPCDYKBN.js:11248)
+	commitUpdateQueue (chunk-RPCDYKBN.js:11265)
+	commitLayoutEffectOnFiber (chunk-RPCDYKBN.js:17093)
+	commitLayoutMountEffects_complete (chunk-RPCDYKBN.js:17980)
+	commitLayoutEffects_begin (chunk-RPCDYKBN.js:17969)
+	commitLayoutEffects (chunk-RPCDYKBN.js:17920)
+	commitRootImpl (chunk-RPCDYKBN.js:19353)
+	commitRoot (chunk-RPCDYKBN.js:19277)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18895)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	(anonymous function) (chunk-RPCDYKBN.js:18627)
+[Error] ReferenceError: Cannot access uninitialized variable.
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9129)
+	(anonymous function) (chunk-RPCDYKBN.js:18627)

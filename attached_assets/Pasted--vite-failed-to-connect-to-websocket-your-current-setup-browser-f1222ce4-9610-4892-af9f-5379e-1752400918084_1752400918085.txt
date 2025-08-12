@@ -1,0 +1,40 @@
+[vite] failed to connect to websocket.
+your current setup:
+  (browser) f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/ <--[HTTP]--> localhost:5173/ (server)
+  (browser) f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev:/ <--[WebSocket (failing)]--> localhost:5173/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr .
+Can't find variable: Shield
+Global error: 
+ReferenceError {}
+
+Can't find variable: Shield
+Global error: 
+ReferenceError {}
+
+The above error occurred in the <EnhancedPatientDashboard> component:
+
+EnhancedPatientDashboard@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/src/pages/enhanced-patient.tsx:39:27
+component
+Route@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:280:14
+Switch@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:337:27
+div
+WebSocketProvider@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/src/hooks/use-websocket-simple.tsx:21:5
+Router@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/src/App.tsx:37:38
+TooltipProviderProvider@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js:38:13
+TooltipProvider@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js:63:43
+AuthProvider@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/src/hooks/use-auth.ts:7:37
+QueryClientProvider@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js:2934:9
+ErrorBoundary@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.replit.dev/src/components/ErrorBoundary.tsx:7:10
+App
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+Error caught by boundary: 
+ReferenceError {}
+ 
+Object {componentStack: "↵EnhancedPatientDashboard@https://f1222ce4-9610-4892-af9f-5379e299244c-00-1sslme6y8tx5y.spock.repl…"}
+
+[vite] 
+TypeError {}
+
+[vite] 
+TypeError {}

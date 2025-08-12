@@ -1,0 +1,460 @@
+[Warning] 870 console messages are not shown.
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+> Selected Element
+< <div data-replit-metadata="client/src/App.tsx:39:6" data-component-name="div" class="min-h-screen bg-neutral-50">…</div>
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, assignedRequests: [{id: 17, ambulanceId: 2, userAmbulanceId: 2}], allRequests: Array, …}Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, assignedRequests: [{id: 17, ambulanceId: 2, userAmbulanceId: 2}], allRequests: Array, …}Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, assignedRequests: [{id: 17, ambulanceId: 2, userAmbulanceId: 2}], allRequests: Array, …}Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 1, hasLocation: true, assignedRequests: [{id: 17, ambulanceId: 2, userAmbulanceId: 2}], allRequests: Array, …}Object
+[Error] Invalid latitude and longitude.
+	(anonymous function) (js:1369)
+	UFa (directions.js:3:150)
+	$Fa (directions.js:7:479)
+	(anonymous function) (directions.js:9)
+	(anonymous function) (directions.js:4:423)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: There was an issue performing a Directions request.
+	(anonymous function) (js:1369)
+	(anonymous function) (directions.js:8:357)
+	(anonymous function) (directions.js:4:428)
+	c (common.js:103:84)
+	Global Code (DirectionsService.Route:1)
+[Error] Error calculating route: – MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+MapsRequestError: DIRECTIONS_ROUTE: INVALID_REQUEST: The DirectionsRequest provided was invalid.
+	(anonymous function) (navigation-map.tsx:142)

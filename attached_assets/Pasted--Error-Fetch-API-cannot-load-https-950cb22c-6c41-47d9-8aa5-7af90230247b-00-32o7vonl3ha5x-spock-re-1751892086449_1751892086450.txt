@@ -1,0 +1,27 @@
+[Error] Fetch API cannot load https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/ due to access control checks.
+	(anonymous function) (client:736)
+	ping (client:734)
+	(anonymous function) (client:755)
+[Debug] [vite] connecting... (client, line 495)
+[Debug] [vite] connected. (client, line 618)
+[Warning] Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading (js, line 1485)
+[Warning] As of February 21st, 2024, google.maps.Marker is deprecated. Please use google.maps.marker.AdvancedMarkerElement instead. At this time, google.maps.Marker is not scheduled to be discontinued, but google.maps.marker.AdvancedMarkerElement is recommended over google.maps.Marker. While google.maps.Marker will continue to receive bug fixes for any major regressions, existing bugs in google.maps.Marker will not be addressed. At least 12 months notice will be given before support is discontinued. Please see https://developers.google.com/maps/deprecations for additional details and https://developers.google.com/maps/documentation/javascript/advanced-markers/migration for the migration guide. (js, line 1565)
+[Log] Socket.IO connected (use-websocket.tsx, line 44)
+[Error] Error deleting emergency request: – SyntaxError: The string did not match the expected pattern.
+SyntaxError: The string did not match the expected pattern.
+	onError (patient.tsx:114)
+	(anonymous function) (@tanstack_react-query.js:1254)
+[Error] Error deleting emergency request: – SyntaxError: The string did not match the expected pattern.
+SyntaxError: The string did not match the expected pattern.
+	onError (patient.tsx:114)
+	(anonymous function) (@tanstack_react-query.js:1254)
+[Error] Error deleting emergency request: – SyntaxError: The string did not match the expected pattern.
+SyntaxError: The string did not match the expected pattern.
+	onError (patient.tsx:114)
+	(anonymous function) (@tanstack_react-query.js:1254)
+[Error] Error deleting emergency request: – SyntaxError: The string did not match the expected pattern.
+SyntaxError: The string did not match the expected pattern.
+	onError (patient.tsx:114)
+	(anonymous function) (@tanstack_react-query.js:1254)
+[Log] Socket.IO disconnected: – "parse error" (use-websocket.tsx, line 49)
+[Log] Socket.IO connected (use-websocket.tsx, line 44)

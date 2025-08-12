@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom toast animations and styles */
+@keyframes emergency-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes emergency-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(220, 38, 38, 0.8); }
+}
+
+.toast-emergency {
+  animation: emergency-pulse 2s ease-in-out infinite, emergency-glow 3s ease-in-out infinite;
+  border: 2px solid #dc2626 !important;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+}
+
+.toast-success {
+  animation: emergency-pulse 1.5s ease-in-out 3;
+  border: 2px solid #16a34a !important;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 11%, 15%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 11%, 15%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 11%, 15%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(215, 25%, 27%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(215, 25%, 27%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(207, 90%, 54%);
+  --radius: 0.5rem;
+
+  /* Medical Emergency Color Palette */
+  --medical-blue: hsl(207, 90%, 54%);
+  --emergency-red: hsl(356, 75%, 53%);
+  --success-green: hsl(122, 39%, 49%);
+  --warning-orange: hsl(36, 100%, 50%);
+  
+  /* Neutral shades */
+  --neutral-50: hsl(0, 0%, 98%);
+  --neutral-100: hsl(240, 5%, 96%);
+  --neutral-200: hsl(240, 6%, 90%);
+  --neutral-300: hsl(240, 5%, 84%);
+  --neutral-400: hsl(240, 5%, 65%);
+  --neutral-500: hsl(240, 4%, 46%);
+  --neutral-600: hsl(240, 5%, 34%);
+  --neutral-700: hsl(240, 5%, 26%);
+  --neutral-800: hsl(240, 4%, 16%);
+  --neutral-900: hsl(240, 6%, 10%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+
+  /* Dark mode medical colors */
+  --medical-blue: hsl(207, 90%, 54%);
+  --emergency-red: hsl(356, 75%, 53%);
+  --success-green: hsl(122, 39%, 49%);
+  --warning-orange: hsl(36, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Emergency Button Styles */
+  .emergency-button {
+    background: linear-gradient(135deg, var(--emergency-red), hsl(356, 75%, 43%));
+    transition: all 0.2s ease-in-out;
+  }
+
+  .emergency-button:hover {
+    background: linear-gradient(135deg, hsl(356, 75%, 43%), hsl(356, 75%, 33%));
+    transform: scale(1.05);
+  }
+
+  .emergency-button:active {
+    transform: scale(0.95);
+  }
+
+  /* Priority Indicators */
+  .priority-critical {
+    @apply border-l-4 border-red-500 bg-red-50;
+  }
+
+  .priority-high {
+    @apply border-l-4 border-orange-500 bg-orange-50;
+  }
+
+  .priority-medium {
+    @apply border-l-4 border-yellow-500 bg-yellow-50;
+  }
+
+  .priority-low {
+    @apply border-l-4 border-blue-500 bg-blue-50;
+  }
+
+  /* Status Indicators */
+  .status-available {
+    @apply bg-green-500;
+  }
+
+  .status-busy {
+    @apply bg-orange-500;
+  }
+
+  .status-full {
+    @apply bg-red-500;
+  }
+
+  .status-dispatched {
+    @apply bg-yellow-500;
+  }
+
+  .status-en-route {
+    @apply bg-blue-500;
+  }
+
+  /* Medical Role Colors */
+  .role-patient {
+    @apply text-blue-600 bg-blue-50;
+  }
+
+  .role-ambulance {
+    @apply text-orange-600 bg-orange-50;
+  }
+
+  .role-hospital {
+    @apply text-green-600 bg-green-50;
+  }
+
+  /* Bed Status Colors */
+  .bed-occupied {
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+
+  .bed-available {
+    @apply bg-green-500 text-white hover:bg-green-600;
+  }
+
+  .bed-maintenance {
+    @apply bg-gray-500 text-white hover:bg-gray-600;
+  }
+
+  .bed-reserved {
+    @apply bg-yellow-500 text-white hover:bg-yellow-600;
+  }
+
+  /* Animation for real-time updates */
+  .pulse-dot {
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Emergency gradient background */
+  .emergency-gradient {
+    background: linear-gradient(135deg, var(--medical-blue), hsl(207, 90%, 44%));
+  }
+
+  /* Medical card styling */
+  .medical-card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-100;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .medical-card:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+  }
+
+  /* Communication message styling */
+  .message-sent {
+    @apply bg-blue-600 text-white rounded-lg p-3 ml-auto max-w-xs;
+  }
+
+  .message-received {
+    @apply bg-gray-100 text-gray-800 rounded-lg p-3 mr-auto max-w-xs;
+  }
+
+  /* Hospital bed grid */
+  .bed-grid {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .bed-grid.icu {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .bed-grid.general {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  /* Emergency request card animations */
+  .emergency-card {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .emergency-card:hover {
+    @apply shadow-md;
+    transform: translateY(-1px);
+  }
+
+  /* Loading spinner for emergency situations */
+  .emergency-spinner {
+    border: 3px solid var(--neutral-200);
+    border-top: 3px solid var(--emergency-red);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Real-time status indicators */
+  .status-indicator {
+    @apply w-3 h-3 rounded-full;
+    animation: pulse 2s infinite;
+  }
+
+  .status-indicator.critical {
+    @apply bg-red-500;
+  }
+
+  .status-indicator.active {
+    @apply bg-green-500;
+  }
+
+  .status-indicator.warning {
+    @apply bg-orange-500;
+  }
+
+  /* Map placeholder styling */
+  .map-placeholder {
+    @apply bg-gray-100 rounded-lg flex items-center justify-center;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.05) 10px,
+      rgba(0, 0, 0, 0.05) 20px
+    );
+  }
+
+  /* Emergency priority text colors */
+  .text-priority-critical {
+    @apply text-red-700;
+  }
+
+  .text-priority-high {
+    @apply text-orange-700;
+  }
+
+  .text-priority-medium {
+    @apply text-yellow-700;
+  }
+
+  .text-priority-low {
+    @apply text-blue-700;
+  }
+
+  /* Background priority colors */
+  .bg-priority-critical {
+    @apply bg-red-50;
+  }
+
+  .bg-priority-high {
+    @apply bg-orange-50;
+  }
+
+  .bg-priority-medium {
+    @apply bg-yellow-50;
+  }
+
+  .bg-priority-low {
+    @apply bg-blue-50;
+  }
+}
+
+/* Custom scrollbar for chat areas */
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+  border-radius: 3px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: 3px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-400);
+}
+
+/* Focus styles for accessibility */
+.focus\:ring-medical:focus {
+  --tw-ring-color: var(--medical-blue);
+  --tw-ring-opacity: 0.5;
+}
+
+.focus\:ring-emergency:focus {
+  --tw-ring-color: var(--emergency-red);
+  --tw-ring-opacity: 0.5;
+}
+
+/* Print styles for emergency documentation */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    color: black !important;
+    background: white !important;
+  }
+}

@@ -1,0 +1,133 @@
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/App.tsx?v=Ow-ivm5MzfFj2DyOcWrFf. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/pages/patient.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Debug] [vite] hot updated: /src/pages/patient.tsx (client, line 223)
+[Debug] [vite] hot updated: /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf (client, line 223)
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Debug] [vite] invalidate /src/hooks/use-websocket.tsx: Could not Fast Refresh ("useWebSocket" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports (client, line 64)
+[Debug] [vite] hot updated: /src/hooks/use-websocket.tsx (client, line 223)
+[Debug] [vite] hot updated: /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf (client, line 223)
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Debug] [vite] hot updated: /src/pages/ambulance.tsx (client, line 223)
+[Debug] [vite] hot updated: /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf (client, line 223)
+[Error] TypeError: Importing a module script failed.
+	warnFailedUpdate (client:174)
+	(anonymous function) (client:213)
+[Error] [hmr] Failed to reload /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf. This could be due to syntax errors or importing non-existent modules. (see errors above)
+	warnFailedUpdate (client:176)
+	(anonymous function) (client:213)
+[Debug] [vite] hot updated: /src/App.tsx?v=Ow-ivm5MzfFj2DyOcWrFf (client, line 223)
+[Debug] [vite] hot updated: /src/index.css?v=Ow-ivm5MzfFj2DyOcWrFf (client, line 223)
+[Debug] [vite] hot updated: /src/pages/patient.tsx (client, line 223)
+[Debug] [vite] hot updated: /src/pages/ambulance.tsx (client, line 223)
+[Debug] [vite] hot updated: /src/components/notification-system.tsx (client, line 223)
+[Error] Error: useWebSocket must be used within a WebSocketProvider
+	useWebSocket (use-websocket.tsx:98)
+	PatientDashboard (patient.tsx:38)
+	renderWithHooks (chunk-RPCDYKBN.js:11548)
+	mountIndeterminateComponent (chunk-RPCDYKBN.js:14926)
+	callCallback2 (chunk-RPCDYKBN.js:3674)
+	dispatchEvent
+	invokeGuardedCallbackDev (chunk-RPCDYKBN.js:3699)
+	invokeGuardedCallback (chunk-RPCDYKBN.js:3733)
+	beginWork$1 (chunk-RPCDYKBN.js:19765)
+	performUnitOfWork (chunk-RPCDYKBN.js:19198)
+	workLoopSync (chunk-RPCDYKBN.js:19137)
+	renderRootSync (chunk-RPCDYKBN.js:19116)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18874)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	flushSync (chunk-RPCDYKBN.js:18959)
+	scheduleRefresh (chunk-RPCDYKBN.js:20004)
+	(anonymous function) (@react-refresh:188)
+	forEach
+	performReactRefresh (@react-refresh:180)
+	(anonymous function) (@react-refresh:474)
+	(anonymous function) (@react-refresh:472)
+[Error] Error: useWebSocket must be used within a WebSocketProvider
+	useWebSocket (use-websocket.tsx:98)
+	PatientDashboard (patient.tsx:38)
+	renderWithHooks (chunk-RPCDYKBN.js:11548)
+	mountIndeterminateComponent (chunk-RPCDYKBN.js:14926)
+	callCallback2 (chunk-RPCDYKBN.js:3674)
+	dispatchEvent
+	invokeGuardedCallbackDev (chunk-RPCDYKBN.js:3699)
+	invokeGuardedCallback (chunk-RPCDYKBN.js:3733)
+	beginWork$1 (chunk-RPCDYKBN.js:19765)
+	performUnitOfWork (chunk-RPCDYKBN.js:19198)
+	workLoopSync (chunk-RPCDYKBN.js:19137)
+	renderRootSync (chunk-RPCDYKBN.js:19116)
+	recoverFromConcurrentError (chunk-RPCDYKBN.js:18736)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18879)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	flushSync (chunk-RPCDYKBN.js:18959)
+	scheduleRefresh (chunk-RPCDYKBN.js:20004)
+	(anonymous function) (@react-refresh:188)
+	forEach
+	performReactRefresh (@react-refresh:180)
+	(anonymous function) (@react-refresh:474)
+	(anonymous function) (@react-refresh:472)
+[Error] The above error occurred in the <PatientDashboard> component:
+
+PatientDashboard@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/pages/patient.tsx:36:27
+component
+Route@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:323:20
+Switch@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js:379:25
+div
+WebSocketProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-websocket.tsx:22:45
+Router@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/App.tsx:35:38
+TooltipProviderProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-M3NVYRND.js:48:52
+TooltipProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js:63:12
+AuthProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-auth.ts:6:40
+QueryClientProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js:2805:9
+App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+	logCapturedError (chunk-RPCDYKBN.js:14032)
+	(anonymous function) (chunk-RPCDYKBN.js:14052)
+	callCallback (chunk-RPCDYKBN.js:11248)
+	commitUpdateQueue (chunk-RPCDYKBN.js:11265)
+	commitLayoutEffectOnFiber (chunk-RPCDYKBN.js:17093)
+	commitLayoutMountEffects_complete (chunk-RPCDYKBN.js:17980)
+	commitLayoutEffects_begin (chunk-RPCDYKBN.js:17969)
+	commitLayoutEffects (chunk-RPCDYKBN.js:17920)
+	commitRootImpl (chunk-RPCDYKBN.js:19353)
+	commitRoot (chunk-RPCDYKBN.js:19277)
+	performSyncWorkOnRoot (chunk-RPCDYKBN.js:18895)
+	flushSyncCallbacks (chunk-RPCDYKBN.js:9119)
+	flushSync (chunk-RPCDYKBN.js:18959)
+	scheduleRefresh (chunk-RPCDYKBN.js:20004)
+	(anonymous function) (@react-refresh:188)
+	forEach
+	performReactRefresh (@react-refresh:180)
+	(anonymous function) (@react-refresh:474)
+	(anonymous function) (@react-refresh:472)
+[Error] Unhandled Promise Rejection: Error: useWebSocket must be used within a WebSocketProvider
+	performReactRefresh (@react-refresh:197)
+	(anonymous function) (@react-refresh:474)
+	(anonymous function) (@react-refresh:472)

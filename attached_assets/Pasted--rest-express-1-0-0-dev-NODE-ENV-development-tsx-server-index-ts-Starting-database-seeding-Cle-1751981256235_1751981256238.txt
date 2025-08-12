@@ -1,0 +1,59 @@
+ rest-express@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+Starting database seeding...
+Clearing existing data for fresh seed...
+Error seeding database: error: duplicate key value violates unique constraint "users_username_unique"
+    at file:///Users/anshumansengar/Downloads/ECTest/node_modules/@neondatabase/serverless/index.mjs:1345:74
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async NeonPreparedQuery.execute (/Users/anshumansengar/Downloads/ECTest/node_modules/src/neon-serverless/session.ts:102:18)
+    at async seedDatabase (/Users/anshumansengar/Downloads/ECTest/server/seed.ts:71:27)
+    at async <anonymous> (/Users/anshumansengar/Downloads/ECTest/server/index.ts:45:5) {
+  length: 215,
+  severity: 'ERROR',
+  code: '23505',
+  detail: 'Key (username)=(patient1) already exists.',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'public',
+  table: 'users',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'users_username_unique',
+  file: 'nbtinsert.c',
+  line: '666',
+  routine: '_bt_check_unique'
+}
+Database seeding skipped (likely already seeded)
+🏥 Starting independent hospital initialization...
+🏥 Initializing all hospitals independently...
+✅ Hospital Apollo Hospital Indore already has bed data
+✅ Hospital CARE CHL Hospital Indore already has bed data
+✅ Hospital Bombay Hospital Indore already has bed data
+✅ Hospital Vishesh Jupiter Hospital already has bed data
+🎉 Hospital initialization complete
+node:events:485
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen ENOTSUP: operation not supported on socket 0.0.0.0:5000
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at node:net:2206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on WebSocketServer instance at:
+    at Server.emit (node:events:507:28)
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'ENOTSUP',
+  errno: -45,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 5000
+}
+
+Node.js v24.3.0
+(base) anshumansengar@Anshumans-MacBook-Air ECTest 

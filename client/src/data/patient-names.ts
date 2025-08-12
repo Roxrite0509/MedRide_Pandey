@@ -1,0 +1,147 @@
+// Authentic Indian patient names for hospital bed management
+// These correspond to the seeded bed data in the database
+
+export const patientNamesByHospital: Record<number, Record<string, string>> = {
+  // Apollo Hospital Indore (ID: 2) - North Indian names
+  2: {
+    'CICU-001': 'Rajesh Kumar Singh',
+    'CICU-003': 'Priya Sharma', 
+    'CICU-005': 'Amit Patel',
+    'CICU-007': 'Sunita Verma',
+    'NICU-002': 'Vikram Singh Rajput',
+    'NICU-004': 'Meera Gupta',
+    'SICU-001': 'Anil Agarwal',
+    'SICU-003': 'Kavita Jain',
+    'SICU-006': 'Suresh Chandra',
+    'PICU-002': 'Pooja Mishra',
+    'PICU-004': 'Rohit Sinha',
+    'MICU-001': 'Anita Yadav',
+    'MICU-003': 'Manoj Tiwari',
+    'MICU-005': 'Geeta Devi',
+    'CAR-002': 'Ashok Kumar',
+    'CAR-005': 'Sushma Bhargava',
+    'CAR-008': 'Deepak Saxena',
+    'CAR-010': 'Ritu Malhotra',
+    'NEU-003': 'Vinod Khanna',
+    'NEU-006': 'Shanti Agarwal',
+    'NEU-009': 'Rakesh Pandey',
+    'ONC-002': 'Usha Sharma',
+    'ONC-005': 'Sanjay Joshi',
+    'ONC-008': 'Lakshmi Iyer',
+    'ONC-012': 'Harish Chandra',
+    'ORT-003': 'Kamla Devi',
+    'ORT-007': 'Narayan Das',
+    'ORT-011': 'Sarita Singh',
+    'GAS-002': 'Mukesh Gupta',
+    'GAS-005': 'Radha Krishna',
+    'URO-003': 'Ramlal Sharma',
+    'URO-006': 'Sumitra Devi',
+    'GEN-001': 'Brijesh Kumar',
+    'GEN-004': 'Santosh Gupta',
+    'GEN-007': 'Vandana Singh',
+    'GEN-010': 'Dinesh Agarwal',
+    'GEN-013': 'Madhuri Sharma',
+    'GEN-016': 'Vikas Tiwari'
+  },
+  
+  // CARE CHL Hospital Indore (ID: 3) - Modern Indian names
+  3: {
+    'CCU-001': 'Arjun Mehta',
+    'CCU-003': 'Shreya Kapoor',
+    'CCU-006': 'Kiran Chopra',
+    'CCU-009': 'Anshuman Sengar',
+    'TICU-002': 'Divya Nair',
+    'TICU-005': 'Raghav Malhotra',
+    'TICU-007': 'Tanvi Shah',
+    'NICU-001': 'Baby Aadhya',
+    'NICU-003': 'Baby Aryan',
+    'NICU-005': 'Baby Kavya',
+    'RICU-002': 'Nikhil Bansal',
+    'RICU-004': 'Priyanka Thakur',
+    'RICU-006': 'Akash Agarwal',
+    'MAT-001': 'Ritika Jain',
+    'MAT-004': 'Varun Sharma',
+    'MAT-007': 'Nisha Gupta',
+    'MAT-010': 'Rohit Verma',
+    'PED-002': 'Sneha Patel',
+    'PED-005': 'Vishal Singh',
+    'PED-008': 'Komal Yadav',
+    'SUR-001': 'Gaurav Kumar',
+    'SUR-004': 'Neha Mishra',
+    'SUR-007': 'Sachin Tiwari',
+    'SUR-010': 'Pooja Bhardwaj',
+    'SUR-013': 'Manish Soni',
+    'MED-002': 'Riya Agarwal',
+    'MED-005': 'Aditya Khanna',
+    'MED-008': 'Sonal Joshi',
+    'MED-011': 'Kartik Pandey',
+    'OBS-001': 'Swati Sharma',
+    'OBS-004': 'Rahul Saxena',
+    'OBS-007': 'Isha Gupta',
+    'GYN-002': 'Pankaj Singh',
+    'GYN-005': 'Kaveri Jain',
+    'ENT-001': 'Mohit Agrawal',
+    'ENT-004': 'Prachi Verma',
+    'ENT-006': 'Saurabh Gupta'
+  },
+  
+  // Bombay Hospital Indore (ID: 4) - Marathi/Western Indian names
+  4: {
+    'CVICU-001': 'Sunil Deshmukh',
+    'CVICU-003': 'Mangala Patil',
+    'CVICU-005': 'Ramesh Kulkarni',
+    'CVICU-007': 'Shobha Joshi',
+    'MICU-002': 'Ganesh Pawar',
+    'MICU-004': 'Sunanda Bhosale',
+    'MICU-006': 'Pravin Jadhav',
+    'SICU-001': 'Madhuri Shinde',
+    'SICU-003': 'Dattatray More',
+    'SICU-005': 'Sushma Kale',
+    'SICU-007': 'Mahesh Deshpande',
+    'NICU-002': 'Vaishali Naik',
+    'NICU-004': 'Santosh Gaikwad',
+    'PICU-001': 'Rekha Sawant',
+    'PICU-003': 'Vijay Kadam',
+    'PICU-005': 'Lata Mane',
+    'HDU-002': 'Ashish Salunkhe',
+    'HDU-004': 'Kaveri Ranade',
+    'HDU-006': 'Ravi Thakur',
+    'CAR-001': 'Nanda Joshi',
+    'CAR-004': 'Dinesh Rane',
+    'CAR-007': 'Sapna Patwardhan',
+    'CAR-010': 'Nitin Bhagat',
+    'NEU-002': 'Swapna Deshpande',
+    'NEU-005': 'Anand Khot',
+    'NEU-008': 'Archana Gharge',
+    'ORT-001': 'Baban Chavan',
+    'ORT-004': 'Priti Bhosle',
+    'ORT-007': 'Hemant Ghorpade',
+    'ORT-010': 'Sadhana Kelkar',
+    'SUR-002': 'Pandurang Shinde',
+    'SUR-005': 'Vrushali Joshi',
+    'SUR-008': 'Balasaheb More',
+    'SUR-011': 'Kishori Pawar',
+    'MED-001': 'Rajendra Bhosale',
+    'MED-004': 'Suvarna Kulkarni',
+    'MED-007': 'Dayanand Patil',
+    'MED-010': 'Sunita Deshmukh',
+    'PED-002': 'Arun Sawant',
+    'PED-005': 'Rohini Gaikwad',
+    'PED-007': 'Suresh Naik',
+    'MAT-001': 'Deepali Jadhav',
+    'MAT-004': 'Sachin Bhagat',
+    'MAT-007': 'Meera Salunkhe',
+    'MAT-009': 'Vikram Ranade'
+  }
+};
+
+// Function to get patient name for a specific bed
+export function getPatientName(hospitalId: number, bedNumber: string): string | null {
+  const hospitalNames = patientNamesByHospital[hospitalId];
+  return hospitalNames?.[bedNumber] || null;
+}
+
+// Function to get all patient names for a hospital
+export function getHospitalPatientNames(hospitalId: number): Record<string, string> {
+  return patientNamesByHospital[hospitalId] || {};
+}

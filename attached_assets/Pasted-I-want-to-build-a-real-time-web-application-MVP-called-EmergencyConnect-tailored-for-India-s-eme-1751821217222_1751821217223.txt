@@ -1,0 +1,58 @@
+I want to build a real-time web application MVP called **EmergencyConnect** tailored for India's emergency medical services.
+
+🧠 Requirements:
+- Three secure role-based interfaces:
+  1. Patient (can request emergency help)
+  2. Ambulance operator (tracks and responds to patients)
+  3. Hospital staff (manage bed availability and intake)
+- Real-time updates using **Socket.IO**
+- Live geolocation tracking using **Google Maps API**
+- Secure login for each role using JWT
+- Web-based dashboard for each interface (React)
+- Backend in Node.js using Express
+- Use PostgreSQL or Supabase as database
+- Host on Replit with Vite + Express (or full-stack template)
+
+🎯 Features:
+- Patients can click "Emergency" and share location
+- Ambulances receive requests and update live location
+- Hospital sees ambulance ETA and current bed status
+- All roles see real-time updates without refresh
+- Clean, minimal UI using Tailwind CSS or basic CSS
+
+🔐 Authentication:
+- Use JWT auth system with role-based access
+- Three roles: patient, ambulance, hospital
+- Use session/localStorage for frontend token
+
+🌍 Google Maps:
+- Use Maps JavaScript SDK to show:
+  - Patient location
+  - Ambulance location (moving)
+  - Nearby hospitals
+- Use `navigator.geolocation` to get user's location
+- Draw route from ambulance to hospital using Google Maps Directions API
+
+🛠 Real-Time Events:
+- `emergencyRequest` – Patient emits when in distress
+- `assignAmbulance` – Server emits when ambulance accepts
+- `locationUpdate` – Ambulance sends live GPS to hospital/patient
+- `bedStatusUpdate` – Hospital updates bed counts in real-time
+
+🧾 Backend API Endpoints:
+- `POST /auth/login` - returns token
+- `POST /emergency` - patient starts emergency
+- `GET /hospitals` - return hospitals with bed availability
+- WebSocket integration for real-time comms
+
+🧪 Optional:
+- Simulate movement with setInterval
+- Use dummy hospital list with bed counts
+- If using Supabase, connect Replit to Supabase PostgreSQL
+
+🗝 Google Maps API Key:
+Prompt me to enter my Google Maps JavaScript API Key during setup. I’ll provide it when you need it. Store it securely in `.env` file as:
+  GOOGLE_MAPS_API_KEY=your_key_here
+Use `process.env.GOOGLE_MAPS_API_KEY` in server and embed in `<script>` for frontend.
+
+I want the entire stack ready to test locally and online with Replit's deployment.

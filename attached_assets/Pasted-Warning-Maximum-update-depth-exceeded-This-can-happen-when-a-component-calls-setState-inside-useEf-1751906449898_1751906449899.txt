@@ -1,0 +1,16 @@
+Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn&#x27;t have a dependency array, or one of the dependencies changes on every render.
+WebSocketProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-websocket.tsx:22:45
+Router@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/App.tsx:35:38
+TooltipProviderProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js:38:13
+TooltipProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js:67:43
+AuthProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-auth.ts:7:37
+QueryClientProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js:2805:9
+App
+Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn&#x27;t have a dependency array, or one of the dependencies changes on every render.
+WebSocketProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-websocket.tsx:22:45
+Router@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/App.tsx:35:38
+TooltipProviderProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js:38:13
+TooltipProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js:67:43
+AuthProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/src/hooks/use-auth.ts:7:37
+QueryClientProvider@https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js:2805:9
+App

@@ -1,0 +1,21 @@
+[Log] WebSocket connected (use-websocket.tsx, line 33)
+[Log] WebSocket message received: – {type: "connected", userId: 4, role: "patient"} (use-websocket.tsx, line 40)
+[Log] ⚡ Patient received WebSocket event: – "connected" – undefined (patient.tsx, line 63)
+[Log] WebSocket message received: – {type: "emergency_request_updated", data: Object} (use-websocket.tsx, line 40)
+{type: "emergency_request_updated", data: Object}Object
+[Log] WebSocket message received: – {type: "eta_update", data: Object} (use-websocket.tsx, line 40)
+{type: "eta_update", data: Object}Object
+[Log] ⚡ Patient received WebSocket event: – "eta_update" – {requestId: 4, eta: 150, distance: 1.2, …} (patient.tsx, line 63)
+{requestId: 4, eta: 150, distance: 1.2, timestamp: "2025-07-07T13:14:13.536Z"}Object
+[Log] 🎯 ETA update received on patient side: – {requestId: 4, eta: 150, distance: 1.2, …} (patient.tsx, line 77)
+{requestId: 4, eta: 150, distance: 1.2, timestamp: "2025-07-07T13:14:13.536Z"}Object
+[Log] 🎯 Current requests in state: – [{id: 5, status: "pending"}, {id: 4, status: "dispatched"}, {id: 3, status: "dispatched"}, …] (4) (patient.tsx, line 78)
+[{id: 5, status: "pending"}, {id: 4, status: "dispatched"}, {id: 3, status: "dispatched"}, {id: 2, status: "dispatched"}]Array (4)
+[Log] 🎯 Processing ETA for request: – 4 – "ETA:" – 150 (patient.tsx, line 80)
+[Log] 🎯 Updated ETA state: – {4: 150} (patient.tsx, line 83)
+[Error] WebSocket connection to 'wss://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ0ZXN0MSIsInJvbGUiOiJwYXRpZW50IiwiaWF0IjoxNzUxODg4OTM3LCJleHAiOjE3NTE5NzUzMzd9.1mNpfNbO3tnfmgm4uvNGo0u8tXzrFNvWGxawELUuAPQ' failed: The network connection was lost.
+[Error] WebSocket error: – Event {isTrusted: true, type: "error", target: WebSocket, …}
+Event {isTrusted: true, type: "error", target: WebSocket, currentTarget: WebSocket, eventPhase: 2, …}Event
+	(anonymous function) (use-websocket.tsx:57)
+[Log] WebSocket disconnected: – 1006 – "" (use-websocket.tsx, line 47)
+[Log] Attempting WebSocket reconnection... (use-websocket.tsx, line 52)

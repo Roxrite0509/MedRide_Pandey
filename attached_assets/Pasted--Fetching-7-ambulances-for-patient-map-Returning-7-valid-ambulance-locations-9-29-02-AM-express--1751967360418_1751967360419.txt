@@ -1,0 +1,113 @@
+ Fetching 7 ambulances for patient map
+📍 Returning 7 valid ambulance locations
+9:29:02 AM [express] GET /api/ambulances/locations 200 in 592ms :: [{"id":7,"vehicleNumber":"AMB-001…
+9:29:07 AM [express] GET /api/emergency/requests 200 in 147ms :: [{"id":30,"patientId":4,"ambulanceI…
+9:29:12 AM [express] GET /api/emergency/requests 200 in 145ms :: [{"id":30,"patientId":4,"ambulanceI…
+9:29:18 AM [express] GET /api/emergency/requests 200 in 148ms :: [{"id":30,"patientId":4,"ambulanceI…
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+9:29:22 AM [express] GET /api/hospitals/nearby 200 in 899ms :: [{"id":2,"userId":11,"name":"Apollo H…
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+9:29:23 AM [express] GET /api/hospitals/nearby 200 in 1323ms :: [{"id":2,"userId":11,"name":"Apollo …
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+9:29:23 AM [express] GET /api/hospitals/nearby 200 in 1323ms :: [{"id":2,"userId":11,"name":"Apollo …
+9:29:23 AM [express] GET /api/emergency/requests 200 in 146ms :: [{"id":30,"patientId":4,"ambulanceI…
+9:29:29 AM [express] GET /api/emergency/requests 200 in 147ms :: [{"id":30,"patientId":4,"ambulanceI…
+📍 Fetching 7 ambulances for patient map
+📍 Returning 7 valid ambulance locations
+9:29:32 AM [express] GET /api/ambulances/locations 200 in 146ms :: [{"id":7,"vehicleNumber":"AMB-001…
+9:29:34 AM [express] GET /api/emergency/requests 200 in 147ms :: [{"id":30,"patientId":4,"ambulanceI…
+9:29:39 AM [express] GET /api/emergency/requests 200 in 146ms :: [{"id":30,"patientId":4,"ambulanceI…
+Creating emergency request: {
+  original: { lat: 22.697775117371574, lng: 75.91467132377059 },
+  offset: { lat: 22.702775117371573, lng: 75.91967132377059 },
+  patientCondition: undefined
+}
+9:29:41 AM [express] POST /api/emergency/request 200 in 149ms :: {"id":31,"patientId":4,"ambulanceId…
+9:29:42 AM [express] GET /api/emergency/requests 200 in 146ms :: [{"id":31,"patientId":4,"ambulanceI…
+User disconnected: patient (ID: 4)
+9:29:53 AM [express] POST /api/auth/login 401 in 587ms :: {"message":"Invalid credentials"}
+Found ambulance profile for user 7 : AMB-003
+9:30:01 AM [express] POST /api/auth/login 200 in 682ms :: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX…
+Found ambulance profile for user 7 : AMB-003
+9:30:01 AM [express] GET /api/auth/me 200 in 292ms :: {"id":7,"username":"Ambulance#3","email":"sing…
+9:30:02 AM [express] GET /api/emergency/requests 200 in 150ms :: [{"id":31,"patientId":4,"ambulanceI…
+Found ambulance profile for user 7 : AMB-003
+User connected: ambulance (ID: 7)
+Updating emergency request: { id: '31', updates: { status: 'accepted', ambulanceId: 9 } }
+Updated request result: {
+  id: 31,
+  patientId: 4,
+  ambulanceId: 9,
+  hospitalId: null,
+  latitude: '22.70277512',
+  longitude: '75.91967132',
+  address: 'Emergency at 22.702775, 75.919671',
+  priority: 'high',
+  status: 'accepted',
+  patientCondition: null,
+  notes: null,
+  requestedAt: 2025-07-08T09:29:41.791Z,
+  dispatchedAt: null,
+  completedAt: null,
+  estimatedArrival: null,
+  patientChosenHospitalId: null,
+  assignedBedNumber: null,
+  createdAt: 2025-07-08T09:29:41.791Z,
+  updatedAt: 2025-07-08T09:30:05.852Z
+}
+9:30:06 AM [express] PUT /api/emergency/request/31 200 in 149ms :: {"id":31,"patientId":4,"ambulance…
+9:30:06 AM [express] GET /api/emergency/requests 200 in 147ms :: [{"id":31,"patientId":4,"ambulanceI…
+9:30:06 AM [express] POST /api/ambulances/position-all 200 in 145ms :: {"message":"Ambulance positio…
+📍 Fetching 7 ambulances for patient map
+📍 Returning 7 valid ambulance locations
+9:30:07 AM [express] GET /api/ambulances/locations 200 in 146ms :: [{"id":7,"vehicleNumber":"AMB-001…
+User disconnected: ambulance (ID: 7)
+9:30:23 AM [express] POST /api/auth/login 200 in 951ms :: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX…
+9:30:24 AM [express] GET /api/auth/me 200 in 287ms :: {"id":13,"username":"bombay_admin","email":"ad…
+🏥 Fetching bed status for identifier: 13
+🏥 Resolved to hospital ID: 4 (Bombay Hospital Indore)
+🛏️ Found 116 bed records for hospital Bombay Hospital Indore
+9:30:25 AM [express] GET /api/hospitals/13/bed-status 200 in 587ms :: [{"id":20489,"hospitalId":4,"b…
+User connected: hospital (ID: 13)
+🏥 Fetching bed status for identifier: 4
+9:30:26 AM [express] GET /api/emergency/requests 200 in 145ms :: [{"id":31,"patientId":4,"ambulanceI…
+🏥 Resolved to hospital ID: 4 (Bombay Hospital Indore)
+🛏️ Found 116 bed records for hospital Bombay Hospital Indore
+9:30:27 AM [express] GET /api/hospitals/4/bed-status 200 in 901ms :: [{"id":20489,"hospitalId":4,"be…
+User disconnected: hospital (ID: 11)
+9:30:57 AM [express] POST /api/auth/login 200 in 812ms :: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX…
+9:30:57 AM [express] GET /api/auth/me 200 in 143ms :: {"id":4,"username":"test1","email":"singhashu2…
+9:30:58 AM [express] GET /api/maps/config 200 in 1ms :: {"apiKey":"AIzaSyCgJVVmQYxX3U6Z6qpw3MlRfkrUL…
+9:30:59 AM [express] GET /api/emergency/requests 200 in 290ms :: [{"id":31,"patientId":4,"ambulanceI…
+User connected: patient (ID: 4)
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+9:31:01 AM [express] GET /api/hospitals/nearby 200 in 913ms :: [{"id":2,"userId":11,"name":"Apollo H…
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+9:31:01 AM [express] GET /api/hospitals/nearby 200 in 886ms :: [{"id":2,"userId":11,"name":"Apollo H…
+9:31:04 AM [express] GET /api/emergency/requests 200 in 293ms :: [{"id":31,"patientId":4,"ambulanceI…
+📍 Fetching 7 ambulances for patient map
+📍 Returning 7 valid ambulance locations
+9:31:04 AM [express] GET /api/ambulances/locations 200 in 146ms :: [{"id":7,"vehicleNumber":"AMB-001…
+🏥 Real-time bed status for Vishesh Jupiter Hospital (ID: 5): { available: 15, total: 50, icuAvailable: 12, icuTotal: 30 }
+🏥 Real-time bed status for CARE CHL Hospital Indore (ID: 3): { available: 31, total: 70, icuAvailable: 9, icuTotal: 30 }
+🏥 Real-time bed status for Apollo Hospital Indore (ID: 2): { available: 52, total: 96, icuAvailable: 20, icuTotal: 44 }
+🏥 Real-time bed status for Bombay Hospital Indore (ID: 4): { available: 40, total: 77, icuAvailable: 13, icuTotal: 39 }
+9:31:05 AM [express] GET /api/hospitals/nearby 200 in 433ms :: [{"id":2,"userId":11,"name":"Apollo H…
+9:31:11 AM [express] GET /api/emergency/requests 200 in 290ms :: [{"id":31,"patientId":4,"ambulanceI…
+9:31:17 AM [express] GET /api/emergency/requests 200 in 291ms :: [{"id":31,"patientId":4,"ambulanceI…
+9:31:22 AM [express] GET /api/emergency/requests 200 in 147ms :: [{"id":31,"patientId":4,"ambulanceI…

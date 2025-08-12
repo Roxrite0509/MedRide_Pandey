@@ -1,0 +1,470 @@
+{
+  "database": {
+    "name": "emergency_connect_db",
+    "type": "postgresql",
+    "version": "15",
+    "connection": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "emergency_connect",
+      "ssl": false
+    },
+    "schemas": {
+      "users": {
+        "table": "users",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "username": {
+            "type": "VARCHAR(255)",
+            "unique": true,
+            "nullable": false
+          },
+          "email": {
+            "type": "VARCHAR(255)",
+            "unique": true,
+            "nullable": true
+          },
+          "password": {
+            "type": "VARCHAR(255)",
+            "nullable": false
+          },
+          "role": {
+            "type": "VARCHAR(50)",
+            "nullable": false,
+            "enum": ["patient", "ambulance", "hospital"]
+          },
+          "firstName": {
+            "type": "VARCHAR(255)",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "VARCHAR(255)",
+            "nullable": true
+          },
+          "phone": {
+            "type": "VARCHAR(20)",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "updatedAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["username"], "unique": true},
+          {"fields": ["email"], "unique": true},
+          {"fields": ["role"]}
+        ]
+      },
+      "hospitals": {
+        "table": "hospitals",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "name": {
+            "type": "VARCHAR(255)",
+            "nullable": false
+          },
+          "address": {
+            "type": "TEXT",
+            "nullable": false
+          },
+          "phone": {
+            "type": "VARCHAR(20)",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "DECIMAL(10,8)",
+            "nullable": false
+          },
+          "longitude": {
+            "type": "DECIMAL(11,8)",
+            "nullable": false
+          },
+          "totalBeds": {
+            "type": "INTEGER",
+            "default": 0
+          },
+          "availableBeds": {
+            "type": "INTEGER",
+            "default": 0
+          },
+          "icuBeds": {
+            "type": "INTEGER",
+            "default": 0
+          },
+          "availableIcuBeds": {
+            "type": "INTEGER",
+            "default": 0
+          },
+          "emergencyServices": {
+            "type": "BOOLEAN",
+            "default": true
+          },
+          "status": {
+            "type": "VARCHAR(50)",
+            "default": "available",
+            "enum": ["available", "busy", "full"]
+          },
+          "createdAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "updatedAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["latitude", "longitude"]},
+          {"fields": ["status"]},
+          {"fields": ["emergencyServices"]}
+        ]
+      },
+      "ambulances": {
+        "table": "ambulances",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "vehicleNumber": {
+            "type": "VARCHAR(50)",
+            "unique": true,
+            "nullable": false
+          },
+          "driverId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "users",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "hospitalId": {
+            "type": "INTEGER",
+            "nullable": true,
+            "foreignKey": {
+              "table": "hospitals",
+              "field": "id",
+              "onDelete": "SET NULL"
+            }
+          },
+          "currentLatitude": {
+            "type": "DECIMAL(10,8)",
+            "nullable": true
+          },
+          "currentLongitude": {
+            "type": "DECIMAL(11,8)",
+            "nullable": true
+          },
+          "status": {
+            "type": "VARCHAR(50)",
+            "default": "available",
+            "enum": ["available", "busy", "offline", "maintenance"]
+          },
+          "equipment": {
+            "type": "TEXT",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "updatedAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["vehicleNumber"], "unique": true},
+          {"fields": ["driverId"]},
+          {"fields": ["hospitalId"]},
+          {"fields": ["currentLatitude", "currentLongitude"]},
+          {"fields": ["status"]}
+        ]
+      },
+      "emergencyRequests": {
+        "table": "emergency_requests",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "patientId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "users",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ambulanceId": {
+            "type": "INTEGER",
+            "nullable": true,
+            "foreignKey": {
+              "table": "ambulances",
+              "field": "id",
+              "onDelete": "SET NULL"
+            }
+          },
+          "hospitalId": {
+            "type": "INTEGER",
+            "nullable": true,
+            "foreignKey": {
+              "table": "hospitals",
+              "field": "id",
+              "onDelete": "SET NULL"
+            }
+          },
+          "latitude": {
+            "type": "DECIMAL(10,8)",
+            "nullable": false
+          },
+          "longitude": {
+            "type": "DECIMAL(11,8)",
+            "nullable": false
+          },
+          "address": {
+            "type": "TEXT",
+            "nullable": true
+          },
+          "patientCondition": {
+            "type": "TEXT",
+            "nullable": false
+          },
+          "priority": {
+            "type": "VARCHAR(50)",
+            "default": "medium",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "status": {
+            "type": "VARCHAR(50)",
+            "default": "pending",
+            "enum": ["pending", "accepted", "rejected", "in_progress", "completed", "cancelled"]
+          },
+          "notes": {
+            "type": "TEXT",
+            "nullable": true
+          },
+          "requestedAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "respondedAt": {
+            "type": "TIMESTAMP",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "TIMESTAMP",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "updatedAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["patientId"]},
+          {"fields": ["ambulanceId"]},
+          {"fields": ["hospitalId"]},
+          {"fields": ["latitude", "longitude"]},
+          {"fields": ["status"]},
+          {"fields": ["priority"]},
+          {"fields": ["requestedAt"]},
+          {"fields": ["status", "requestedAt"]}
+        ]
+      },
+      "bedStatusLogs": {
+        "table": "bed_status_logs",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "hospitalId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "hospitals",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "bedType": {
+            "type": "VARCHAR(50)",
+            "nullable": false,
+            "enum": ["general", "icu", "emergency"]
+          },
+          "totalBeds": {
+            "type": "INTEGER",
+            "nullable": false
+          },
+          "availableBeds": {
+            "type": "INTEGER",
+            "nullable": false
+          },
+          "timestamp": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["hospitalId"]},
+          {"fields": ["bedType"]},
+          {"fields": ["timestamp"]},
+          {"fields": ["hospitalId", "timestamp"]}
+        ]
+      },
+      "communications": {
+        "table": "communications",
+        "fields": {
+          "id": {
+            "type": "SERIAL",
+            "primaryKey": true,
+            "autoIncrement": true
+          },
+          "emergencyRequestId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "emergency_requests",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "senderId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "users",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "receiverId": {
+            "type": "INTEGER",
+            "nullable": false,
+            "foreignKey": {
+              "table": "users",
+              "field": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          "message": {
+            "type": "TEXT",
+            "nullable": false
+          },
+          "messageType": {
+            "type": "VARCHAR(50)",
+            "default": "text",
+            "enum": ["text", "location", "image", "audio"]
+          },
+          "isRead": {
+            "type": "BOOLEAN",
+            "default": false
+          },
+          "sentAt": {
+            "type": "TIMESTAMP",
+            "default": "CURRENT_TIMESTAMP"
+          }
+        },
+        "indexes": [
+          {"fields": ["emergencyRequestId"]},
+          {"fields": ["senderId"]},
+          {"fields": ["receiverId"]},
+          {"fields": ["sentAt"]},
+          {"fields": ["isRead"]},
+          {"fields": ["emergencyRequestId", "sentAt"]}
+        ]
+      }
+    },
+    "relationships": {
+      "users_ambulances": {
+        "type": "one_to_many",
+        "from": "users.id",
+        "to": "ambulances.driverId"
+      },
+      "hospitals_ambulances": {
+        "type": "one_to_many",
+        "from": "hospitals.id",
+        "to": "ambulances.hospitalId"
+      },
+      "users_emergency_requests": {
+        "type": "one_to_many",
+        "from": "users.id",
+        "to": "emergencyRequests.patientId"
+      },
+      "ambulances_emergency_requests": {
+        "type": "one_to_many",
+        "from": "ambulances.id",
+        "to": "emergencyRequests.ambulanceId"
+      },
+      "hospitals_emergency_requests": {
+        "type": "one_to_many",
+        "from": "hospitals.id",
+        "to": "emergencyRequests.hospitalId"
+      },
+      "hospitals_bed_status_logs": {
+        "type": "one_to_many",
+        "from": "hospitals.id",
+        "to": "bedStatusLogs.hospitalId"
+      },
+      "emergency_requests_communications": {
+        "type": "one_to_many",
+        "from": "emergencyRequests.id",
+        "to": "communications.emergencyRequestId"
+      },
+      "users_communications_sender": {
+        "type": "one_to_many",
+        "from": "users.id",
+        "to": "communications.senderId"
+      },
+      "users_communications_receiver": {
+        "type": "one_to_many",
+        "from": "users.id",
+        "to": "communications.receiverId"
+      }
+    },
+    "migration_notes": {
+      "mongodb_compatibility": {
+        "collections_mapping": {
+          "users": "users",
+          "hospitals": "hospitals", 
+          "ambulances": "ambulances",
+          "emergencyRequests": "emergency_requests",
+          "bedStatusLogs": "bed_status_logs",
+          "communications": "communications"
+        },
+        "considerations": [
+          "PostgreSQL SERIAL types should be converted to MongoDB ObjectId",
+          "Foreign key relationships will need to be handled as document references",
+          "Decimal latitude/longitude should be stored as GeoJSON Point in MongoDB",
+          "Enum constraints should be enforced at application level in MongoDB",
+          "Indexes need to be recreated as MongoDB indexes",
+          "Timestamps should use MongoDB Date type"
+        ]
+      }
+    }
+  }
+}

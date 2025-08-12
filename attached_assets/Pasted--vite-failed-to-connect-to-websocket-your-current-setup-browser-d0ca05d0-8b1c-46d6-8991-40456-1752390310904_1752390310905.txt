@@ -1,0 +1,44 @@
+[vite] failed to connect to websocket.
+your current setup:
+  (browser) d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/ <--[HTTP]--> localhost:5173/ (server)
+  (browser) d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev:/ <--[WebSocket (failing)]--> localhost:5173/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr .
+Illegal constructor
+Global error: 
+TypeError {message: "Illegal constructor"}
+
+Illegal constructor
+Global error: 
+TypeError {message: "Illegal constructor"}
+
+The above error occurred in the <Navigation> component:
+
+    at Navigation
+    at div
+    at _c5 (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:67:12)
+    at div
+    at _c3 (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:45:12)
+    at div
+    at _c (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ui/card.tsx:20:11)
+    at div
+    at div
+    at AmbulanceDashboard (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/pages/ambulance.tsx:107:20)
+    at component
+    at Route (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:280:16)
+    at Switch (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=2507acf5:336:17)
+    at div
+    at WebSocketProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-websocket.tsx:21:37)
+    at Router (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/App.tsx?v=xZNSgIIMZMXEakD5C1TYf:37:31)
+    at Provider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=2507acf5:38:15)
+    at TooltipProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=2507acf5:62:5)
+    at AuthProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/hooks/use-auth.ts:6:32)
+    at QueryClientProvider (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=2507acf5:2934:3)
+    at ErrorBoundary (https://d0ca05d0-8b1c-46d6-8991-4045683fbbfa-00-ilbn4brafe7s.kirk.replit.dev/src/components/ErrorBoundary.tsx:7:5)
+    at App
+
+React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary.
+⚠️
+Something went wrong
+We're sorry, but something unexpected happened. Please refresh the page or try again later.
+
+Refresh Page

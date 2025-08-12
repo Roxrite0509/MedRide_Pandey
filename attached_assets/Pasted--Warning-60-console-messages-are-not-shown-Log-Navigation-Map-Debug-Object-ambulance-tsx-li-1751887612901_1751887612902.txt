@@ -1,0 +1,192 @@
+[Warning] 60 console messages are not shown.
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 204)
+Object
+> Selected Element
+< <div data-replit-metadata="client/src/App.tsx:39:6" data-component-name="div" class="min-h-screen bg-neutral-50">…</div>
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: (ambulance.tsx, line 204)
+Object
+
+assignedRequests: [] (0)
+
+assignedRequestsLength: 0
+
+hasLocation: true
+
+showNavigationMap: true
+
+Object Prototype
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, …} (ambulance.tsx, line 204)
+{showNavigationMap: true, assignedRequestsLength: 0, hasLocation: true, assignedRequests: []}Object

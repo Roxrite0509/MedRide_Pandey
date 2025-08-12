@@ -1,0 +1,568 @@
+[Warning] 360 console messages are not shown.
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – Object (ambulance.tsx, line 208)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] NavigationMap received coordinates: – Object (navigation-map.tsx, line 31)
+Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+> Selected Element
+< <div data-replit-metadata="client/src/App.tsx:39:6" data-component-name="div" class="min-h-screen bg-neutral-50">…</div>
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+> Selected Element
+< <div data-replit-metadata="client/src/App.tsx:39:6" data-component-name="div" class="min-h-screen bg-neutral-50">…</div>
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO connected (use-websocket.tsx, line 37)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Socket.IO disconnected: – "transport close" (use-websocket.tsx, line 42)
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] Navigation Map Debug: – {showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, …} (ambulance.tsx, line 208)
+{showNavigationMap: true, assignedRequestsLength: 2, hasLocation: true, location: {latitude: 22.69773211284185, longitude: 75.91464562883272}, assignedRequests: Array, …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object
+[Log] NavigationMap received coordinates: – {ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", …} (navigation-map.tsx, line 31)
+{ambulanceLocation: {latitude: 22.69773211284185, longitude: 75.91464562883272}, patientLocation: {latitude: 22.69753769, longitude: 75.9143941}, ambulanceLatType: "number", ambulanceLngType: "number", patientLatType: "number", …}Object

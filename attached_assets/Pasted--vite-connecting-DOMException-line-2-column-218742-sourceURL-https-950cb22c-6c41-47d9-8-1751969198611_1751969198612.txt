@@ -1,0 +1,66 @@
+[vite] connecting...
+DOMException {line: 2, column: 218742, sourceURL: "https://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/__replco/static/devt…"}
+
+🔗 WebSocket connecting to: wss://950cb22c-6c41-47d9-8aa5-7af90230247b-00-32o7vonl3ha5x.spock.replit.dev/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksInVzZXJuYW1lIjoidGVzdDIiLCJyb2xlIjoicGF0aWVudCIsImlhdCI6MTc1MTk2ODkwMywiZXhwIjoxNzUyMDU1MzAzfQ.EwopZTRJ8oi1Nt7DtBUHE18jSl_I2DR_rit7YtLlmjg
+Google Maps JavaScript API has been loaded directly without loading=async. This can result in suboptimal performance. For best-practice loading patterns please see https://goo.gle/js-api-loading
+As of February 21st, 2024, google.maps.Marker is deprecated. Please use google.maps.marker.AdvancedMarkerElement instead. At this time, google.maps.Marker is not scheduled to be discontinued, but google.maps.marker.AdvancedMarkerElement is recommended over google.maps.Marker. While google.maps.Marker will continue to receive bug fixes for any major regressions, existing bugs in google.maps.Marker will not be addressed. At least 12 months notice will be given before support is discontinued. Please see https://developers.google.com/maps/deprecations for additional details and https://developers.google.com/maps/documentation/javascript/advanced-markers/migration for the migration guide.
+✅ WebSocket connected
+📥 Message received: 
+Object {type: "connected", userId: 19, role: "patient"}
+⚡ Patient received WebSocket event: connected undefined
+📍 Fetched ambulances for patient map: 
+(7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+🚑 Adding ambulance AMB-001 at [22.6978, 75.915]
+🚑 Adding ambulance AMB-002 at [22.7195, 75.8573]
+🚑 Adding ambulance AMB-003 at [22.7281, 75.8794]
+🚑 Adding ambulance AMB-004 at [22.689, 75.9012]
+🚑 Adding ambulance AMB-005 at [22.71, 75.87]
+🚑 Adding ambulance AMB-006 at [22.73001676, 75.84687868]
+🚑 Adding ambulance AMB-007 at [22.67761255, 75.8150982]
+📍 Fetched ambulances for patient map: 
+(7) [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
+🚑 Adding ambulance AMB-001 at [22.6978, 75.915]
+🚑 Adding ambulance AMB-002 at [22.7195, 75.8573]
+🚑 Adding ambulance AMB-003 at [22.7281, 75.8794]
+🚑 Adding ambulance AMB-004 at [22.689, 75.9012]
+🚑 Adding ambulance AMB-005 at [22.71, 75.87]
+🚑 Adding ambulance AMB-006 at [22.73001676, 75.84687868]
+🚑 Adding ambulance AMB-007 at [22.67761255, 75.8150982]
+
+EmergencyConnect
+Anshuman Sengar
+shsh@gmaildhd.com
+Patient
+3
+Logout
+Patient Dashboard
+Emergency medical services at your fingertips
+Connected
+
+Request Emergency Assistance
+Submit an emergency request to get immediate medical assistance
+Request Emergency Assistance
+Your Emergency Requests
+Track the status of your emergency requests
+COMPLETED
+HIGH
+Jul 08, 2025 15:04
+Ambulance #8
+Hospital #4
+
+CANCELLED
+HIGH
+Jul 07, 2025 23:37
+Ambulance #10
+
+COMPLETED
+HIGH
+Jul 07, 2025 23:37
+Ambulance #11
+Hospital #2
+
+Emergency Services Near You
+Your location and nearby ambulances
+Your Location & Nearby Ambulances
+
+Refresh
