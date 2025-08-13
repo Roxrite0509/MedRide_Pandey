@@ -509,7 +509,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const ambulance = await storage.createAmbulanceWithAutoGeneration(
               user.id,
               data.selectedHospitalId,
-              data.operatorPhone || '',
+              data.phone || '',
               data.licenseNumber || '',
               data.certification || '',
               data.equipmentLevel || ''
@@ -591,10 +591,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // Use the most recent patient location if available
             if (recentRequests.length > 0) {
               const latestRequest = recentRequests[0];
-              if (latestRequest.patientLatitude && latestRequest.patientLongitude) {
+              if (latestRequest.latitude && latestRequest.longitude) {
                 referenceLocation = {
-                  lat: parseFloat(latestRequest.patientLatitude),
-                  lng: parseFloat(latestRequest.patientLongitude)
+                  lat: parseFloat(latestRequest.latitude),
+                  lng: parseFloat(latestRequest.longitude)
                 };
                 console.log(`Using patient location as reference: ${referenceLocation.lat}, ${referenceLocation.lng}`);
               }
@@ -750,7 +750,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Enhance requests with ambulance contact info for accepted/dispatched requests
           const enhancedRequests = await Promise.all(requests.map(async (request) => {
-            if (request.ambulanceId && ['accepted', 'dispatched', 'en_route', 'at_scene', 'transporting'].includes(request.status)) {
+            if (request.ambulanceId && request.status && ['accepted', 'dispatched', 'en_route', 'at_scene', 'transporting'].includes(request.status)) {
               try {
                 const ambulance = await storage.getAmbulance(request.ambulanceId);
                 if (ambulance && ambulance.operatorPhone) {
@@ -1273,7 +1273,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(bedStatus);
     } catch (error) {
       console.error('Bed status fetch error:', error);
-      res.status(500).json({ message: 'Failed to fetch bed status', error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      res.status(500).json({ message: 'Failed to fetch bed status', error: errorMessage });
     }
   });
 
@@ -1334,7 +1335,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('Admin table fetch error:', error);
-      res.status(500).json({ message: 'Failed to fetch table data', error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      res.status(500).json({ message: 'Failed to fetch table data', error: errorMessage });
     }
   });
 
@@ -1375,9 +1377,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('SQL execution error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       res.status(500).json({ 
         message: 'SQL execution failed',
-        error: error.message 
+        error: errorMessage 
       });
     }
   });
@@ -1408,15 +1411,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const values = Object.values(updateData);
       
       const updateQuery = `UPDATE ${tableName} SET ${setClause} WHERE id = $${values.length + 1}`;
+      const allValues = [...values, parseInt(id)];
       
-      await db.execute(sql.raw(updateQuery, [...values, id]));
+      await db.execute(sql.raw(updateQuery.replace(/\$(\d+)/g, (_, num) => `'${allValues[parseInt(num) - 1]}'`)));
 
       console.log(`✅ Updated record in ${tableName}`);
 
       res.json({ message: 'Record updated successfully' });
     } catch (error) {
       console.error('Update error:', error);
-      res.status(500).json({ message: 'Failed to update record', error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      res.status(500).json({ message: 'Failed to update record', error: errorMessage });
     }
   });
 
@@ -1451,7 +1456,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: 'Record deleted successfully' });
     } catch (error) {
       console.error('Delete error:', error);
-      res.status(500).json({ message: 'Failed to delete record', error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      res.status(500).json({ message: 'Failed to delete record', error: errorMessage });
     }
   });
 
