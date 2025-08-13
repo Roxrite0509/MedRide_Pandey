@@ -8,6 +8,29 @@ import { db } from "./db";
 import { sql } from "drizzle-orm";
 import { loginSchema, registerSchema, insertEmergencyRequestSchema, insertCommunicationSchema } from "@shared/schema";
 import { z } from "zod";
+
+// Simple in-memory cache for performance optimization
+const cache = new Map<string, { data: any; timestamp: number; ttl: number }>();
+
+function getCachedData(key: string) {
+  const cached = cache.get(key);
+  if (!cached) return null;
+  
+  if (Date.now() - cached.timestamp > cached.ttl) {
+    cache.delete(key);
+    return null;
+  }
+  
+  return cached.data;
+}
+
+function setCachedData(key: string, data: any, ttlMs: number = 30000) {
+  cache.set(key, {
+    data,
+    timestamp: Date.now(),
+    ttl: ttlMs
+  });
+}
 // Google Maps integration - using fetch API instead of the googlemaps package
 // This avoids ES module compatibility issues
 
@@ -124,6 +147,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get all ambulance locations endpoint
   app.get('/api/ambulances/locations', authenticateToken, async (req, res) => {
     try {
+      const cacheKey = 'ambulances_locations';
+      
+      // Check cache first (15 second TTL for frequently changing data)
+      const cachedResult = getCachedData(cacheKey);
+      if (cachedResult) {
+        return res.json(cachedResult);
+      }
+      
       // Get ALL ambulances, not just available ones, for patient map visibility
       const allAmbulances = await storage.getAvailableAmbulances();
       console.log(`📍 Fetching ${allAmbulances.length} ambulances for patient map`);
@@ -149,6 +180,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }));
       
       console.log(`📍 Returning ${ambulanceLocations.length} valid ambulance locations`);
+      
+      // Cache the result
+      setCachedData(cacheKey, ambulanceLocations, 15000); // 15 seconds
+      
       res.json(ambulanceLocations);
     } catch (error) {
       console.error('Get ambulance locations error:', error);
@@ -243,6 +278,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/hospitals/nearby', authenticateToken, async (req, res) => {
     try {
       const { lat, lng } = req.query;
+      const cacheKey = `hospitals_nearby_${lat}_${lng}`;
+      
+      // Check cache first (30 second TTL)
+      const cachedResult = getCachedData(cacheKey);
+      if (cachedResult) {
+        return res.json(cachedResult);
+      }
       
       let hospitals;
       if (!lat || !lng) {
@@ -275,6 +317,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }));
 
+      // Cache the result
+      setCachedData(cacheKey, hospitalsWithRealTimeBeds, 30000); // 30 seconds
+      
       res.json(hospitalsWithRealTimeBeds);
     } catch (error) {
       console.error('Nearby hospitals error:', error);
@@ -603,6 +648,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: 'pending'
       });
 
+      // Clear emergency requests cache when new request is created
+      cache.forEach((value, key) => {
+        if (key.startsWith('emergency_requests_')) {
+          cache.delete(key);
+        }
+      });
+
       // Broadcast to all available ambulances
       broadcastToRole('ambulance', {
         type: 'new_emergency_request',
@@ -618,6 +670,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/emergency/requests', authenticateToken, async (req, res) => {
     try {
+      const cacheKey = `emergency_requests_${req.user.id}_${req.user.role}`;
+      
+      // Check cache first (10 second TTL for real-time data)
+      const cachedResult = getCachedData(cacheKey);
+      if (cachedResult) {
+        return res.json(cachedResult);
+      }
+      
       let requests;
       
       switch (req.user.role) {
@@ -675,6 +735,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(403).json({ message: 'Unauthorized' });
       }
 
+      // Cache the result
+      setCachedData(cacheKey, requests, 10000); // 10 seconds
+      
       res.json(requests);
     } catch (error) {
       res.status(500).json({ message: 'Failed to fetch emergency requests' });

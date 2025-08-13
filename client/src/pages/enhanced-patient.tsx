@@ -18,6 +18,7 @@ import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { MapPin, Clock, Phone, Bed, AlertCircle, Activity, Heart, Ambulance, Hospital, CheckCircle, X, Star, Users, Timer, Shield } from 'lucide-react';
 import { format, formatDistanceToNow } from 'date-fns';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function EnhancedPatientDashboard() {
   const { user } = useAuth();
@@ -44,26 +45,31 @@ export default function EnhancedPatientDashboard() {
   const [ambulanceETA, setAmbulanceETA] = useState<{[key: number]: number}>({});
   const [showHospitalComparison, setShowHospitalComparison] = useState(false);
 
-  // Get data
+  // Optimized parallel data loading
   const hospitalsQuery = useQuery({
     queryKey: ['/api/hospitals/nearby', location?.latitude, location?.longitude],
     enabled: !!location,
-    staleTime: 10 * 60 * 1000, // Cache hospitals for 10 minutes
-    cacheTime: 30 * 60 * 1000, // Keep in memory for 30 minutes
-    refetchOnWindowFocus: false, // Don't refetch when window gets focus
+    staleTime: 15 * 60 * 1000, // Cache hospitals for 15 minutes
+    cacheTime: 60 * 60 * 1000, // Keep in memory for 1 hour
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const emergencyRequestsQuery = useQuery({
     queryKey: ['/api/emergency/requests'],
     enabled: !!user?.id,
-    refetchInterval: 8000, // Reduced frequency for faster loading
+    refetchInterval: 30000, // Reduced to 30 seconds for better performance
     refetchIntervalInBackground: false,
-    staleTime: 5000, // Consider data fresh for 5 seconds
-    cacheTime: 300000, // Cache for 5 minutes
+    staleTime: 10 * 1000, // Consider data fresh for 10 seconds
+    cacheTime: 5 * 60 * 1000, // Cache for 5 minutes
+    retry: 1,
   });
 
   const hospitals = hospitalsQuery.data || [];
   const emergencyRequests = emergencyRequestsQuery.data || [];
+  
+  // Show loading state
+  const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
   
   // Debugging can be enabled by uncommenting the line below
   // console.log('🔍 Emergency requests loaded:', emergencyRequests.length);
@@ -211,7 +217,52 @@ export default function EnhancedPatientDashboard() {
   };
 
   if (!user) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading skeleton for better UX
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Header Skeleton */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <Skeleton className="h-8 w-64 mb-2" />
+            <Skeleton className="h-4 w-48" />
+          </div>
+          <div className="flex space-x-4">
+            <Skeleton className="h-6 w-20" />
+            <Skeleton className="h-6 w-6" />
+          </div>
+        </div>
+
+        {/* Emergency Card Skeleton */}
+        <div className="bg-white rounded-lg border p-6 space-y-4">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-12 w-full" />
+        </div>
+
+        {/* Grid Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="bg-white rounded-lg border p-6 space-y-4">
+              <Skeleton className="h-6 w-40" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (

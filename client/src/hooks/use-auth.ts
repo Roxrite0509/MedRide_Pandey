@@ -21,7 +21,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { data: user, isLoading } = useQuery({
     queryKey: ['/api/auth/me'],
     enabled: !!token,
-    retry: false,
+    retry: 1,
+    staleTime: 5 * 60 * 1000, // 5 minutes - user data rarely changes
+    cacheTime: 15 * 60 * 1000, // 15 minutes cache retention
   });
 
   const loginMutation = useMutation({
@@ -34,26 +36,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('token', data.token);
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
       
-      // Redirect to role-specific dashboard after login
-      setTimeout(() => {
-        const userRole = data.user?.role;
-        switch (userRole) {
-          case 'patient':
-            window.location.href = '/PatientDashboard';
-            break;
-          case 'ambulance':
-            window.location.href = '/AmbulanceDashboard';
-            break;
-          case 'hospital':
-            window.location.href = '/HospitalDashboard';
-            break;
-          case 'admin':
-            window.location.href = '/AdminDashboard';
-            break;
-          default:
-            window.location.href = '/';
-        }
-      }, 100);
+      // Instant redirect without setTimeout for faster navigation
+      const userRole = data.user?.role;
+      switch (userRole) {
+        case 'patient':
+          window.location.href = '/PatientDashboard';
+          break;
+        case 'ambulance':
+          window.location.href = '/AmbulanceDashboard';
+          break;
+        case 'hospital':
+          window.location.href = '/HospitalDashboard';
+          break;
+        case 'admin':
+          window.location.href = '/AdminDashboard';
+          break;
+        default:
+          window.location.href = '/';
+      }
     },
   });
 
@@ -67,26 +67,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('token', data.token);
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
       
-      // Redirect to role-specific dashboard after registration
-      setTimeout(() => {
-        const userRole = data.user?.role;
-        switch (userRole) {
-          case 'patient':
-            window.location.href = '/PatientDashboard';
-            break;
-          case 'ambulance':
-            window.location.href = '/AmbulanceDashboard';
-            break;
-          case 'hospital':
-            window.location.href = '/HospitalDashboard';
-            break;
-          case 'admin':
-            window.location.href = '/AdminDashboard';
-            break;
-          default:
-            window.location.href = '/';
-        }
-      }, 100);
+      // Instant redirect without setTimeout for faster navigation
+      const userRole = data.user?.role;
+      switch (userRole) {
+        case 'patient':
+          window.location.href = '/PatientDashboard';
+          break;
+        case 'ambulance':
+          window.location.href = '/AmbulanceDashboard';
+          break;
+        case 'hospital':
+          window.location.href = '/HospitalDashboard';
+          break;
+        case 'admin':
+          window.location.href = '/AdminDashboard';
+          break;
+        default:
+          window.location.href = '/';
+      }
     },
   });
 
