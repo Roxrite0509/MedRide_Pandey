@@ -24,5 +24,12 @@ export const getWebSocketUrl = (): string => {
   return `${wsUrl}/ws`;
 };
 
+export const getSocketIOUrl = (): string => {
+  const apiUrl = getApiUrl();
+  const socketProtocol = apiUrl.startsWith('https') ? 'wss' : 'ws';
+  const socketUrl = apiUrl.replace(/^https?/, socketProtocol);
+  return socketUrl; // Socket.IO will use /socket.io path automatically
+};
+
 // Health check endpoint
 export const HEALTH_CHECK_URL = `${API_BASE_URL}/api/health`;

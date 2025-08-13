@@ -12,7 +12,7 @@ import AmbulanceNavigation from "@/pages/ambulance-navigation";
 import HospitalDashboard from "@/pages/hospital";
 import AdminDashboard from "@/pages/admin";
 import NotFound from "@/pages/not-found";
-import { WebSocketProvider } from "@/hooks/use-websocket";
+import { SocketProvider } from "@/hooks/use-socket";
 import { RoleHeader } from "@/components/role-header";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
@@ -37,7 +37,7 @@ function Router() {
   }
 
   return (
-    <WebSocketProvider>
+    <SocketProvider>
       <div className="min-h-screen bg-neutral-50">
         <RoleHeader user={user} />
         <Switch>
@@ -70,7 +70,7 @@ function Router() {
           <Route component={NotFound} />
         </Switch>
       </div>
-    </WebSocketProvider>
+    </SocketProvider>
   );
 }
 

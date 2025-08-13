@@ -1,0 +1,108 @@
+TASK: Act as an automated migration engineer. Migrate the repo from native WebSocket usage to Socket.IO (server + client). Produce a branch with commits, tests, docs, and a PR-ready deliverable.
+
+REPO: https://github.com/Roxrite0509/MedRide_Pandey
+BRANCH: migrate/socketio
+
+HIGH-LEVEL GOALS
+1. Replace native WebSockets with Socket.IO server & client (no external realtime APIs).
+2. Preserve TypeScript types; add Socket.IO typings as needed.
+3. Produce a migration branch with discovery output, plan, code patches, tests, docs, and rollback instructions.
+4. Provide optional, clearly-documented steps for horizontal scaling via Redis adapter (do not enable by default).
+
+CONSTRAINTS
+- Do not commit secrets or `.env` values.
+- Do not change unrelated files.
+- Make small, logical commits with clear messages.
+- Back up replaced files as `*.backup.*`.
+
+PHASE 0 — DISCOVERY (run & capture)
+- Commands:
+  git status
+  git checkout -b migrate/socketio
+  npm ci || true (run in repo root, server, client if present)
+  grep -RIn "new WebSocket" . || true
+  grep -RIn "WebSocketServer" . || true
+  grep -RIn "ws\b" . || true
+  grep -RIn "socket.onmessage" . || true
+  grep -RIn "websocket" . || true
+  grep -RIn "socket.io" . || true
+- Detect server entrypoints (e.g., server/index.ts, server/app.ts, src/server.ts, bin/www) and client entrypoints (client/src/main.tsx, src/index.tsx, src/main.ts).
+- Detect client framework: Angular if @angular/* present, React if react dependencies, Vue otherwise.
+- Output: migration-discovery.json:
+  {
+    "websocket_matches": [...],
+    "server_entrypoints": [...],
+    "client_entrypoints": [...],
+    "client_framework": "<Angular|React|Vue|other>",
+    "package_json_locations": [...]
+  }
+
+PHASE 1 — PLAN
+- Create MIGRATION_PLAN.md listing files to change, dependencies to add, TS typings, tests, deploy tweaks, rollback steps.
+
+PHASE 2 — DEPENDENCIES
+- Add:
+  server: "socket.io": "^4"
+  client: "socket.io-client": "^4"
+  note optional adapter: "@socket.io/redis-adapter"
+- Run installs and commit package.json + lockfiles.
+
+PHASE 3 — SERVER MIGRATION
+- Attach Socket.IO to existing HTTP server.
+- Add typed module (e.g., server/socket.ts) exporting `io`.
+- Replace ws handlers with `io.on('connection', socket => { socket.on('event', ...) })`.
+- Backup originals as `*.backup.ts`.
+
+PHASE 4 — CLIENT MIGRATION
+- Add client socket wrapper/service according to detected framework:
+  - Angular: src/app/services/socket.service.ts (Injectable wrapper using io()).
+  - React: src/services/socket.ts or useSocket hook.
+  - Plain JS/TS: client/src/services/socket.ts.
+- Replace `new WebSocket` / `ws.onmessage` usage with `io()` and `socket.on('event', handler)`.
+
+PHASE 5 — MAPPING & CODEMODS
+- Produce migration-mapping.md with file-by-file pattern changes and apply safe codemods where possible.
+
+PHASE 6 — SCALING (optional)
+- Document Redis adapter setup with snippet:
+  import { createAdapter } from '@socket.io/redis-adapter';
+  import { createClient } from 'redis';
+  // connect pub/sub and attach io.adapter(...)
+
+PHASE 7 — TESTING
+- Add tests (tests/socket-io.spec.ts) using socket.io-client:
+  - Unit: server starts and accepts connection.
+  - Integration: client connects, emits event, receives ack/broadcast.
+- Add test scripts and ensure `npm test` runs.
+
+PHASE 8 — DOCS & PR
+- Update README.md and add DEPLOYMENT_GUIDE.md with env vars (REDIS_URL) and local test steps.
+- Commit in order: discovery, deps, server, client, tests/docs.
+- Push branch and open PR titled: "Migrate native WebSockets → Socket.IO" with summary, test steps, and rollback steps.
+
+ROLLBACK
+- To revert: git checkout main; git reset --hard origin/main OR revert PR via GitHub UI.
+- Keep backups `*.backup.*` until merge.
+
+DELIVERABLES (place at repo root)
+- migration-discovery.json
+- MIGRATION_PLAN.md
+- migration-mapping.md
+- server/socket.ts (or modified server entrypoint)
+- client socket service/hook (framework-specific path)
+- tests/socket-io.spec.ts
+- updated package.json + lockfiles
+- updated README.md / DEPLOYMENT_GUIDE.md
+- branch migrate/socketio pushed and PR opened
+- zip of branch (optional)
+
+ACCEPTANCE CRITERIA
+- npm run build (server & client) succeeds.
+- npm test passes.
+- Manual smoke test reproducible:
+  1. Start server
+  2. Start client; client connects
+  3. Client emits `client-event`; server sends ack
+  4. Logs show `socket connected` and ack received
+
+FINAL: When finished, push branch, open PR, and reply here with PR link, paths to the produced files, and a short checklist of completed steps and remaining manual verifications.

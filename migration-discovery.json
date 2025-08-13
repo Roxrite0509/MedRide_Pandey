@@ -1,0 +1,41 @@
+{
+  "websocket_matches": [
+    "server/routes.ts:3:import { WebSocketServer, WebSocket } from \"ws\";",
+    "server/routes.ts:91:  const wss = new WebSocketServer({ server: httpServer, path: '/ws' });",
+    "client/src/hooks/use-websocket.tsx:4:  socket: WebSocket | null;",
+    "client/src/lib/api.ts:20-24:getWebSocketUrl function using ws protocol"
+  ],
+  "server_entrypoints": [
+    "server/index.ts",
+    "server/routes.ts"
+  ],
+  "client_entrypoints": [
+    "client/src/main.tsx",
+    "client/src/App.tsx"
+  ],
+  "client_framework": "React",
+  "package_json_locations": [
+    "./package.json"
+  ],
+  "current_websocket_implementation": {
+    "server": {
+      "uses_native_ws": true,
+      "server_file": "server/routes.ts",
+      "websocket_path": "/ws",
+      "websocket_server_line": 91
+    },
+    "client": {
+      "websocket_hook": "client/src/hooks/use-websocket.tsx",
+      "websocket_provider": "WebSocketProvider",
+      "websocket_usage": [
+        "client/src/components/notification-system.tsx",
+        "client/src/pages/admin.tsx",
+        "client/src/pages/patient.tsx",
+        "client/src/pages/ambulance.tsx",
+        "client/src/pages/enhanced-patient.tsx"
+      ],
+      "currently_disabled": true,
+      "disabled_reason": "For Replit environment stability, WebSocket is disabled but shows Connected status for UI compatibility"
+    }
+  }
+}

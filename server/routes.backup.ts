@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import { WebSocketServer, WebSocket } from "ws";
 import jwt from "jsonwebtoken";
-import { initializeSocketIO, broadcastToRole, broadcastToUser, broadcastToAmbulance, broadcastToAll } from "./socket";
 import bcrypt from "bcryptjs";
 import { storage } from "./storage";
 import { db } from "./db";
@@ -87,11 +87,135 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { healthCheck } = await import('./health');
   app.get('/api/health', healthCheck);
 
-  // Initialize Socket.IO server
-  const io = initializeSocketIO(httpServer);
-  console.log('🚀 Socket.IO server initialized on path /socket.io');
+  // Set up WebSocket server on a distinct path
+  const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
+  // Store connected clients with their user info
+  const connectedClients = new Map<string, { ws: WebSocket, userId: number, role: string }>();
 
+  // WebSocket connection setup
+  wss.on('connection', async (ws, req) => {
+    let userId = 0;
+    let userRole = 'guest';
+    let ambulanceId = null;
+
+    // Parse auth token from URL parameters
+    const url = new URL(req.url || '', `http://${req.headers.host}`);
+    const token = url.searchParams.get('token');
+    
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, JWT_SECRET) as any;
+        const userProfile = await storage.getUserWithProfile(decoded.id);
+        
+        if (userProfile) {
+          userId = userProfile.id;
+          userRole = userProfile.role;
+          ambulanceId = userProfile?.ambulanceProfile?.id || null;
+          console.log(`User connected: ${userProfile.role} (ID: ${userProfile.id})`);
+        }
+      } catch (err) {
+        console.log('WebSocket auth failed, continuing as guest');
+      }
+    }
+
+    // Store client connection
+    const clientId = `${userRole}-${userId}-${Date.now()}`;
+    connectedClients.set(clientId, { ws, userId, role: userRole });
+
+    // Handle WebSocket messages
+    ws.on('message', (data) => {
+      try {
+        const message = JSON.parse(data.toString());
+        handleWebSocketMessage(ws, message, { userId, userRole, ambulanceId });
+      } catch (error) {
+        console.error('WebSocket message parsing error:', error);
+      }
+    });
+
+    ws.on('close', () => {
+      if (userId > 0) {
+        console.log(`User disconnected: ${userRole} (ID: ${userId})`);
+      }
+      connectedClients.delete(clientId);
+    });
+
+    // Send connection confirmation
+    ws.send(JSON.stringify({ type: 'connected', userId, role: userRole }));
+  });
+
+  // WebSocket message handler
+  const handleWebSocketMessage = (ws: WebSocket, message: any, userInfo: { userId: number, userRole: string, ambulanceId: number | null }) => {
+    // Handle different message types
+    switch (message.type) {
+      case 'ping':
+        // Handle heartbeat ping - respond with pong for robust connection
+        if (ws.readyState === WebSocket.OPEN) {
+          try {
+            ws.send(JSON.stringify({ 
+              type: 'pong', 
+              timestamp: Date.now(),
+              originalTimestamp: message.timestamp 
+            }));
+            console.log('💓 Heartbeat pong sent to', userInfo.userRole);
+          } catch (error) {
+            console.warn('Failed to send heartbeat pong:', error);
+          }
+        }
+        break;
+      case 'eta_update':
+        console.log('📡 Broadcasting ETA to all clients:', message.data);
+        broadcastToAll({ type: 'eta_update', data: message.data });
+        break;
+      case 'emergency_request_update':
+        broadcastToAll({ type: 'emergency_status_update', data: message.data });
+        break;
+      case 'ambulance_location_update':
+        if (userInfo.userRole === 'ambulance' && userInfo.ambulanceId) {
+          // Broadcast ambulance location update to hospitals
+          broadcastToRole('hospital', {
+            type: 'ambulance_location_update',
+            data: {
+              ambulanceId: userInfo.ambulanceId,
+              latitude: message.data.latitude,
+              longitude: message.data.longitude,
+              timestamp: Date.now()
+            }
+          });
+        }
+        break;
+      case 'hospital_bed_update':
+        // Broadcast bed updates to all connected clients
+        broadcastToAll({
+          type: 'hospital_bed_update',
+          data: message.data
+        });
+        break;
+      default:
+        // Silently ignore unknown WebSocket message types to reduce console spam
+    }
+  };
+
+  // Broadcast function for WebSocket
+  const broadcastToAll = (message: any) => {
+    connectedClients.forEach(({ ws }) => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(message));
+      }
+    });
+  };
+
+  const broadcastToRole = (role: string, message: any) => {
+    connectedClients.forEach(({ ws, role: clientRole }) => {
+      if (clientRole === role && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(message));
+      }
+    });
+  };
+
+  // All WebSocket handling is now done in the wss.on('connection') above
+
+  // Remove duplicate function - already defined above
 
   // Helper function to calculate distance between two coordinates
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
