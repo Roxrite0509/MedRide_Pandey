@@ -414,6 +414,13 @@ export default function AmbulanceDashboard() {
                         <User className="w-4 h-4 mr-2" />
                         Patient: {request.patient?.firstName || request.patient?.username || 'Unknown'}
                       </div>
+                      {request.description && (
+                        <div className="flex items-start text-sm text-gray-700 bg-gray-50 p-2 rounded">
+                          <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="font-medium">Description:</span>
+                          <span className="ml-1">{request.description}</span>
+                        </div>
+                      )}
                       <div className="flex items-center text-sm text-gray-600">
                         <MapPin className="w-4 h-4 mr-2" />
                         {request.address}

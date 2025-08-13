@@ -42,6 +42,7 @@ export default function UnifiedPatientDashboard() {
   const [isEmergencyDialogOpen, setIsEmergencyDialogOpen] = useState(false);
   const [emergencyType, setEmergencyType] = useState('');
   const [emergencyDescription, setEmergencyDescription] = useState('');
+  const [emergencyPriority, setEmergencyPriority] = useState('high'); // Default to high priority
   const [selectedHospital, setSelectedHospital] = useState('');
   const [requestSubmitted, setRequestSubmitted] = useState(false);
   const [ambulanceETA, setAmbulanceETA] = useState<{[key: number]: number}>({});
@@ -154,6 +155,7 @@ export default function UnifiedPatientDashboard() {
       setIsEmergencyDialogOpen(false);
       setEmergencyType('');
       setEmergencyDescription('');
+      setEmergencyPriority('high'); // Reset to default
       setSelectedHospital('');
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
       toast({
@@ -238,7 +240,7 @@ export default function UnifiedPatientDashboard() {
     await emergencyMutation.mutateAsync({
       type: emergencyType,
       description: emergencyDescription,
-      priority: getEmergencyPriority(emergencyType),
+      priority: emergencyPriority, // Use the selected priority instead of auto-calculated
       latitude: location.latitude,
       longitude: location.longitude,
       patientChosenHospitalId: selectedHospital ? parseInt(selectedHospital) : null,
@@ -463,6 +465,21 @@ export default function UnifiedPatientDashboard() {
                     onChange={(e) => setEmergencyDescription(e.target.value)}
                     className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
                   />
+                </div>
+
+                <div>
+                  <Label htmlFor="priority" className="text-sm sm:text-base">Priority Level</Label>
+                  <Select value={emergencyPriority} onValueChange={setEmergencyPriority}>
+                    <SelectTrigger className="h-10 sm:h-12">
+                      <SelectValue placeholder="Select priority level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="critical">Critical - Life Threatening</SelectItem>
+                      <SelectItem value="high">High - Urgent Medical Care</SelectItem>
+                      <SelectItem value="medium">Medium - Non-Emergency</SelectItem>
+                      <SelectItem value="low">Low - Routine Care</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Hospital Selection with Enhanced Details */}

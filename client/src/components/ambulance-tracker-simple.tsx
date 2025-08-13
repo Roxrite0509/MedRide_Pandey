@@ -19,6 +19,7 @@ interface IncomingAmbulance {
   status: 'dispatched' | 'en_route' | 'arriving';
   departureTime: Date;
   condition: string;
+  description?: string; // Add description field
   contactNumber?: string;
 }
 
@@ -33,6 +34,7 @@ interface EmergencyRequest {
   priority: string;
   status: string;
   patientCondition: string | null;
+  description: string | null; // Add description field
   notes: string | null;
   requestedAt: string;
   dispatchedAt: string | null;
@@ -120,6 +122,7 @@ export function AmbulanceTracker() {
       status: req.status as 'dispatched' | 'en_route' | 'arriving',
       departureTime: new Date(req.requestedAt),
       condition: req.patientCondition || 'General Emergency',
+      description: req.description || '', // Add description from emergency request
       contactNumber: req.ambulance?.operatorPhone
     }));
   }, [emergencyRequests]);
@@ -136,6 +139,7 @@ export function AmbulanceTracker() {
       status: 'en_route',
       departureTime: new Date(Date.now() - 10 * 60000),
       condition: 'Chest Pain',
+      description: 'Patient experiencing severe chest pain with shortness of breath. Pain started 30 minutes ago during physical activity.',
       contactNumber: '+91-98765-43210'
     },
     {
@@ -148,6 +152,7 @@ export function AmbulanceTracker() {
       status: 'dispatched',
       departureTime: new Date(Date.now() - 5 * 60000),
       condition: 'Accident Trauma',
+      description: 'Road traffic accident with minor injuries. Patient is conscious and alert but has leg pain and minor cuts.',
       contactNumber: '+91-87654-32109'
     }
   ], []);
@@ -330,6 +335,18 @@ export function AmbulanceTracker() {
                     </div>
                   )}
                 </div>
+                
+                {ambulance.description && (
+                  <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-l-orange-400">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <span className="text-sm font-medium text-gray-700">Emergency Description:</span>
+                        <p className="text-sm text-gray-600 mt-1">{ambulance.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-gray-500">
