@@ -5,6 +5,7 @@ import { useWebSocket } from '@/hooks/use-websocket';
 import { NotificationSystem } from '@/components/notification-system';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import { toast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -60,8 +61,8 @@ export default function PatientDashboard() {
     refetchInterval: 5000, // Check every 5 seconds for real-time updates
   });
 
-  const hospitals = hospitalsQuery.data || [];
-  const emergencyRequests = emergencyRequestsQuery.data || [];
+  const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
+  const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) ? emergencyRequestsQuery.data : [];
   const hospitalsLoading = hospitalsQuery.isLoading;
 
   // Listen for real-time updates via Socket.IO

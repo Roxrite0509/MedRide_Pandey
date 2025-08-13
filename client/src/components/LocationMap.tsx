@@ -1,9 +1,15 @@
+/// <reference types="@types/google.maps" />
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, RefreshCw, AlertCircle } from 'lucide-react';
 import { getAuthToken } from '@/lib/auth';
-/// <reference types="@types/google.maps" />
+
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
 
 interface LocationMapProps {
   title?: string;
@@ -170,7 +176,7 @@ export function LocationMap({
       
       if (response.ok) {
         const locations = await response.json();
-        console.log('📍 All ambulance locations:', locations.map(amb => ({ id: amb.id, operatorId: amb.operatorId, vehicleNumber: amb.vehicleNumber })));
+        console.log('📍 All ambulance locations:', locations.map((amb: any) => ({ id: amb.id, operatorId: amb.operatorId, vehicleNumber: amb.vehicleNumber })));
         console.log('🔍 Looking for ambulance with ID:', currentAmbulanceId);
         
         // Try to find ambulance by ambulance ID first, then by operator ID
@@ -194,8 +200,8 @@ export function LocationMap({
           setCurrentAmbulanceLocation(ambulanceWithParsedCoords);
         } else {
           console.log('⚠️ No ambulance found for ID:', currentAmbulanceId);
-          console.log('Available ambulance IDs:', locations.map(amb => amb.id));
-          console.log('Available operator IDs:', locations.map(amb => amb.operatorId));
+          console.log('Available ambulance IDs:', locations.map((amb: any) => amb.id));
+          console.log('Available operator IDs:', locations.map((amb: any) => amb.operatorId));
         }
       }
     } catch (error) {
