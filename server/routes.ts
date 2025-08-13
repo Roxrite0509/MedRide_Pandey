@@ -883,6 +883,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Add missing cancel endpoint for patient dashboard
+  app.patch('/api/emergency/requests/:id/cancel', authenticateToken, async (req, res) => {
+    try {
+      const requestId = parseInt(req.params.id);
+      const userId = req.user.id;
+      
+      // Get the request to verify ownership
+      const request = await storage.getEmergencyRequest(requestId);
+      if (!request) {
+        return res.status(404).json({ message: 'Emergency request not found' });
+      }
+      
+      // Only allow cancellation by the patient who created it
+      if (request.patientId !== userId && req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Unauthorized to cancel this request' });
+      }
+      
+      // Update request status to cancelled
+      const updatedRequest = await storage.updateEmergencyRequest(requestId, { status: 'cancelled' });
+      
+      // If request has ambulance assigned, update ambulance status to available
+      if (updatedRequest.ambulanceId) {
+        try {
+          await storage.updateAmbulance(updatedRequest.ambulanceId, { status: 'available' });
+          console.log('Updated ambulance status to available after cancellation');
+        } catch (error) {
+          console.error('Error updating ambulance status after cancellation:', error);
+        }
+      }
+      
+      // Broadcast update to all connected clients
+      broadcastToAll({
+        type: 'emergency_request_updated',
+        data: updatedRequest
+      });
+      
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error('Cancel emergency request error:', error);
+      res.status(500).json({ message: 'Failed to cancel emergency request' });
+    }
+  });
+
+  // Add missing delete endpoint for patient dashboard (plural form)
+  app.delete('/api/emergency/requests/:id', authenticateToken, async (req, res) => {
+    try {
+      const requestId = parseInt(req.params.id);
+      const userId = req.user.id;
+      
+      // Get the request to verify ownership
+      const request = await storage.getEmergencyRequest(requestId);
+      if (!request) {
+        return res.status(404).json({ message: 'Emergency request not found' });
+      }
+      
+      // Only allow deletion by the patient who created it or admin roles
+      if (request.patientId !== userId && !['hospital', 'ambulance', 'admin'].includes(req.user.role)) {
+        return res.status(403).json({ message: 'Unauthorized to delete this request' });
+      }
+      
+      // Mark as deleted instead of actual deletion to preserve audit trail
+      const deletedRequest = await storage.updateEmergencyRequest(requestId, { 
+        status: 'deleted',
+        notes: (request.notes || '') + ' [DELETED]'
+      });
+      
+      res.json({ message: 'Emergency request deleted successfully', request: deletedRequest });
+    } catch (error) {
+      console.error('Delete emergency request error:', error);
+      res.status(500).json({ message: 'Failed to delete emergency request' });
+    }
+  });
+
   // PATCH endpoint for emergency requests (for enhanced patient dashboard)
   app.patch('/api/emergency/request/:id', authenticateToken, async (req, res) => {
     try {
