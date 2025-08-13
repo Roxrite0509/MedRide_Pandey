@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -22,10 +22,12 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   const [lastMessage, setLastMessage] = useState<any>(null);
   const { user } = useAuth();
   const token = localStorage.getItem('token');
+  const isInitialized = useRef(false);
 
   const connectSocket = useCallback(() => {
-    if (!user || !token || socket?.connected) return;
-
+    if (!user || !token || socket?.connected || isInitialized.current) return;
+    
+    isInitialized.current = true;
     setIsConnecting(true);
     setConnectionAttempts(prev => prev + 1);
 
@@ -47,8 +49,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      maxReconnectionAttempts: 5
+      reconnectionDelayMax: 5000
     });
 
     // Connection successful
@@ -158,15 +159,15 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     });
 
     setSocket(newSocket);
-  }, [user, token, socket?.connected]);
+  }, [user?.id, token, socket?.connected]);
 
   // Initialize connection when user and token are available
   useEffect(() => {
-    if (user && token && !socket) {
+    if (user && token && !socket && !isInitialized.current) {
       connectSocket();
     }
 
-    // Cleanup on unmount or user change
+    // Cleanup only on unmount
     return () => {
       if (socket) {
         console.log('🧹 Cleaning up Socket.IO connection');
@@ -174,9 +175,10 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         setSocket(null);
         setIsConnected(false);
         setIsConnecting(false);
+        isInitialized.current = false;
       }
     };
-  }, [user, token, connectSocket]);
+  }, []); // Empty dependency array to run only on mount/unmount
 
   const sendMessage = useCallback((event: string, data: any): boolean => {
     if (!socket || !socket.connected) {

@@ -12,7 +12,7 @@ import AmbulanceNavigation from "@/pages/ambulance-navigation";
 import HospitalDashboard from "@/pages/hospital";
 import AdminDashboard from "@/pages/admin";
 import NotFound from "@/pages/not-found";
-import { SocketProvider } from "@/hooks/use-socket";
+import { SocketProvider } from "@/hooks/use-socket-simple";
 import { RoleHeader } from "@/components/role-header";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 

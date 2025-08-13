@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { useGeolocation } from '@/hooks/use-geolocation';
-import { useWebSocket } from '@/hooks/use-websocket';
+import { useSocket } from '@/hooks/use-socket-simple';
 import { NotificationSystem } from '@/components/notification-system';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -22,7 +22,7 @@ import { format, formatDistanceToNow } from 'date-fns';
 export default function EnhancedPatientDashboard() {
   const { user } = useAuth();
   const { location, error: locationError } = useGeolocation();
-  const { isConnected, socket, lastMessage } = useWebSocket();
+  const { isConnected, socket, lastMessage } = useSocket();
   
   // Helper function to get hospital name by ID
   const getHospitalName = (hospitalId: number): string => {
