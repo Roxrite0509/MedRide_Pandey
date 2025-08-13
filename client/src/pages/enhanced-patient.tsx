@@ -19,6 +19,7 @@ import { Progress } from '@/components/ui/progress';
 import { MapPin, Clock, Phone, Bed, AlertCircle, Activity, Heart, Ambulance, Hospital, CheckCircle, X, Star, Users, Timer, Shield } from 'lucide-react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 
 export default function EnhancedPatientDashboard() {
   const { user } = useAuth();
@@ -68,6 +69,24 @@ export default function EnhancedPatientDashboard() {
   const hospitals = hospitalsQuery.data || [];
   const emergencyRequests = emergencyRequestsQuery.data || [];
   
+  // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
+  const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log('📱 Enabling ambulance data loading after 5s delay');
+      setEnableAmbulanceData(true);
+      // Optional: Show a subtle toast notification
+      toast && toast({
+        title: "Ambulance locations loaded",
+        description: "Real-time ambulance positions are now visible on the map",
+        duration: 3000,
+      });
+    }, 5000); // 5 second delay
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   // Show loading state
   const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
   
@@ -617,12 +636,20 @@ export default function EnhancedPatientDashboard() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
+          {!enableAmbulanceData && (
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center space-x-2 text-blue-700 text-sm">
+                <div className="animate-spin w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                <span>Loading ambulance locations...</span>
+              </div>
+            </div>
+          )}
           <LocationMap 
             title="Emergency Services Near You"
             height="400px"
             showRefreshButton={true}
             showCurrentAmbulance={false}
-            showAllAmbulances={true}
+            showAllAmbulances={enableAmbulanceData}
           />
         </CardContent>
       </Card>
