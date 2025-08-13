@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
-import EnhancedPatientDashboard from "@/pages/enhanced-patient";
+import UnifiedPatientDashboard from "@/pages/unified-patient";
 import AmbulanceDashboard from "@/pages/ambulance";
 import AmbulanceNavigation from "@/pages/ambulance-navigation";
 import HospitalDashboard from "@/pages/hospital";
@@ -42,7 +42,7 @@ function Router() {
         <RoleHeader user={user} />
         <Switch>
           {/* New branded URL routes */}
-          <Route path="/PatientDashboard" component={EnhancedPatientDashboard} />
+          <Route path="/PatientDashboard" component={UnifiedPatientDashboard} />
           <Route path="/AmbulanceDashboard" component={AmbulanceDashboard} />
           <Route path="/HospitalDashboard" component={HospitalDashboard} />
           <Route path="/AdminDashboard" component={AdminDashboard} />
@@ -56,7 +56,7 @@ function Router() {
           <Route path="/" component={() => {
             switch (user.role) {
               case 'patient':
-                return <EnhancedPatientDashboard />;
+                return <UnifiedPatientDashboard />;
               case 'ambulance':
                 return <AmbulanceDashboard />;
               case 'hospital':
