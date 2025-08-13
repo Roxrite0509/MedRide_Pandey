@@ -1,0 +1,51 @@
+Provide Replit/Railway/Docker examples on how to run multiple instances and attach adapter.
+PHASE 7 — TESTING
+Add unit and integration tests using socket.io-client:
+Unit: verify server starts, io attaches, and connection event fires.
+Integration: simulate a client connecting, emitting, and receiving broadcast.
+Add test scripts and ensure npm test runs in CI.
+PHASE 8 — DOCUMENTATION & PR
+Update README.md and add DEPLOYMENT_GUIDE.md with new env vars (REDIS_URL etc.) and local testing steps.
+Create commits in branch migrate/socketio in logical order:
+discovery artifacts
+dependency changes
+server changes
+client changes
+tests & docs
+Push the branch and open a PR titled Migrate native WebSockets → Socket.IO with:
+Summary of changes
+How to test locally
+Rollback steps
+PHASE 9 — ROLLBACK
+Provide explicit rollback steps:
+git checkout main
+git reset --hard origin/main
+Or revert the PR via GitHub UI
+Keep backed-up original WS files in the branch (*.ws.backup.ts) until merge.
+DELIVERABLES (exact files to produce)
+migration-discovery.json
+MIGRATION_PLAN.md
+migration-mapping.md
+server Socket.IO module (e.g., server/socket.ts or modified server entrypoint)
+client Socket.IO service/hook (e.g., client/src/services/socket.service.ts or equivalent)
+tests (e.g., tests/socket-io.spec.ts)
+updated package.json and lockfiles
+updated README.md / DEPLOYMENT_GUIDE.md
+branch migrate/socketio pushed and PR opened
+ACCEPTANCE CRITERIA
+npm run build succeed for server and client (if applicable).
+All new tests pass locally: npm test.
+Manual smoke test documented and reproducible:
+Start server with Socket.IO
+Start client; it connects
+Client emits client-event; server responds/acks
+Logs show socket connected and server-ack received
+If any part is ambiguous (e.g., client framework detection), the agent should proceed with best-effort (prefer React if client/package.json shows react dependencies, prefer Angular if @angular/* present) and document the detection results in migration-discovery.json. Do not block the migration on clarification.
+FINAL OUTPUT (post back in chat)
+A ZIP of the migrate/socketio branch or the pushed branch + PR link.
+Paths to migration-discovery.json, MIGRATION_PLAN.md, and tests in the repo.
+A short checklist of completed steps and any manual verification remaining.
+NOTES:
+If you find WebSocket usage intentionally used for special binary flows, flag it and propose coexistence or migration to Socket.IO binary channels.
+Do not modify unrelated files, credentials, or CI secrets.
+Run all steps and post the artifact links, PR link, and a short checklist here when done.

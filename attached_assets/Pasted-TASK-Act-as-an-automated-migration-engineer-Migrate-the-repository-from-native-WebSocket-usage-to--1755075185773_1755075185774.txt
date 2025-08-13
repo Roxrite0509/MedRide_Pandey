@@ -1,0 +1,75 @@
+TASK: Act as an automated migration engineer. Migrate the repository from native WebSocket usage to Socket.IO (server + client) and produce a complete, self-contained migration deliverable: discovery output, step-by-step migration plan, code patches/commits on a new branch, tests, docs, and rollback instructions.
+
+REPO: https://github.com/Roxrite0509/MedRide_Pandey
+(Agent: clone the repo into the workspace and operate on it directly.)
+
+GOALS (high-level)
+1. Replace native WebSocket code with Socket.IO both server-side and client-side with **no external realtime API dependencies** (all runtime stays in the app infra).
+2. Preserve TypeScript typing and add Socket.IO typings as needed.
+3. Provide granular commits and a PR-ready branch `migrate/socketio` with discovery output, plan, patches, tests, and docs.
+4. Include optional, clear steps to enable horizontal scaling later (Redis adapter) without forcing it in the initial migration.
+
+INITIAL REQUIREMENTS (agent behaviour)
+- Detect project topology automatically: determine whether the client is Angular (MEAN), React (MERN), Vue, or other, and adapt client-code examples accordingly. Do not assume a specific frontend — inspect `client/package.json`, `package.json` at root, and common directories like `client`, `server`, `src`, `app`.
+- Never commit secrets or `.env` values. Don’t alter any CI/CD secrets or credentials.
+- Use a new git branch `migrate/socketio`. Make small, logical commits with clear messages.
+
+PHASE 0 — DISCOVERY (automated)
+- Commands to run and capture output:
+  - `git status`
+  - `git checkout -b migrate/socketio`
+  - Run `npm ci` (or `yarn install`) at repo root and inside `server` and `client` if present.
+  - Search for WebSocket usage:
+    - `grep -RIn "new WebSocket" . || true`
+    - `grep -RIn "WebSocketServer" . || true`
+    - `grep -RIn "ws\\b" . || true`
+    - `grep -RIn "socket.onmessage" . || true`
+    - `grep -RIn "websocket" . || true`
+    - `grep -RIn "ws.Server" . || true`
+    - `grep -RIn "socket.io" . || true`
+  - Identify probable server entrypoint files (`server/index.ts`, `server/app.ts`, `server/server.ts`, `src/server.ts`, `bin/www`, etc.) and client entrypoints (`client/src/main.tsx`, `client/src/main.ts`, `src/main.ts`, `src/index.tsx`, `src/index.ts`).
+
+OUTPUT: produce `migration-discovery.json` at repo root with this shape:
+{
+  "websocket_matches": [...match lines...],
+  "server_entrypoints": [...paths...],
+  "client_entrypoints": [...paths...],
+  "client_framework": "<Angular | React | Vue | other>",
+  "package_json_locations": ["./package.json","./server/package.json","./client/package.json"]
+}
+
+PHASE 1 — PLAN (generate before edits)
+- Produce `MIGRATION_PLAN.md` listing:
+  1. Files to change (server and client).
+  2. Dependencies to add (server & client).
+  3. TypeScript typings to add or update.
+  4. Tests to add or update and how they will run.
+  5. Deployment/process changes for Replit/Railway/Docker.
+  6. Rollback procedure.
+
+PHASE 2 — DEPENDENCIES
+- Update package files (root or per-package as detected):
+  - Server: add `"socket.io": "^4.x"` and notes for optional adapter `"@socket.io/redis-adapter"`.
+  - Client: add `"socket.io-client": "^4.x"` (and `@types/socket.io-client` only if necessary).
+- Run install commands and commit updated `package.json` and lockfile(s).
+
+PHASE 3 — SERVER MIGRATION
+- Attach Socket.IO to the same HTTP server used by Express (or whichever HTTP server exists). Replace native `ws`/WebSocketServer patterns with Socket.IO equivalents. Add a typed `server/socket.ts` (or update existing server entrypoint) exposing `io`.
+- Example (TypeScript):
+  ```ts
+  import { Server as IOServer } from 'socket.io';
+  import http from 'http';
+  const httpServer: http.Server = /* existing http server */;
+  export const io = new IOServer(httpServer, {
+    cors: { origin: /* detected allowed origins or '*' for dev */, methods: ['GET','POST'] }
+  });
+
+  io.on('connection', (socket) => {
+    console.log('socket connected', socket.id);
+    socket.on('join-room', (roomId: string) => socket.join(roomId));
+    socket.on('client-event', (payload, ack) => {
+      // business logic
+      if (ack) ack({ ok: true });
+    });
+    socket.on('disconnect', (reason) => console.log('disconnect', reason));
+  });
