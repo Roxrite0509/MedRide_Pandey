@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { LocationMap } from "@/components/LocationMap";
 import { StableNavigationMap } from "@/components/stable-navigation-map";
-import { useWebSocket } from "@/hooks/use-websocket";
+import { useSocket } from "@/hooks/use-socket-simple";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
@@ -94,7 +94,7 @@ const getStatusBadgeColor = (status: string) => {
 export default function AmbulanceDashboard() {
   const { user } = useAuth();
   const { location } = useGeolocation();
-  const { sendMessage, lastMessage } = useWebSocket();
+  const { sendMessage, lastMessage } = useSocket();
   const [, setLocation] = useLocation();
   const [showRejectDialog, setShowRejectDialog] = useState<any>(null);
   const [isJourneyActive, setIsJourneyActive] = useState(false);
@@ -136,8 +136,9 @@ export default function AmbulanceDashboard() {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      // Show navigation map instead of navigating away
+      // Immediately show navigation map and start journey
       setShowNavigationMap(true);
+      setIsJourneyActive(true);
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
@@ -583,7 +584,7 @@ export default function AmbulanceDashboard() {
               </div>
             </div>
             <div className="mt-4 flex gap-2">
-              {activeRequest.status === 'accepted' && (
+              {activeRequest.status === 'accepted' && !isJourneyActive && (
                 <Button
                   onClick={handleStartJourney}
                   className="bg-green-600 hover:bg-green-700 text-white"
@@ -593,7 +594,14 @@ export default function AmbulanceDashboard() {
                   Start Journey
                 </Button>
               )}
-              {['dispatched', 'en_route', 'at_scene'].includes(activeRequest.status) && (
+              {isJourneyActive && showNavigationMap && (
+                <div className="flex items-center space-x-2 text-green-600">
+                  <NavigationIcon className="h-4 w-4" />
+                  <span className="text-sm font-medium">Navigation Active</span>
+                  {journeyETA > 0 && <span className="text-sm">ETA: {journeyETA} min</span>}
+                </div>
+              )}
+              {['dispatched', 'en_route', 'at_scene'].includes(activeRequest.status) && !showNavigationMap && (
                 <Button
                   onClick={() => {
                     setShowNavigationMap(true);
