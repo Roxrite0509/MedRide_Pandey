@@ -288,39 +288,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       let hospitals;
       if (!lat || !lng) {
-        // Return all hospitals if no location provided
         hospitals = await storage.getAllHospitals();
       } else {
         const latitude = parseFloat(lat as string);
         const longitude = parseFloat(lng as string);
-        
-        // Get nearby hospitals within 30km radius
         hospitals = await storage.getNearbyHospitals(latitude, longitude, 30);
       }
 
-      // Enhance hospitals with real-time bed availability from bed_status_logs
-      const hospitalsWithRealTimeBeds = await Promise.all(hospitals.map(async (hospital) => {
+      // Optimize: Get bed status in parallel and with timeout
+      const hospitalsWithRealTimeBeds = await Promise.allSettled(hospitals.map(async (hospital) => {
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout')), 500) // 500ms timeout
+        );
+        
         try {
-          const bedStatus = await storage.getBedAvailabilityStatus(hospital.id);
-          console.log(`🏥 Real-time bed status for ${hospital.name} (ID: ${hospital.id}):`, bedStatus);
+          const bedStatus = await Promise.race([
+            storage.getBedAvailabilityStatus(hospital.id),
+            timeoutPromise
+          ]);
+          
           return {
             ...hospital,
-            availableBeds: bedStatus.available,
-            totalBeds: bedStatus.total,
-            availableIcuBeds: bedStatus.icuAvailable,
-            icuBeds: bedStatus.icuTotal
+            availableBeds: (bedStatus as any).available,
+            totalBeds: (bedStatus as any).total,
+            availableIcuBeds: (bedStatus as any).icuAvailable,
+            icuBeds: (bedStatus as any).icuTotal
           };
         } catch (error) {
-          console.error(`Failed to get bed status for hospital ${hospital.id}:`, error);
-          // Fallback to static data if real-time data is unavailable
+          console.warn(`Bed status timeout for hospital ${hospital.id}, using fallback`);
           return hospital;
         }
       }));
 
+      const results = hospitalsWithRealTimeBeds
+        .map(result => result.status === 'fulfilled' ? result.value : null)
+        .filter(Boolean);
+
       // Cache the result
-      setCachedData(cacheKey, hospitalsWithRealTimeBeds, 30000); // 30 seconds
+      setCachedData(cacheKey, results, 30000);
       
-      res.json(hospitalsWithRealTimeBeds);
+      res.json(results);
     } catch (error) {
       console.error('Nearby hospitals error:', error);
       res.status(500).json({ message: 'Failed to get nearby hospitals' });
@@ -493,54 +500,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { expiresIn: '24h' }
       );
 
-      // If ambulance user, ensure all ambulances have static locations
+      // Skip expensive ambulance location operations during login - do this async after response
       if (userWithProfile && userWithProfile.role === 'ambulance' && userWithProfile.ambulanceProfile) {
-        try {
-          // Check if any ambulance needs location assignment
-          const allAmbulances = await storage.getAvailableAmbulances();
-          const ambulancesNeedingLocation = allAmbulances.filter(amb => {
-            const lat = parseFloat(amb.currentLatitude || '0');
-            const lng = parseFloat(amb.currentLongitude || '0');
-            return lat === 0 && lng === 0;
-          });
+        // Do this asynchronously to not block login response
+        setImmediate(async () => {
+          try {
+            const allAmbulances = await storage.getAvailableAmbulances();
+            const ambulancesNeedingLocation = allAmbulances.filter(amb => {
+              const lat = parseFloat(amb.currentLatitude || '0');
+              const lng = parseFloat(amb.currentLongitude || '0');
+              return lat === 0 && lng === 0;
+            });
 
-          if (ambulancesNeedingLocation.length > 0) {
-            // Try to get patient location from recent emergency requests
-            const recentRequests = await storage.getActiveEmergencyRequests();
-            let referenceLocation = { lat: 22.7196, lng: 75.8577 }; // Default to Indore
+            if (ambulancesNeedingLocation.length > 0) {
+              const recentRequests = await storage.getActiveEmergencyRequests();
+              let referenceLocation = { lat: 22.7196, lng: 75.8577 };
 
-            // Use the most recent patient location if available
-            if (recentRequests.length > 0) {
-              const latestRequest = recentRequests[0];
-              if (latestRequest.latitude && latestRequest.longitude) {
-                referenceLocation = {
-                  lat: parseFloat(latestRequest.latitude),
-                  lng: parseFloat(latestRequest.longitude)
-                };
-                console.log(`Using patient location as reference: ${referenceLocation.lat}, ${referenceLocation.lng}`);
+              if (recentRequests.length > 0) {
+                const latestRequest = recentRequests[0];
+                if (latestRequest.latitude && latestRequest.longitude) {
+                  referenceLocation = {
+                    lat: parseFloat(latestRequest.latitude),
+                    lng: parseFloat(latestRequest.longitude)
+                  };
+                }
+              }
+
+              for (const ambulance of ambulancesNeedingLocation) {
+                const randomLocation = generateRandomLocationInRadius(
+                  referenceLocation.lat, 
+                  referenceLocation.lng, 
+                  1.5, 
+                  2.5
+                );
+                
+                await storage.updateAmbulanceLocation(
+                  ambulance.id,
+                  randomLocation.latitude,
+                  randomLocation.longitude
+                );
+                console.log(`Assigned location to ${ambulance.vehicleNumber}: ${randomLocation.latitude}, ${randomLocation.longitude}`);
               }
             }
-
-            // Assign locations to all ambulances that need them
-            for (const ambulance of ambulancesNeedingLocation) {
-              const randomLocation = generateRandomLocationInRadius(
-                referenceLocation.lat, 
-                referenceLocation.lng, 
-                1.5, 
-                2.5
-              );
-              
-              await storage.updateAmbulanceLocation(
-                ambulance.id,
-                randomLocation.latitude,
-                randomLocation.longitude
-              );
-              console.log(`Assigned location to ${ambulance.vehicleNumber}: ${randomLocation.latitude}, ${randomLocation.longitude}`);
-            }
+          } catch (error) {
+            console.error('Failed to assign ambulance locations:', error);
           }
-        } catch (error) {
-          console.error('Failed to assign ambulance locations:', error);
-        }
+        });
       }
 
       res.json({ 
