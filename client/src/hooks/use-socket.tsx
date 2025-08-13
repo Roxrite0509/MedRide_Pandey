@@ -25,7 +25,12 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   const isInitialized = useRef(false);
 
   const connectSocket = useCallback(() => {
-    if (!user || !token || socket?.connected || isInitialized.current) return;
+    if (!user || !token || socket?.connected) return;
+    
+    if (isInitialized.current) {
+      console.log('🔌 Socket connection already initialized, skipping...');
+      return;
+    }
     
     isInitialized.current = true;
     setIsConnecting(true);
@@ -164,12 +169,13 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   // Initialize connection when user and token are available
   useEffect(() => {
     if (user && token && !socket && !isInitialized.current) {
+      console.log('🔌 Initializing Socket.IO connection for user:', user.username);
       connectSocket();
     }
 
     // Cleanup only on unmount
     return () => {
-      if (socket) {
+      if (socket && isInitialized.current) {
         console.log('🧹 Cleaning up Socket.IO connection');
         socket.disconnect();
         setSocket(null);
@@ -178,7 +184,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         isInitialized.current = false;
       }
     };
-  }, []); // Empty dependency array to run only on mount/unmount
+  }, [user?.id, token]); // Only depend on user ID and token changes
 
   const sendMessage = useCallback((event: string, data: any): boolean => {
     if (!socket || !socket.connected) {

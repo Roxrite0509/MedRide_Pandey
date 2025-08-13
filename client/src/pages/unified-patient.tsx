@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { useGeolocation } from '@/hooks/use-geolocation';
 import { useSocket } from '@/hooks/use-socket-simple';
@@ -92,56 +92,93 @@ export default function UnifiedPatientDashboard() {
   // Show loading state
   const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
   
-  // Debug ambulance data when requests have ambulances assigned
+  // Debug ambulance data when requests have ambulances assigned (throttled)
+  const debugTimeoutRef = useRef<NodeJS.Timeout>();
   useEffect(() => {
-    if (emergencyRequests.length > 0) {
-      emergencyRequests.forEach((req: any) => {
-        if (req.ambulanceId && req.ambulance) {
-          console.log('🚑 Debug ambulance data for request', req.id, ':', {
-            ambulanceId: req.ambulanceId,
-            vehicleNumber: req.ambulance?.vehicleNumber,
-            operatorPhone: req.ambulance?.operatorPhone,
-            ambulanceContact: req.ambulanceContact,
-            certification: req.ambulance?.certification,
-            status: req.status
-          });
-        }
-      });
+    if (debugTimeoutRef.current) {
+      clearTimeout(debugTimeoutRef.current);
     }
+    
+    debugTimeoutRef.current = setTimeout(() => {
+      if (emergencyRequests.length > 0) {
+        emergencyRequests.forEach((req: any) => {
+          if (req.ambulanceId && req.ambulance) {
+            console.log('🚑 Debug ambulance data for request', req.id, ':', {
+              ambulanceId: req.ambulanceId,
+              vehicleNumber: req.ambulance?.vehicleNumber,
+              operatorPhone: req.ambulance?.operatorPhone,
+              ambulanceContact: req.ambulanceContact,
+              certification: req.ambulance?.certification,
+              status: req.status
+            });
+          }
+        });
+      }
+    }, 1000); // Only log once per second to reduce console spam
+    
+    return () => {
+      if (debugTimeoutRef.current) {
+        clearTimeout(debugTimeoutRef.current);
+      }
+    };
   }, [emergencyRequests]);
   
   const activeRequest = emergencyRequests.find((req: any) => 
     ['pending', 'accepted', 'dispatched', 'en_route'].includes(req.status)
   );
 
-  // Enhanced WebSocket listener for real-time updates
+  // Stable WebSocket listener with debouncing to prevent dialog interference
+  const lastMessageRef = useRef<string | null>(null);
+  const debounceTimeoutRef = useRef<NodeJS.Timeout>();
+  
   useEffect(() => {
-    if (lastMessage?.type === 'eta_update' && lastMessage?.data?.requestId) {
-      setAmbulanceETA(prev => ({
-        ...prev,
-        [lastMessage.data.requestId]: lastMessage.data.eta
-      }));
+    if (!lastMessage) return;
+    
+    const messageKey = `${lastMessage.type}-${lastMessage.timestamp}`;
+    if (messageKey === lastMessageRef.current) return;
+    
+    lastMessageRef.current = messageKey;
+    
+    // Clear existing timeout
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
     }
     
-    // Handle hospital bed updates
-    if (lastMessage?.type === 'hospital_bed_update') {
-      console.log('🏥 Received hospital bed update:', lastMessage.data);
-      queryClient.invalidateQueries({ queryKey: ['/api/hospitals/nearby'] });
-    }
-    
-    // Handle emergency status updates
-    if (lastMessage?.type === 'emergency_status_update') {
-      emergencyRequestsQuery.refetch();
-    }
-    
-    // Handle ambulance responses
-    if (lastMessage?.type === 'ambulance_response') {
-      const data = lastMessage.data;
-      if (data.status === 'accepted' || data.status === 'rejected') {
-        setRequestSubmitted(false);
+    // Debounce message handling to prevent rapid state changes
+    debounceTimeoutRef.current = setTimeout(() => {
+      if (lastMessage?.type === 'eta_update' && lastMessage?.data?.requestId) {
+        setAmbulanceETA(prev => ({
+          ...prev,
+          [lastMessage.data.requestId]: lastMessage.data.eta
+        }));
       }
-      emergencyRequestsQuery.refetch();
-    }
+      
+      // Handle hospital bed updates
+      if (lastMessage?.type === 'hospital_bed_update') {
+        console.log('🏥 Received hospital bed update:', lastMessage.data);
+        queryClient.invalidateQueries({ queryKey: ['/api/hospitals/nearby'] });
+      }
+      
+      // Handle emergency status updates
+      if (lastMessage?.type === 'emergency_status_update') {
+        emergencyRequestsQuery.refetch();
+      }
+      
+      // Handle ambulance responses
+      if (lastMessage?.type === 'ambulance_response') {
+        const data = lastMessage.data;
+        if (data.status === 'accepted' || data.status === 'rejected') {
+          setRequestSubmitted(false);
+        }
+        emergencyRequestsQuery.refetch();
+      }
+    }, 200); // 200ms debounce to prevent rapid changes
+    
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
   }, [lastMessage]);
 
   // Emergency request mutation
@@ -424,7 +461,7 @@ export default function UnifiedPatientDashboard() {
                 Request Emergency Assistance
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95vw] max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="w-[95vw] max-w-[600px] max-h-[90vh] overflow-y-auto" onInteractOutside={(e) => e.preventDefault()}>
               <DialogHeader>
                 <DialogTitle className="text-lg sm:text-xl">Emergency Request Details</DialogTitle>
                 <DialogDescription className="text-sm sm:text-base">
