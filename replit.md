@@ -5,6 +5,8 @@ EmergencyConnect is a comprehensive emergency response coordination platform des
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
+Database: Production Neon PostgreSQL database (connected successfully with 27 users)
+Migration Status: Successfully migrated to Replit environment on August 13, 2025
 
 ## System Architecture
 ### Core Design Principles
