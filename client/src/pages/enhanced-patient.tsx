@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-import { MapPin, Clock, Phone, Bed, AlertCircle, Activity, Heart, Ambulance, Hospital, CheckCircle, X, Star, Users, Timer, Shield } from 'lucide-react';
+import { MapPin, Clock, Phone, Bed, AlertCircle, Activity, Heart, Ambulance, Hospital, CheckCircle, X, Star, Users, Timer, Shield, Navigation as NavigationIcon } from 'lucide-react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
@@ -25,6 +25,7 @@ export default function EnhancedPatientDashboard() {
   const { user } = useAuth();
   const { location, error: locationError } = useGeolocation();
   const { isConnected, socket, lastMessage } = useSocket();
+  const { toast } = useToast();
   
   // Helper function to get hospital name by ID
   const getHospitalName = (hospitalId: number): string => {
@@ -51,7 +52,7 @@ export default function EnhancedPatientDashboard() {
     queryKey: ['/api/hospitals/nearby', location?.latitude, location?.longitude],
     enabled: !!location,
     staleTime: 15 * 60 * 1000, // Cache hospitals for 15 minutes
-    cacheTime: 60 * 60 * 1000, // Keep in memory for 1 hour
+    gcTime: 60 * 60 * 1000, // Keep in memory for 1 hour
     refetchOnWindowFocus: false,
     retry: 1,
   });
@@ -62,12 +63,12 @@ export default function EnhancedPatientDashboard() {
     refetchInterval: 30000, // Reduced to 30 seconds for better performance
     refetchIntervalInBackground: false,
     staleTime: 10 * 1000, // Consider data fresh for 10 seconds
-    cacheTime: 5 * 60 * 1000, // Cache for 5 minutes
+    gcTime: 5 * 60 * 1000, // Cache for 5 minutes
     retry: 1,
   });
 
-  const hospitals = hospitalsQuery.data || [];
-  const emergencyRequests = emergencyRequestsQuery.data || [];
+  const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
+  const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) ? emergencyRequestsQuery.data : [];
   
   // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
   const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
@@ -77,7 +78,7 @@ export default function EnhancedPatientDashboard() {
       console.log('📱 Enabling ambulance data loading after 5s delay');
       setEnableAmbulanceData(true);
       // Optional: Show a subtle toast notification
-      toast && toast({
+      toast({
         title: "Ambulance locations loaded",
         description: "Real-time ambulance positions are now visible on the map",
         duration: 3000,

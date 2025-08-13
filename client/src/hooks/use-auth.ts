@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     enabled: !!token,
     retry: 1,
     staleTime: 5 * 60 * 1000, // 5 minutes - user data rarely changes
-    cacheTime: 15 * 60 * 1000, // 15 minutes cache retention
+    gcTime: 15 * 60 * 1000, // 15 minutes cache retention
   });
 
   const loginMutation = useMutation({
