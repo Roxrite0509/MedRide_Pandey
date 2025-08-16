@@ -69,7 +69,9 @@ export default function UnifiedPatientDashboard() {
   });
 
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
-  const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) ? emergencyRequestsQuery.data : [];
+  const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) 
+    ? emergencyRequestsQuery.data.filter((req: any) => req.status !== 'deleted') // Filter out deleted requests
+    : [];
   
   // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
   const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
@@ -219,8 +221,20 @@ export default function UnifiedPatientDashboard() {
       const response = await apiRequest('PATCH', `/api/emergency/requests/${requestId}/cancel`);
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+    onSuccess: (data) => {
+      // Update cache immediately without invalidating to prevent socket disconnection
+      queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
+        if (!Array.isArray(oldData)) return oldData;
+        return oldData.map((req: any) => 
+          req.id === data.id ? { ...req, status: 'cancelled' } : req
+        );
+      });
+      
+      // Delayed invalidation to refresh data
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      }, 1000);
+      
       toast({
         title: "Request cancelled",
         description: "Your emergency request has been cancelled.",
@@ -244,8 +258,18 @@ export default function UnifiedPatientDashboard() {
       const response = await apiRequest('DELETE', `/api/emergency/requests/${requestId}`);
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+    onSuccess: (data, requestId) => {
+      // Remove from cache immediately for instant UI update
+      queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
+        if (!Array.isArray(oldData)) return oldData;
+        return oldData.filter((req: any) => req.id !== requestId);
+      });
+      
+      // Delayed invalidation to refresh data
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      }, 1000);
+      
       toast({
         title: "Request deleted",
         description: "Emergency request has been removed from your history.",
