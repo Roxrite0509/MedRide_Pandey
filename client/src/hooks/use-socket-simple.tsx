@@ -18,12 +18,14 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const token = localStorage.getItem('token');
   const connectionRef = useRef<boolean>(false);
+  const isUnmountingRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (!user || !token || connectionRef.current) return;
 
     console.log('🔌 Initializing Socket.IO connection...');
     connectionRef.current = true;
+    isUnmountingRef.current = false;
 
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const host = window.location.host;
@@ -34,18 +36,25 @@ export function SocketProvider({ children }: { children: ReactNode }) {
       auth: { token },
       transports: ['websocket', 'polling'],
       reconnection: true,
-      reconnectionAttempts: 2,
-      reconnectionDelay: 3000,
-      reconnectionDelayMax: 10000,
+      reconnectionAttempts: 5, // Increased from 2
+      reconnectionDelay: 1000, // Reduced from 3000
+      reconnectionDelayMax: 5000, // Reduced from 10000
+      timeout: 20000,
+      forceNew: false,
+      autoConnect: true,
     });
 
     newSocket.on('connect', () => {
-      console.log('✅ Socket.IO connected:', newSocket.id);
-      setIsConnected(true);
+      if (!isUnmountingRef.current) {
+        console.log('✅ Socket.IO connected:', newSocket.id);
+        setIsConnected(true);
+      }
     });
 
     newSocket.on('connection:ack', (data) => {
-      console.log('🎯 Connection acknowledged:', data);
+      if (!isUnmountingRef.current) {
+        console.log('🎯 Connection acknowledged:', data);
+      }
     });
 
     // Handle real-time events
@@ -73,21 +82,39 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     });
 
     newSocket.on('disconnect', (reason) => {
-      console.log('🔌 Socket.IO disconnected:', reason);
-      setIsConnected(false);
+      if (!isUnmountingRef.current) {
+        console.log('🔌 Socket.IO disconnected:', reason);
+        setIsConnected(false);
+        
+        // Only attempt reconnection for client-side disconnects
+        if (reason === 'transport close' || reason === 'ping timeout') {
+          setTimeout(() => {
+            if (!isUnmountingRef.current && newSocket && !newSocket.connected) {
+              console.log('🔄 Attempting manual reconnection...');
+              newSocket.connect();
+            }
+          }, 2000);
+        }
+      }
     });
 
     newSocket.on('connect_error', (error) => {
-      console.error('❌ Socket.IO connection error:', error);
-      setIsConnected(false);
+      if (!isUnmountingRef.current) {
+        console.error('❌ Socket.IO connection error:', error);
+        setIsConnected(false);
+      }
     });
 
     setSocket(newSocket);
 
     return () => {
       console.log('🧹 Cleaning up Socket.IO connection');
-      newSocket.disconnect();
+      isUnmountingRef.current = true;
       connectionRef.current = false;
+      if (newSocket) {
+        newSocket.removeAllListeners();
+        newSocket.disconnect();
+      }
     };
   }, [user?.id, token]);
 

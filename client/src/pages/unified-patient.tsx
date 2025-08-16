@@ -63,9 +63,10 @@ export default function UnifiedPatientDashboard() {
     enabled: !!user?.id,
     refetchInterval: 30000, // Reduced to 30 seconds for better performance
     refetchIntervalInBackground: false,
-    staleTime: 10 * 1000, // Consider data fresh for 10 seconds
+    staleTime: 15 * 1000, // Consider data fresh for 15 seconds to reduce calls
     gcTime: 5 * 60 * 1000, // Cache for 5 minutes
     retry: 1,
+    refetchOnWindowFocus: false, // Prevent refetch on window focus
   });
 
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
@@ -75,21 +76,33 @@ export default function UnifiedPatientDashboard() {
   
   // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
   const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
+  const ambulanceLoadTimerRef = useRef<NodeJS.Timeout>();
   
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Clear any existing timer
+    if (ambulanceLoadTimerRef.current) {
+      clearTimeout(ambulanceLoadTimerRef.current);
+    }
+    
+    ambulanceLoadTimerRef.current = setTimeout(() => {
       console.log('📱 Enabling ambulance data loading after 5s delay');
       setEnableAmbulanceData(true);
-      // Optional: Show a subtle toast notification
-      toast({
-        title: "Ambulance locations loaded",
-        description: "Real-time ambulance positions are now visible on the map",
-        duration: 3000,
-      });
+      // Show toast only once
+      if (!enableAmbulanceData) {
+        toast({
+          title: "Ambulance locations loaded",
+          description: "Real-time ambulance positions are now visible on the map",
+          duration: 3000,
+        });
+      }
     }, 5000); // 5 second delay
     
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      if (ambulanceLoadTimerRef.current) {
+        clearTimeout(ambulanceLoadTimerRef.current);
+      }
+    };
+  }, []); // Remove dependency to prevent infinite loop
 
   // Show loading state
   const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
@@ -215,33 +228,40 @@ export default function UnifiedPatientDashboard() {
     },
   });
 
-  // Cancel request mutation
+  // Cancel request mutation with optimistic updates
   const cancelMutation = useMutation({
     mutationFn: async (requestId: number) => {
       const response = await apiRequest('PATCH', `/api/emergency/requests/${requestId}/cancel`);
       return response.json();
     },
-    onSuccess: (data) => {
-      // Update cache immediately without invalidating to prevent socket disconnection
+    onMutate: async (requestId) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['/api/emergency/requests'] });
+      
+      // Snapshot the previous value
+      const previousRequests = queryClient.getQueryData(['/api/emergency/requests']);
+      
+      // Optimistically update to the new value
       queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
         if (!Array.isArray(oldData)) return oldData;
         return oldData.map((req: any) => 
-          req.id === data.id ? { ...req, status: 'cancelled' } : req
+          req.id === requestId ? { ...req, status: 'cancelled' } : req
         );
       });
       
-      // Delayed invalidation to refresh data
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      }, 1000);
-      
+      // Return a context object with the snapshotted value
+      return { previousRequests };
+    },
+    onSuccess: (data) => {
       toast({
         title: "Request cancelled",
         description: "Your emergency request has been cancelled.",
         duration: 3000,
       });
     },
-    onError: (error) => {
+    onError: (error, requestId, context) => {
+      // Rollback on error
+      queryClient.setQueryData(['/api/emergency/requests'], context?.previousRequests);
       console.error('Error cancelling emergency request:', error);
       toast({
         title: "Cancellation failed",
@@ -250,33 +270,44 @@ export default function UnifiedPatientDashboard() {
         duration: 3000,
       });
     },
+    onSettled: () => {
+      // Always refetch after error or success to ensure server state
+      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+    },
   });
 
-  // Delete request mutation
+  // Delete request mutation with optimistic updates
   const deleteMutation = useMutation({
     mutationFn: async (requestId: number) => {
       const response = await apiRequest('DELETE', `/api/emergency/requests/${requestId}`);
       return response.json();
     },
-    onSuccess: (data, requestId) => {
-      // Remove from cache immediately for instant UI update
+    onMutate: async (requestId) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['/api/emergency/requests'] });
+      
+      // Snapshot the previous value
+      const previousRequests = queryClient.getQueryData(['/api/emergency/requests']);
+      
+      // Optimistically remove from cache
       queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
         if (!Array.isArray(oldData)) return oldData;
         return oldData.filter((req: any) => req.id !== requestId);
       });
       
-      // Delayed invalidation to refresh data
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      }, 1000);
-      
+      // Return a context object with the snapshotted value
+      return { previousRequests };
+    },
+    onSuccess: (data, requestId) => {
       toast({
         title: "Request deleted",
         description: "Emergency request has been removed from your history.",
         duration: 3000,
       });
     },
-    onError: (error) => {
+    onError: (error, requestId, context) => {
+      // Rollback on error
+      queryClient.setQueryData(['/api/emergency/requests'], context?.previousRequests);
       console.error('Error deleting emergency request:', error);
       toast({
         title: "Deletion failed",
@@ -284,6 +315,10 @@ export default function UnifiedPatientDashboard() {
         variant: "destructive",
         duration: 3000,
       });
+    },
+    onSettled: () => {
+      // Always refetch after error or success to ensure server state
+      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
     },
   });
 
