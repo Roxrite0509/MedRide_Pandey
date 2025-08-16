@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { useGeolocation } from '@/hooks/use-geolocation';
-import { useSocket } from '@/hooks/use-socket-simple';
+import { useSocket } from '@/hooks/use-socket';
 import { NotificationSystem } from '@/components/notification-system';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';

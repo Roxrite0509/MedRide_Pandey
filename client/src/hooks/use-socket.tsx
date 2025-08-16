@@ -23,54 +23,59 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const token = localStorage.getItem('token');
   const isInitialized = useRef(false);
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
+  const isUnmountingRef = useRef(false);
 
   const connectSocket = useCallback(() => {
-    if (!user || !token || socket?.connected) return;
+    if (!user || !token || socket?.connected || isInitialized.current) return;
     
-    if (isInitialized.current) {
-      console.log('🔌 Socket connection already initialized, skipping...');
-      return;
-    }
-    
+    console.log('🔌 Connecting to Socket.IO server...');
     isInitialized.current = true;
+    isUnmountingRef.current = false;
     setIsConnecting(true);
     setConnectionAttempts(prev => prev + 1);
 
-    console.log('🔌 Connecting to Socket.IO server...');
+    // Clear any existing reconnection timeout
+    if (reconnectTimeoutRef.current) {
+      clearTimeout(reconnectTimeoutRef.current);
+    }
 
     // Determine the Socket.IO server URL
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const host = window.location.host;
     const socketUrl = `${protocol}//${host}`;
 
-    // Create Socket.IO connection
+    // Create Socket.IO connection with optimized settings
     const newSocket = io(socketUrl, {
       path: '/socket.io',
       auth: {
         token: token
       },
       transports: ['websocket', 'polling'],
-      timeout: 10000,
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000
+      timeout: 15000,
+      reconnection: false, // Handle reconnection manually for better control
+      forceNew: false,
+      autoConnect: true
     });
 
     // Connection successful
     newSocket.on('connect', () => {
-      console.log('✅ Socket.IO connected:', newSocket.id);
-      setIsConnected(true);
-      setIsConnecting(false);
-      setConnectionAttempts(0);
+      if (!isUnmountingRef.current) {
+        console.log('✅ Socket.IO connected:', newSocket.id);
+        setIsConnected(true);
+        setIsConnecting(false);
+        setConnectionAttempts(0);
+      }
     });
 
     // Connection acknowledgment
     newSocket.on('connection:ack', (data) => {
-      console.log('🎯 Connection acknowledged:', data);
+      if (!isUnmountingRef.current) {
+        console.log('🎯 Connection acknowledged:', data);
+      }
     });
 
-    // Handle all real-time events
+    // Handle all real-time events with proper error handling
     const eventHandlers = [
       'emergency:new',
       'ambulance:response', 
@@ -85,103 +90,140 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
     eventHandlers.forEach(event => {
       newSocket.on(event, (data) => {
-        console.log(`📨 Received ${event}:`, data);
-        setLastMessage({ 
-          type: event.replace(':', '_'), // Convert to legacy format for compatibility
-          event: event,
-          data: data,
-          timestamp: new Date().toISOString()
-        });
+        if (!isUnmountingRef.current) {
+          console.log(`📨 Received ${event}:`, data);
+          setLastMessage({ 
+            type: event.replace(':', '_'), // Convert to legacy format for compatibility
+            event: event,
+            data: data,
+            timestamp: new Date().toISOString()
+          });
+        }
       });
     });
 
     // Handle legacy event format for backward compatibility
-    newSocket.on('eta_update', (data) => {
-      setLastMessage({ type: 'eta_update', data, timestamp: new Date().toISOString() });
-    });
+    const legacyEvents = [
+      'eta_update',
+      'emergency_status_update', 
+      'ambulance_response',
+      'new_emergency_request',
+      'hospital_bed_update',
+      'new_message'
+    ];
 
-    newSocket.on('emergency_status_update', (data) => {
-      setLastMessage({ type: 'emergency_status_update', data, timestamp: new Date().toISOString() });
-    });
-
-    newSocket.on('ambulance_response', (data) => {
-      setLastMessage({ type: 'ambulance_response', data, timestamp: new Date().toISOString() });
-    });
-
-    newSocket.on('new_emergency_request', (data) => {
-      setLastMessage({ type: 'new_emergency_request', event: 'new_emergency_request', data, timestamp: new Date().toISOString() });
-    });
-
-    newSocket.on('hospital_bed_update', (data) => {
-      setLastMessage({ type: 'hospital_bed_update', event: 'hospital_bed_update', data, timestamp: new Date().toISOString() });
-    });
-
-    newSocket.on('new_message', (data) => {
-      setLastMessage({ type: 'new_message', event: 'new_message', data, timestamp: new Date().toISOString() });
+    legacyEvents.forEach(event => {
+      newSocket.on(event, (data) => {
+        if (!isUnmountingRef.current) {
+          console.log(`📨 Received legacy ${event}:`, data);
+          setLastMessage({ 
+            type: event, 
+            event: event,
+            data, 
+            timestamp: new Date().toISOString() 
+          });
+        }
+      });
     });
 
     // Connection errors
     newSocket.on('connect_error', (error) => {
-      console.error('❌ Socket.IO connection error:', error);
-      setIsConnecting(false);
-      setIsConnected(false);
+      if (!isUnmountingRef.current) {
+        console.error('❌ Socket.IO connection error:', error);
+        setIsConnecting(false);
+        setIsConnected(false);
+        
+        // Retry connection with exponential backoff (max 3 attempts)
+        if (connectionAttempts < 3) {
+          const delay = Math.min(1000 * Math.pow(2, connectionAttempts), 10000);
+          console.log(`🔄 Scheduling reconnection attempt in ${delay}ms`);
+          
+          reconnectTimeoutRef.current = setTimeout(() => {
+            if (!isUnmountingRef.current) {
+              isInitialized.current = false;
+              connectSocket();
+            }
+          }, delay);
+        }
+      }
     });
 
     // Disconnection
     newSocket.on('disconnect', (reason) => {
-      console.log('🔌 Socket.IO disconnected:', reason);
-      setIsConnected(false);
-      setIsConnecting(false);
-      
-      // Auto-reconnect for certain reasons
-      if (reason === 'io server disconnect') {
-        // Server initiated disconnect, reconnect manually
-        setTimeout(() => {
-          if (newSocket && !newSocket.connected) {
-            newSocket.connect();
-          }
-        }, 1000);
+      if (!isUnmountingRef.current) {
+        console.log('🔌 Socket.IO disconnected:', reason);
+        setIsConnected(false);
+        setIsConnecting(false);
+        
+        // Auto-reconnect for specific reasons only
+        if (reason === 'transport close' || reason === 'ping timeout') {
+          const delay = 2000;
+          console.log(`🔄 Scheduling reconnection for reason: ${reason} in ${delay}ms`);
+          
+          reconnectTimeoutRef.current = setTimeout(() => {
+            if (!isUnmountingRef.current && connectionAttempts < 3) {
+              isInitialized.current = false;
+              connectSocket();
+            }
+          }, delay);
+        }
       }
     });
 
     // Reconnection events
     newSocket.on('reconnect', (attemptNumber) => {
-      console.log('🔄 Socket.IO reconnected after', attemptNumber, 'attempts');
-      setIsConnected(true);
-      setIsConnecting(false);
-      setConnectionAttempts(0);
+      if (!isUnmountingRef.current) {
+        console.log('🔄 Socket.IO reconnected after', attemptNumber, 'attempts');
+        setIsConnected(true);
+        setIsConnecting(false);
+        setConnectionAttempts(0);
+      }
     });
 
     newSocket.on('reconnect_attempt', (attemptNumber) => {
-      console.log('🔄 Socket.IO reconnection attempt:', attemptNumber);
-      setIsConnecting(true);
+      if (!isUnmountingRef.current) {
+        console.log('🔄 Socket.IO reconnection attempt:', attemptNumber);
+        setIsConnecting(true);
+      }
     });
 
     newSocket.on('reconnect_failed', () => {
-      console.error('❌ Socket.IO reconnection failed');
-      setIsConnecting(false);
-      setIsConnected(false);
+      if (!isUnmountingRef.current) {
+        console.error('❌ Socket.IO reconnection failed');
+        setIsConnecting(false);
+        setIsConnected(false);
+      }
     });
 
     setSocket(newSocket);
-  }, [user?.id, token, socket?.connected]);
+  }, [user?.id, token, connectionAttempts]);
 
   // Initialize connection when user and token are available
   useEffect(() => {
-    if (user && token && !socket && !isInitialized.current) {
+    if (user && token && !isInitialized.current) {
       console.log('🔌 Initializing Socket.IO connection for user:', user.username);
       connectSocket();
     }
 
-    // Cleanup only on unmount
+    // Cleanup on unmount
     return () => {
-      if (socket && isInitialized.current) {
+      if (socket || reconnectTimeoutRef.current) {
         console.log('🧹 Cleaning up Socket.IO connection');
-        socket.disconnect();
-        setSocket(null);
+        isUnmountingRef.current = true;
+        isInitialized.current = false;
+        
+        if (reconnectTimeoutRef.current) {
+          clearTimeout(reconnectTimeoutRef.current);
+        }
+        
+        if (socket) {
+          socket.removeAllListeners();
+          socket.disconnect();
+          setSocket(null);
+        }
+        
         setIsConnected(false);
         setIsConnecting(false);
-        isInitialized.current = false;
       }
     };
   }, [user?.id, token]); // Only depend on user ID and token changes
@@ -215,12 +257,28 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
   const forceReconnect = useCallback(() => {
     console.log('🔄 Force reconnecting Socket.IO...');
-    if (socket) {
-      socket.disconnect();
-      socket.connect();
-    } else {
-      connectSocket();
+    isUnmountingRef.current = true;
+    
+    if (reconnectTimeoutRef.current) {
+      clearTimeout(reconnectTimeoutRef.current);
     }
+    
+    if (socket) {
+      socket.removeAllListeners();
+      socket.disconnect();
+    }
+    
+    setSocket(null);
+    setIsConnected(false);
+    setIsConnecting(false);
+    isInitialized.current = false;
+    
+    // Wait a moment then reconnect
+    setTimeout(() => {
+      isUnmountingRef.current = false;
+      setConnectionAttempts(0);
+      connectSocket();
+    }, 1000);
   }, [socket, connectSocket]);
 
   const contextValue: SocketContextType = {
@@ -239,9 +297,6 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     </SocketContext.Provider>
   );
 }
-
-// Backward compatibility alias
-export const WebSocketProvider = SocketProvider;
 
 export function useSocket(): SocketContextType {
   const context = useContext(SocketContext);
@@ -265,5 +320,6 @@ export function useSocket(): SocketContextType {
   return context;
 }
 
-// Backward compatibility alias
+// Backward compatibility aliases
 export const useWebSocket = useSocket;
+export const WebSocketProvider = SocketProvider;

@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { LocationMap } from "@/components/LocationMap";
 import { StableNavigationMap } from "@/components/stable-navigation-map";
-import { useSocket } from "@/hooks/use-socket-simple";
+import { useSocket } from "@/hooks/use-socket";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
