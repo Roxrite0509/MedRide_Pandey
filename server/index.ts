@@ -2,16 +2,7 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-// Fallback logging function
-function log(message: string, source = "express") {
-  const formattedTime = new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-  console.log(`${formattedTime} [${source}] ${message}`);
-}
+import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 app.use(express.json());
@@ -72,51 +63,13 @@ app.use((req, res, next) => {
     });
   });
 
-  // Setup Vite in development or serve static files in production
+  // importantly only setup vite in development and after
+  // setting up all the other routes so the catch-all route
+  // doesn't interfere with the other routes
   if (app.get("env") === "development") {
-    try {
-      // Dynamic import of Vite module
-      const viteModule = await import("./vite.js");
-      await viteModule.setupVite(app, server);
-      log("Vite development server configured successfully");
-    } catch (error) {
-      log(`Vite setup failed: ${error.message}`);
-      // Fallback: serve basic HTML page
-      app.use("*", (req, res) => {
-        res.send(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>EmergencyConnect - Development</title>
-              <style>
-                body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-                .container { background: white; padding: 20px; border-radius: 8px; max-width: 600px; }
-                .status { color: #22c55e; }
-                .info { color: #3b82f6; }
-              </style>
-            </head>
-            <body>
-              <div class="container">
-                <h1>🏥 EmergencyConnect API Server</h1>
-                <p class="status">✅ API server is running on port 5000</p>
-                <p class="status">✅ Database connected (27 users found)</p>
-                <p class="info">📝 Frontend development mode is ready</p>
-                <p>API endpoints are available at: <code>/api/*</code></p>
-              </div>
-            </body>
-          </html>
-        `);
-      });
-    }
+    await setupVite(app, server);
   } else {
-    try {
-      const viteModule = await import("./vite.js");
-      viteModule.serveStatic(app);
-    } catch (error) {
-      app.use("*", (req, res) => {
-        res.json({ message: "Production server ready", api: true });
-      });
-    }
+    serveStatic(app);
   }
 
   // ALWAYS serve the app on port 5000
