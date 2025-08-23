@@ -349,19 +349,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       );
       
       // Broadcast bed status update to all connected clients
-      connectedClients.forEach((client) => {
-        if (client.ws.readyState === WebSocket.OPEN) {
-          client.ws.send(JSON.stringify({
-            type: 'hospital_bed_update',
-            data: {
-              hospitalId,
-              totalBeds,
-              availableBeds,
-              icuBeds,
-              availableIcuBeds
-            }
-          }));
-        }
+      broadcastToAll('hospital:bed_update', {
+        hospitalId,
+        totalBeds,
+        availableBeds,
+        icuBeds,
+        availableIcuBeds
       });
       
       res.json(updatedHospital);
@@ -607,13 +600,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const updatedRequest = await storage.assignPatientToBed(emergencyRequestId, bedNumber);
       
       // Broadcast update to all connected clients
-      broadcastToAll({
-        type: 'patient_assigned_to_bed',
-        data: {
-          emergencyRequestId,
-          bedNumber,
-          request: updatedRequest
-        }
+      broadcastToAll('emergency:status_update', {
+        emergencyRequestId,
+        bedNumber,
+        request: updatedRequest
       });
       
       res.json({ 
@@ -661,10 +651,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Broadcast to all available ambulances
-      broadcastToRole('ambulance', {
-        type: 'new_emergency_request',
-        data: emergencyRequest
-      });
+      broadcastToRole('ambulance', 'emergency:new', emergencyRequest);
 
       res.json(emergencyRequest);
     } catch (error) {
@@ -801,15 +788,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         data: updatedRequest
       });
       
-      broadcastToRole('hospital', {
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
+      broadcastToRole('hospital', 'emergency:status_update', updatedRequest);
       
-      broadcastToRole('ambulance', {
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
+      broadcastToRole('ambulance', 'emergency:status_update', updatedRequest);
 
       res.json(updatedRequest);
     } catch (error) {
@@ -871,10 +852,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Broadcast update to all connected clients
-      broadcastToAll({
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
+      broadcastToAll('emergency:status_update', updatedRequest);
       
       res.json(updatedRequest);
     } catch (error) {
@@ -914,10 +892,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Broadcast update to all connected clients
-      broadcastToAll({
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
+      broadcastToAll('emergency:status_update', updatedRequest);
       
       res.json(updatedRequest);
     } catch (error) {
@@ -979,10 +954,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Broadcast update to all connected clients
-      broadcastToAll({
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
+      broadcastToAll('emergency:status_update', updatedRequest);
       
       res.json(updatedRequest);
     } catch (error) {
@@ -1228,10 +1200,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Broadcast hospital status update
-      broadcastToRole('ambulance', {
-        type: 'hospital_status_update',
-        data: hospital
-      });
+      broadcastToRole('ambulance', 'hospital:bed_update', hospital);
 
       res.json(hospital);
     } catch (error) {
@@ -1253,16 +1222,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Broadcast bed update to all connected clients via WebSocket
-      broadcastToAll({
-        type: 'hospital_bed_update',
-        data: {
-          hospitalId,
-          totalBeds,
-          availableBeds,
-          icuBeds,
-          availableIcuBeds,
-          timestamp: Date.now()
-        }
+      broadcastToAll('hospital:bed_update', {
+        hospitalId,
+        totalBeds,
+        availableBeds,
+        icuBeds,
+        availableIcuBeds,
+        timestamp: Date.now()
       });
 
       res.json(hospital);

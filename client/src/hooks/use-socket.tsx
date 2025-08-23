@@ -53,7 +53,10 @@ export function SocketProvider({ children }: { children: ReactNode }) {
       },
       transports: ['websocket', 'polling'],
       timeout: 15000,
-      reconnection: false, // Handle reconnection manually for better control
+      reconnection: true, // Enable automatic reconnection
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5,
       forceNew: false,
       autoConnect: true
     });
@@ -155,10 +158,13 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         setIsConnected(false);
         setIsConnecting(false);
         
-        // Auto-reconnect for specific reasons only
-        if (reason === 'transport close' || reason === 'ping timeout') {
+        // Let Socket.IO handle automatic reconnection for transport errors
+        console.log(`🔌 Socket disconnected due to: ${reason}. Auto-reconnection will be handled by Socket.IO.`);
+        
+        // Only manually reconnect for server-side disconnections
+        if (reason === 'io server disconnect' || reason === 'io client disconnect') {
+          console.log(`🔄 Manual reconnection required for: ${reason}`);
           const delay = 2000;
-          console.log(`🔄 Scheduling reconnection for reason: ${reason} in ${delay}ms`);
           
           reconnectTimeoutRef.current = setTimeout(() => {
             if (!isUnmountingRef.current && connectionAttempts < 3) {
