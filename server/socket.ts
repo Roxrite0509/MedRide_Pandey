@@ -2,9 +2,15 @@ import { Server as IOServer } from 'socket.io';
 import { Server as HttpServer } from 'http';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
+import { kms } from './kms';
 
+// Legacy JWT Secret for backward compatibility
 const JWT_SECRET = (() => {
   const secret = process.env.JWT_SECRET;
+  if (!secret && process.env.NODE_ENV !== 'production') {
+    console.warn('⚠️  JWT_SECRET not found for Socket.IO, using KMS for authentication');
+    return 'fallback-development-only';
+  }
   if (!secret) {
     throw new Error('JWT_SECRET environment variable is required for security');
   }
@@ -60,10 +66,9 @@ const authenticateSocket = (socket: any, next: any) => {
       return next(new Error('Authentication token required'));
     }
 
-    jwt.verify(token, JWT_SECRET, (err: any, decoded: any) => {
-      if (err) {
-        return next(new Error('Invalid or expired token'));
-      }
+    try {
+      // Try KMS verification first
+      const decoded = kms.verifyToken(token);
       
       // Store user data in socket
       socket.data.userId = decoded.id;
@@ -72,8 +77,28 @@ const authenticateSocket = (socket: any, next: any) => {
       socket.data.ambulanceId = decoded.ambulanceId;
       socket.data.hospitalId = decoded.hospitalId;
       
+      console.log(`🔐 Socket authenticated via KMS: ${decoded.username} (${decoded.role})`);
       next();
-    });
+    } catch (kmsError) {
+      // Fallback to legacy JWT verification
+      jwt.verify(token, JWT_SECRET, (err: any, decoded: any) => {
+        if (err) {
+          console.warn('Socket authentication failed - both KMS and legacy JWT failed:', { kmsError: kmsError.message, jwtError: err.message });
+          return next(new Error('Invalid or expired token'));
+        }
+        
+        console.warn(`⚠️  Socket using legacy JWT for ${decoded.username} - consider token refresh`);
+        
+        // Store user data in socket
+        socket.data.userId = decoded.id;
+        socket.data.username = decoded.username;
+        socket.data.role = decoded.role;
+        socket.data.ambulanceId = decoded.ambulanceId;
+        socket.data.hospitalId = decoded.hospitalId;
+        
+        next();
+      });
+    }
   } catch (error) {
     next(new Error('Authentication failed'));
   }
