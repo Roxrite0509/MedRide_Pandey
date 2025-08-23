@@ -9,6 +9,7 @@ import { sql } from "drizzle-orm";
 import { loginSchema, registerSchema, insertEmergencyRequestSchema, insertCommunicationSchema } from "@shared/schema";
 import { z } from "zod";
 import { kms, type JWTPayload } from "./kms";
+import { jwtRotationManager } from "./jwt-rotation";
 
 // Simple in-memory cache for performance optimization
 const cache = new Map<string, { data: any; timestamp: number; ttl: number }>();
@@ -35,13 +36,9 @@ function setCachedData(key: string, data: any, ttlMs: number = 30000) {
 // Google Maps integration - using fetch API instead of the googlemaps package
 // This avoids ES module compatibility issues
 
-// Legacy JWT_SECRET for backward compatibility in development
+// JWT_SECRET with automatic 30-minute rotation (no additional env vars needed)
 const JWT_SECRET = (() => {
   const secret = process.env.JWT_SECRET;
-  if (!secret && process.env.NODE_ENV !== 'production') {
-    console.warn('⚠️  JWT_SECRET not found, using KMS for key management');
-    return 'fallback-development-only';
-  }
   if (!secret) {
     throw new Error('JWT_SECRET environment variable is required for security');
   }
@@ -81,7 +78,7 @@ declare global {
   }
 }
 
-// Enhanced auth middleware with KMS support
+// Enhanced auth middleware with automatic JWT rotation
 const authenticateToken = (req: any, res: any, next: any) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -91,21 +88,14 @@ const authenticateToken = (req: any, res: any, next: any) => {
   }
 
   try {
-    // Try KMS verification first
-    const user = kms.verifyToken(token);
+    // Use rotating JWT verification
+    const user = jwtRotationManager.verifyToken(token);
     req.user = user;
     next();
-  } catch (kmsError) {
-    // Fallback to legacy JWT verification for backward compatibility
-    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
-      if (err) {
-        console.warn('Both KMS and legacy JWT verification failed:', { kmsError: kmsError.message, jwtError: err.message });
-        return res.status(403).json({ message: 'Invalid or expired token' });
-      }
-      console.warn('Using legacy JWT verification - consider token refresh');
-      req.user = user;
-      next();
-    });
+  } catch (jwtError) {
+    const errorMessage = jwtError instanceof Error ? jwtError.message : 'Unknown error';
+    console.warn('JWT verification failed with rotating secrets:', errorMessage);
+    return res.status(403).json({ message: 'Invalid or expired token' });
   }
 };
 
@@ -126,9 +116,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const { healthCheck } = await import('./health');
   app.get('/api/health', healthCheck);
 
-  // Register KMS admin routes
+  // Register admin routes (includes JWT rotation status)
   const { registerAdminRoutes } = await import('./admin');
   registerAdminRoutes(app);
+  
+  // Add JWT rotation status endpoint
+  app.get('/api/admin/jwt/rotation-status', authenticateToken, (req: any, res: any) => {
+    try {
+      if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Admin access required' });
+      }
+      
+      const status = jwtRotationManager.getRotationStatus();
+      const timeUntilNextMinutes = Math.round(status.timeUntilNext / 1000 / 60);
+      
+      res.json({
+        success: true,
+        status: {
+          ...status,
+          timeUntilNextMinutes,
+          rotationIntervalMinutes: 30
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Failed to get JWT rotation status:', error);
+      res.status(500).json({ message: 'Failed to retrieve rotation status' });
+    }
+  });
 
   // Initialize Socket.IO server
   const io = initializeSocketIO(httpServer);
@@ -472,10 +487,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      // Use KMS for secure token generation
-      const token = kms.createToken(tokenPayload as JWTPayload, '24h');
+      // Use rotating JWT for token generation
+      const token = jwtRotationManager.createToken(tokenPayload, '24h');
       
-      console.log(`🔐 Generated secure token for user ${user.username} (${user.role}) using KMS`);
+      console.log(`🔐 Generated rotating JWT token for user ${user.username} (${user.role})`);
 
       res.json({ 
         token, 
@@ -510,16 +525,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Get user with profile data
       const userWithProfile = await storage.getUserWithProfile(user.id);
       
-      // Use KMS for secure token generation
-      const tokenPayload: JWTPayload = {
+      // Use rotating JWT for token generation
+      const tokenPayload = {
         id: user.id,
         username: user.username,
         role: user.role
       };
       
-      const token = kms.createToken(tokenPayload, '24h');
+      const token = jwtRotationManager.createToken(tokenPayload, '24h');
       
-      console.log(`🔐 Generated secure login token for user ${user.username} (${user.role}) using KMS`);
+      console.log(`🔐 Generated rotating JWT login token for user ${user.username} (${user.role})`);
 
       // Skip expensive ambulance location operations during login - do this async after response
       if (userWithProfile && userWithProfile.role === 'ambulance' && userWithProfile.ambulanceProfile) {
