@@ -206,12 +206,10 @@ export default function UnifiedPatientDashboard() {
       // Snapshot the previous value
       const previousRequests = queryClient.getQueryData(['/api/emergency/requests']);
       
-      // Optimistically update to the new value
+      // Optimistically remove cancelled request from the active list
       queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
         if (!Array.isArray(oldData)) return oldData;
-        return oldData.map((req: any) => 
-          req.id === requestId ? { ...req, status: 'cancelled' } : req
-        );
+        return oldData.filter((req: any) => req.id !== requestId);
       });
       
       // Return a context object with the snapshotted value
@@ -236,8 +234,10 @@ export default function UnifiedPatientDashboard() {
       });
     },
     onSettled: () => {
-      // Always refetch after error or success to ensure server state
-      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      // Delay refetch slightly to prevent UI flicker and double-click issues
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      }, 1000);
     },
   });
 
