@@ -661,7 +661,13 @@ export default function UnifiedPatientDashboard() {
             </div>
           ) : (
             <div className="space-y-4">
-              {emergencyRequests.map((request: any) => (
+              {emergencyRequests
+                .filter((request: any) => 
+                  request.status !== 'cancelled' && 
+                  request.status !== 'completed' &&
+                  !cancellingRequests.has(request.id)
+                )
+                .map((request: any) => (
                 <Card key={request.id} className="border-l-4 border-l-blue-500">
                   <CardContent className="pt-6">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-4 lg:space-y-0">
