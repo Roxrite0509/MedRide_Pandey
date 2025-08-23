@@ -896,6 +896,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
+      // Clear emergency requests cache when request is cancelled
+      cache.forEach((value, key) => {
+        if (key.startsWith('emergency_requests_')) {
+          cache.delete(key);
+        }
+      });
+
       // Broadcast update to all connected clients
       broadcastToAll('emergency:status_update', updatedRequest);
       
