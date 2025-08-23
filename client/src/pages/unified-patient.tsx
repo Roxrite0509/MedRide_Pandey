@@ -194,7 +194,7 @@ export default function UnifiedPatientDashboard() {
   });
 
   // Track which requests are being cancelled to prevent double-clicks
-  const [cancellingRequests, setCancellingRequests] = useState<Set<number>>(new Set());
+  const [cancellingRequests, setCancellingRequests] = useState<number[]>([]);
 
   // Cancel request mutation with proper state management
   const cancelMutation = useMutation({
@@ -204,7 +204,7 @@ export default function UnifiedPatientDashboard() {
     },
     onMutate: async (requestId) => {
       // Mark this request as being cancelled
-      setCancellingRequests(prev => new Set([...prev, requestId]));
+      setCancellingRequests(prev => prev.includes(requestId) ? prev : [...prev, requestId]);
       
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/emergency/requests'] });
@@ -229,24 +229,16 @@ export default function UnifiedPatientDashboard() {
         duration: 3000,
       });
       
-      // Remove from cancelling set after success
-      setCancellingRequests(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(requestId);
-        return newSet;
-      });
+      // Remove from cancelling list after success
+      setCancellingRequests(prev => prev.filter(id => id !== requestId));
     },
     onError: (error, requestId, context) => {
       // Rollback on error
       queryClient.setQueryData(['/api/emergency/requests'], context?.previousRequests);
       console.error('Error cancelling emergency request:', error);
       
-      // Remove from cancelling set on error
-      setCancellingRequests(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(requestId);
-        return newSet;
-      });
+      // Remove from cancelling list on error
+      setCancellingRequests(prev => prev.filter(id => id !== requestId));
       
       toast({
         title: "Cancellation failed",
@@ -665,7 +657,7 @@ export default function UnifiedPatientDashboard() {
                 .filter((request: any) => 
                   request.status !== 'cancelled' && 
                   request.status !== 'completed' &&
-                  !cancellingRequests.has(request.id)
+                  !cancellingRequests.includes(request.id)
                 )
                 .map((request: any) => (
                 <Card key={request.id} className="border-l-4 border-l-blue-500">
@@ -773,17 +765,22 @@ export default function UnifiedPatientDashboard() {
                             size="sm"
                             onClick={() => {
                               // Prevent double clicks with multiple checks
+                              // Strong prevention of double-clicks
                               if (request.status === 'cancelled' || 
-                                  cancellingRequests.has(request.id) || 
-                                  cancelMutation.isPending) return;
+                                  cancellingRequests.includes(request.id) || 
+                                  cancelMutation.isPending) {
+                                console.log('❌ Cancel blocked - already processing');
+                                return;
+                              }
+                              console.log('✅ Processing cancel for request:', request.id);
                               cancelMutation.mutate(request.id);
                             }}
                             disabled={cancelMutation.isPending || 
                                      request.status === 'cancelled' || 
-                                     cancellingRequests.has(request.id)}
+                                     cancellingRequests.includes(request.id)}
                             className="text-orange-600 hover:text-orange-700 w-full sm:w-auto"
                           >
-                            {(cancelMutation.isPending || cancellingRequests.has(request.id)) ? 'Cancelling...' : 'Cancel'}
+                            {(cancelMutation.isPending || cancellingRequests.includes(request.id)) ? 'Cancelling...' : 'Cancel'}
                           </Button>
                         )}
                         {['completed', 'cancelled'].includes(request.status || 'pending') && (
