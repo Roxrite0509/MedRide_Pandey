@@ -745,11 +745,15 @@ export default function UnifiedPatientDashboard() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => cancelMutation.mutate(request.id)}
-                            disabled={cancelMutation.isPending}
+                            onClick={() => {
+                              // Prevent double clicks by checking if this specific request is already cancelled
+                              if (request.status === 'cancelled') return;
+                              cancelMutation.mutate(request.id);
+                            }}
+                            disabled={cancelMutation.isPending || request.status === 'cancelled'}
                             className="text-orange-600 hover:text-orange-700 w-full sm:w-auto"
                           >
-                            Cancel
+                            {cancelMutation.isPending ? 'Cancelling...' : 'Cancel'}
                           </Button>
                         )}
                         {['completed', 'cancelled'].includes(request.status || 'pending') && (
