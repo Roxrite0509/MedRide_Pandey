@@ -193,39 +193,61 @@ export default function UnifiedPatientDashboard() {
     },
   });
 
-  // Cancel request mutation with optimistic updates
+  // Track which requests are being cancelled to prevent double-clicks
+  const [cancellingRequests, setCancellingRequests] = useState<Set<number>>(new Set());
+
+  // Cancel request mutation with proper state management
   const cancelMutation = useMutation({
     mutationFn: async (requestId: number) => {
       const response = await apiRequest('PATCH', `/api/emergency/requests/${requestId}/cancel`);
       return response.json();
     },
     onMutate: async (requestId) => {
+      // Mark this request as being cancelled
+      setCancellingRequests(prev => new Set([...prev, requestId]));
+      
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['/api/emergency/requests'] });
       
       // Snapshot the previous value
       const previousRequests = queryClient.getQueryData(['/api/emergency/requests']);
       
-      // Optimistically remove cancelled request from the active list
+      // Optimistically mark as cancelled
       queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
         if (!Array.isArray(oldData)) return oldData;
-        return oldData.filter((req: any) => req.id !== requestId);
+        return oldData.map((req: any) => 
+          req.id === requestId ? { ...req, status: 'cancelled' } : req
+        );
       });
       
-      // Return a context object with the snapshotted value
       return { previousRequests };
     },
-    onSuccess: (data) => {
+    onSuccess: (data, requestId) => {
       toast({
         title: "Request cancelled",
         description: "Your emergency request has been cancelled.",
         duration: 3000,
+      });
+      
+      // Remove from cancelling set after success
+      setCancellingRequests(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(requestId);
+        return newSet;
       });
     },
     onError: (error, requestId, context) => {
       // Rollback on error
       queryClient.setQueryData(['/api/emergency/requests'], context?.previousRequests);
       console.error('Error cancelling emergency request:', error);
+      
+      // Remove from cancelling set on error
+      setCancellingRequests(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(requestId);
+        return newSet;
+      });
+      
       toast({
         title: "Cancellation failed",
         description: "Failed to cancel request. Please try again.",
@@ -234,10 +256,8 @@ export default function UnifiedPatientDashboard() {
       });
     },
     onSettled: () => {
-      // Delay refetch slightly to prevent UI flicker and double-click issues
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      }, 1000);
+      // Always refetch to ensure server state
+      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
     },
   });
 
@@ -746,14 +766,18 @@ export default function UnifiedPatientDashboard() {
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                              // Prevent double clicks by checking if this specific request is already cancelled
-                              if (request.status === 'cancelled') return;
+                              // Prevent double clicks with multiple checks
+                              if (request.status === 'cancelled' || 
+                                  cancellingRequests.has(request.id) || 
+                                  cancelMutation.isPending) return;
                               cancelMutation.mutate(request.id);
                             }}
-                            disabled={cancelMutation.isPending || request.status === 'cancelled'}
+                            disabled={cancelMutation.isPending || 
+                                     request.status === 'cancelled' || 
+                                     cancellingRequests.has(request.id)}
                             className="text-orange-600 hover:text-orange-700 w-full sm:w-auto"
                           >
-                            {cancelMutation.isPending ? 'Cancelling...' : 'Cancel'}
+                            {(cancelMutation.isPending || cancellingRequests.has(request.id)) ? 'Cancelling...' : 'Cancel'}
                           </Button>
                         )}
                         {['completed', 'cancelled'].includes(request.status || 'pending') && (
