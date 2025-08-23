@@ -164,8 +164,8 @@ export default function PatientDashboard() {
     }
 
     await emergencyMutation.mutateAsync({
-      type: emergencyType,
-      description: emergencyDescription,
+      patientCondition: emergencyType,
+      notes: emergencyDescription,
       priority: 'high',
       latitude: location.latitude,
       longitude: location.longitude,
@@ -209,6 +209,20 @@ export default function PatientDashboard() {
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
+  };
+
+  // Function to format emergency type for display
+  const formatEmergencyType = (patientCondition: string) => {
+    const emergencyTypeMap: {[key: string]: string} = {
+      'cardiac': 'Cardiac Emergency',
+      'accident': 'Accident/Trauma',
+      'respiratory': 'Breathing Problems',
+      'stroke': 'Stroke',
+      'diabetic': 'Diabetic Emergency',
+      'allergic': 'Allergic Reaction',
+      'other': 'Other Medical Emergency'
+    };
+    return emergencyTypeMap[patientCondition] || patientCondition || 'Medical Emergency';
   };
 
   if (!user) {
@@ -361,10 +375,10 @@ export default function PatientDashboard() {
                             </Badge>
                           )}
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">{request.description}</p>
-                        {request.type && (
+                        <p className="text-sm text-gray-600 mb-2">{request.notes || request.description || 'No description provided'}</p>
+                        {request.patientCondition && (
                           <p className="text-xs text-gray-500 mb-2">
-                            <span className="font-medium">Type:</span> {request.type.replace('_', ' ')}
+                            <span className="font-medium">Type:</span> {formatEmergencyType(request.patientCondition)}
                           </p>
                         )}
                         <div className="flex items-center space-x-4 text-sm text-gray-500">

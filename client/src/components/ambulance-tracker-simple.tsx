@@ -104,6 +104,20 @@ export function AmbulanceTracker() {
     refetchInterval: false
   });
   
+  // Function to format emergency type for display
+  const formatEmergencyType = (patientCondition: string) => {
+    const emergencyTypeMap: {[key: string]: string} = {
+      'cardiac': 'Cardiac Emergency',
+      'accident': 'Accident/Trauma',
+      'respiratory': 'Breathing Problems',
+      'stroke': 'Stroke',
+      'diabetic': 'Diabetic Emergency',
+      'allergic': 'Allergic Reaction',
+      'other': 'Other Medical Emergency'
+    };
+    return emergencyTypeMap[patientCondition] || patientCondition || 'Medical Emergency';
+  };
+
   // Transform emergency requests to ambulance data
   const incomingAmbulances = useMemo(() => {
     const dispatched = emergencyRequests.filter(req => 
@@ -121,8 +135,8 @@ export function AmbulanceTracker() {
       priority: req.priority as 'low' | 'medium' | 'high' | 'critical',
       status: req.status as 'dispatched' | 'en_route' | 'arriving',
       departureTime: new Date(req.requestedAt),
-      condition: req.patientCondition || 'General Emergency',
-      description: req.description || '', // Add description from emergency request
+      condition: formatEmergencyType(req.patientCondition),
+      description: req.notes || req.description || 'No additional details provided',
       contactNumber: req.ambulance?.operatorPhone
     }));
   }, [emergencyRequests]);

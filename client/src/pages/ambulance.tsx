@@ -293,6 +293,20 @@ export default function AmbulanceDashboard() {
   const vehicleNumber = user?.ambulanceProfile?.vehicleNumber;
   const equipmentList = vehicleNumber ? getEquipmentByVehicle(vehicleNumber) : [];
 
+  // Function to format emergency type for display
+  const formatEmergencyType = (patientCondition: string) => {
+    const emergencyTypeMap: {[key: string]: string} = {
+      'cardiac': 'Cardiac Emergency',
+      'accident': 'Accident/Trauma',
+      'respiratory': 'Breathing Problems',
+      'stroke': 'Stroke',
+      'diabetic': 'Diabetic Emergency',
+      'allergic': 'Allergic Reaction',
+      'other': 'Other Medical Emergency'
+    };
+    return emergencyTypeMap[patientCondition] || patientCondition || 'Medical Emergency';
+  };
+
   // Removed excessive debug logging to prevent continuous console spam
 
   return (
@@ -423,7 +437,7 @@ export default function AmbulanceDashboard() {
                           request.priority === 'high' ? 'text-orange-700' :
                           'text-yellow-700'
                         }`}>
-                          {request.patientCondition || 'Medical Emergency'}
+                          {formatEmergencyType(request.patientCondition)}
                         </span>
                       </div>
                       <Badge variant="outline" className="text-xs">
@@ -593,7 +607,7 @@ export default function AmbulanceDashboard() {
                 <div className="text-sm font-semibold text-gray-700 mb-2">Request Details</div>
                 <div className="space-y-2">
                   <div className="text-sm">
-                    <span className="font-medium">Condition:</span> {activeRequest.patientCondition || 'Not specified'}
+                    <span className="font-medium">Condition:</span> {formatEmergencyType(activeRequest.patientCondition)}
                   </div>
                   <div className="text-sm">
                     <span className="font-medium">Priority:</span> {activeRequest.priority || 'Medium'}
@@ -601,6 +615,11 @@ export default function AmbulanceDashboard() {
                   <div className="text-sm">
                     <span className="font-medium">Request ID:</span> #{activeRequest.id}
                   </div>
+                  {(activeRequest.notes || activeRequest.description) && (
+                    <div className="text-sm">
+                      <span className="font-medium">Description:</span> {activeRequest.notes || activeRequest.description}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
