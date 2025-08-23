@@ -70,23 +70,8 @@ export default function EnhancedPatientDashboard() {
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
   const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) ? emergencyRequestsQuery.data : [];
   
-  // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
-  const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('📱 Enabling ambulance data loading after 5s delay');
-      setEnableAmbulanceData(true);
-      // Optional: Show a subtle toast notification
-      toast({
-        title: "Ambulance locations loaded",
-        description: "Real-time ambulance positions are now visible on the map",
-        duration: 3000,
-      });
-    }, 5000); // 5 second delay
-    
-    return () => clearTimeout(timer);
-  }, []);
+  // Enable ambulance data immediately for better user experience
+  const [enableAmbulanceData, setEnableAmbulanceData] = useState(true);
 
   // Show loading state
   const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
@@ -94,23 +79,21 @@ export default function EnhancedPatientDashboard() {
   // Debugging can be enabled by uncommenting the line below
   // console.log('🔍 Emergency requests loaded:', emergencyRequests.length);
   
-  // Debug ambulance data when requests have ambulances assigned
+  // Debug ambulance data once when component mounts (development only)
+  const hasLoggedDebug = useRef(false);
+  
   useEffect(() => {
+    // Only debug once in development to prevent console spam
+    if (process.env.NODE_ENV !== 'development' || hasLoggedDebug.current) return;
+    
     if (emergencyRequests.length > 0) {
-      emergencyRequests.forEach((req: any) => {
-        if (req.ambulanceId && req.ambulance) {
-          console.log('🚑 Debug ambulance data for request', req.id, ':', {
-            ambulanceId: req.ambulanceId,
-            vehicleNumber: req.ambulance?.vehicleNumber,
-            operatorPhone: req.ambulance?.operatorPhone,
-            ambulanceContact: req.ambulanceContact,
-            certification: req.ambulance?.certification,
-            status: req.status
-          });
-        }
-      });
+      const ambulanceRequests = emergencyRequests.filter((req: any) => req.ambulanceId && req.ambulance);
+      if (ambulanceRequests.length > 0) {
+        console.log('🚑 Enhanced Patient Debug - ambulance data:', ambulanceRequests.length, 'requests with ambulances assigned');
+        hasLoggedDebug.current = true;
+      }
     }
-  }, [emergencyRequests]);
+  }, [emergencyRequests.length]); // Only trigger when the count changes
   
   const activeRequest = emergencyRequests.find((req: any) => 
     ['pending', 'accepted', 'dispatched', 'en_route'].includes(req.status)

@@ -74,69 +74,27 @@ export default function UnifiedPatientDashboard() {
     ? emergencyRequestsQuery.data.filter((req: any) => req.status !== 'deleted') // Filter out deleted requests
     : [];
   
-  // Lazy load ambulance data after 5 seconds to speed up initial dashboard load
-  const [enableAmbulanceData, setEnableAmbulanceData] = useState(false);
-  const ambulanceLoadTimerRef = useRef<NodeJS.Timeout>();
-  
-  useEffect(() => {
-    // Clear any existing timer
-    if (ambulanceLoadTimerRef.current) {
-      clearTimeout(ambulanceLoadTimerRef.current);
-    }
-    
-    ambulanceLoadTimerRef.current = setTimeout(() => {
-      console.log('📱 Enabling ambulance data loading after 5s delay');
-      setEnableAmbulanceData(true);
-      // Show toast only once
-      if (!enableAmbulanceData) {
-        toast({
-          title: "Ambulance locations loaded",
-          description: "Real-time ambulance positions are now visible on the map",
-          duration: 3000,
-        });
-      }
-    }, 5000); // 5 second delay
-    
-    return () => {
-      if (ambulanceLoadTimerRef.current) {
-        clearTimeout(ambulanceLoadTimerRef.current);
-      }
-    };
-  }, []); // Remove dependency to prevent infinite loop
+  // Enable ambulance data immediately for better user experience
+  const [enableAmbulanceData, setEnableAmbulanceData] = useState(true);
 
   // Show loading state
   const isLoading = hospitalsQuery.isLoading || emergencyRequestsQuery.isLoading;
   
-  // Debug ambulance data when requests have ambulances assigned (throttled)
-  const debugTimeoutRef = useRef<NodeJS.Timeout>();
+  // Debug ambulance data once when component mounts (development only)
+  const hasLoggedDebug = useRef(false);
+  
   useEffect(() => {
-    if (debugTimeoutRef.current) {
-      clearTimeout(debugTimeoutRef.current);
+    // Only debug once in development to prevent console spam
+    if (process.env.NODE_ENV !== 'development' || hasLoggedDebug.current) return;
+    
+    if (emergencyRequests.length > 0) {
+      const ambulanceRequests = emergencyRequests.filter((req: any) => req.ambulanceId && req.ambulance);
+      if (ambulanceRequests.length > 0) {
+        console.log('🚑 Debug ambulance data:', ambulanceRequests.length, 'requests with ambulances assigned');
+        hasLoggedDebug.current = true;
+      }
     }
-    
-    debugTimeoutRef.current = setTimeout(() => {
-      if (emergencyRequests.length > 0) {
-        emergencyRequests.forEach((req: any) => {
-          if (req.ambulanceId && req.ambulance) {
-            console.log('🚑 Debug ambulance data for request', req.id, ':', {
-              ambulanceId: req.ambulanceId,
-              vehicleNumber: req.ambulance?.vehicleNumber,
-              operatorPhone: req.ambulance?.operatorPhone,
-              ambulanceContact: req.ambulanceContact,
-              certification: req.ambulance?.certification,
-              status: req.status
-            });
-          }
-        });
-      }
-    }, 1000); // Only log once per second to reduce console spam
-    
-    return () => {
-      if (debugTimeoutRef.current) {
-        clearTimeout(debugTimeoutRef.current);
-      }
-    };
-  }, [emergencyRequests]);
+  }, [emergencyRequests.length]); // Only trigger when the count changes
   
   const activeRequest = emergencyRequests.find((req: any) => 
     ['pending', 'accepted', 'dispatched', 'en_route'].includes(req.status)
