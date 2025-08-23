@@ -676,6 +676,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         case 'patient':
           requests = await storage.getEmergencyRequestsByPatient(req.user.id);
           
+          // Filter out cancelled and completed requests for patients to prevent double-click issues
+          requests = requests.filter((req: any) => 
+            req.status !== 'cancelled' && req.status !== 'completed'
+          );
+          
           // Enhance requests with ambulance contact info for accepted/dispatched requests
           const enhancedRequests = await Promise.all(requests.map(async (request) => {
             if (request.ambulanceId && request.status && ['accepted', 'dispatched', 'en_route', 'at_scene', 'transporting'].includes(request.status)) {
