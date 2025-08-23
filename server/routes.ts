@@ -787,15 +787,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Broadcast update to relevant parties
-      broadcastToRole('patient', {
-        type: 'emergency_request_updated',
-        data: updatedRequest
-      });
-      
+      // Broadcast update to relevant parties with proper event format
+      broadcastToRole('patient', 'emergency:status_update', updatedRequest);
       broadcastToRole('hospital', 'emergency:status_update', updatedRequest);
-      
       broadcastToRole('ambulance', 'emergency:status_update', updatedRequest);
+      
+      // Also broadcast ambulance response event for accepted/rejected requests
+      if (updates.status === 'accepted' || updates.status === 'cancelled') {
+        broadcastToRole('patient', 'ambulance:response', {
+          requestId: parseInt(id),
+          status: updates.status,
+          ambulanceId: updates.ambulanceId || updatedRequest.ambulanceId
+        });
+      }
 
       res.json(updatedRequest);
     } catch (error) {
@@ -826,6 +830,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: 'deleted',
         notes: (request.notes || '') + ' [DELETED]'
       });
+      
+      // Clear cache to ensure fresh data on next request
+      cache.forEach((value, key) => {
+        if (key.startsWith('emergency_requests_')) {
+          cache.delete(key);
+        }
+      });
+      
+      // Broadcast deletion to all parties
+      broadcastToAll('emergency:status_update', deletedRequest);
       
       res.json({ message: 'Emergency request deleted successfully' });
     } catch (error) {
@@ -871,6 +885,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const requestId = parseInt(req.params.id);
       const userId = req.user.id;
+      
+      console.log('🚫 Cancelling emergency request:', { requestId, userId, role: req.user.role });
       
       // Get the request to verify ownership
       const request = await storage.getEmergencyRequest(requestId);

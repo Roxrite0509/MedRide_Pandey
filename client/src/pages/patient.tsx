@@ -74,6 +74,8 @@ export default function PatientDashboard() {
     
     switch (type) {
       case 'emergency_status_update':
+        // Invalidate queries to get fresh data and force re-render
+        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
         emergencyRequestsQuery.refetch();
         break;
       case 'ambulance_response':
@@ -82,6 +84,8 @@ export default function PatientDashboard() {
         } else if (data.status === 'rejected') {
           setRequestSubmitted(false);
         }
+        // Invalidate queries to get fresh data
+        queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
         emergencyRequestsQuery.refetch();
         break;
       case 'eta_update':
@@ -101,7 +105,7 @@ export default function PatientDashboard() {
         }
         break;
     }
-  }, [lastMessage, socket]);
+  }, [lastMessage, socket, queryClient]);
 
   // Emergency request mutation
   const emergencyMutation = useMutation({
@@ -140,13 +144,14 @@ export default function PatientDashboard() {
   // Cancel emergency request mutation
   const cancelMutation = useMutation({
     mutationFn: async (requestId: number) => {
-      const response = await apiRequest('PUT', `/api/emergency/request/${requestId}`, {
-        status: 'cancelled'
-      });
+      const response = await apiRequest('PATCH', `/api/emergency/requests/${requestId}/cancel`, {});
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data, requestId) => {
+      console.log('🚫 Successfully cancelled request:', requestId);
+      // Force immediate invalidation and refetch
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
     },
     onError: (error) => {
       console.error('Error cancelling emergency request:', error);

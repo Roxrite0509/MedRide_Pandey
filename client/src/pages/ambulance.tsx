@@ -132,17 +132,38 @@ export default function AmbulanceDashboard() {
         status: 'accepted',
         ambulanceId: ambulanceId
       });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to accept request');
+      }
+      
       return response.json();
     },
     onSuccess: (data, variables) => {
+      console.log('✅ Request accepted successfully:', data);
+      // Force invalidate and refetch to get latest data
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
+      
       // Immediately show navigation map and start journey
       setShowNavigationMap(true);
       setIsJourneyActive(true);
+      
+      // Send socket notification about acceptance
+      sendMessage('ambulance:status_update', {
+        ambulanceId: variables.ambulanceId,
+        requestId: variables.requestId,
+        status: 'accepted'
+      });
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
-      alert('Failed to accept request. Please try again.');
+      if (error.message.includes('already assigned')) {
+        alert('This request has already been accepted by another ambulance.');
+      } else {
+        alert('Failed to accept request. Please try again.');
+      }
     },
   });
 
