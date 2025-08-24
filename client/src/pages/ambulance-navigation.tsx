@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Timer, Navigation as NavigationIcon, Clock, Heart, AlertTriangle, Phone, MessageSquare, CheckCircle } from "lucide-react";
 import { useLocation } from "wouter";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function AmbulanceNavigation() {
   const { requestId } = useParams();
@@ -16,10 +17,7 @@ export default function AmbulanceNavigation() {
   const { data: emergencyRequest, isLoading, isError } = useQuery({
     queryKey: ['/api/emergency/request', requestId],
     queryFn: async () => {
-      const response = await fetch(`/api/emergency/request/${requestId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch emergency request');
-      }
+      const response = await apiRequest('GET', `/api/emergency/request/${requestId}`);
       return response.json();
     },
     enabled: !!requestId,

@@ -760,7 +760,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           break;
         case 'ambulance':
           // Ambulance can view if it's assigned to them or if it's pending
-          const ambulanceProfile = await storage.getAmbulanceByUserId(userId);
+          const ambulanceProfile = await storage.getAmbulanceByOperatorId(userId);
           if (ambulanceProfile && request.ambulanceId !== ambulanceProfile.id && request.status !== 'pending') {
             return res.status(403).json({ message: 'Unauthorized to view this request' });
           }
