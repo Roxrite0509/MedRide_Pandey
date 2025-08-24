@@ -677,7 +677,10 @@ export default function UnifiedPatientDashboard() {
                           )}
                         </div>
                         
-                        <p className="text-sm text-gray-600 mb-2">{request.description || 'No description provided'}</p>
+                        <p className="text-sm text-gray-600 mb-2">
+                          <span className="font-medium text-gray-700">Patient Description: </span>
+                          {request.notes || request.patientCondition || request.description || 'No description provided'}
+                        </p>
                         
                         {request.type && (
                           <p className="text-xs text-gray-500 mb-2">
