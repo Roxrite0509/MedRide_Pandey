@@ -801,18 +801,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Broadcast update to relevant parties with proper event format
-      broadcastToRole('patient', 'emergency:status_update', updatedRequest);
-      broadcastToRole('hospital', 'emergency:status_update', updatedRequest);
-      broadcastToRole('ambulance', 'emergency:status_update', updatedRequest);
-      
-      // Also broadcast ambulance response event for accepted/rejected requests
+      // Send targeted real-time updates only for critical status changes
       if (updates.status === 'accepted' || updates.status === 'cancelled') {
-        broadcastToRole('patient', 'ambulance:response', {
+        // Send specific ambulance response for accepted/rejected requests
+        broadcastToRole('patient', 'ambulance_response', {
           requestId: parseInt(id),
           status: updates.status,
           ambulanceId: updates.ambulanceId || updatedRequest.ambulanceId
         });
+        
+        // Send status update to all roles for dashboard updates
+        broadcastToRole('patient', 'emergency_status_update', updatedRequest);
+        broadcastToRole('hospital', 'emergency_status_update', updatedRequest);
+        broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
       }
 
       res.json(updatedRequest);
@@ -852,8 +853,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
       
-      // Broadcast deletion to all parties
-      broadcastToAll('emergency:status_update', deletedRequest);
+      // Send targeted deletion update
+      broadcastToRole('patient', 'emergency_status_update', deletedRequest);
+      broadcastToRole('ambulance', 'emergency_status_update', deletedRequest);
       
       res.json({ message: 'Emergency request deleted successfully' });
     } catch (error) {
@@ -884,8 +886,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Broadcast update to all connected clients
-      broadcastToAll('emergency:status_update', updatedRequest);
+      // Send targeted update only for specific status changes
+      if (updates.status === 'cancelled') {
+        broadcastToRole('patient', 'emergency_status_update', updatedRequest);
+        broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
+      }
       
       res.json(updatedRequest);
     } catch (error) {
@@ -933,8 +938,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
 
-      // Broadcast update to all connected clients
-      broadcastToAll('emergency:status_update', updatedRequest);
+      // Send targeted cancellation update  
+      broadcastToRole('patient', 'emergency_status_update', updatedRequest);
+      broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
       
       res.json(updatedRequest);
     } catch (error) {

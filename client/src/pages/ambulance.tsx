@@ -64,7 +64,7 @@ const getEquipmentByVehicle = (vehicleNumber: string) => {
       { name: 'ECMO Device', status: 'standby', icon: Shield }
     ]
   };
-  return equipmentSets[vehicleNumber] || [];
+  return equipmentSets[vehicleNumber as keyof typeof equipmentSets] || [];
 };
 
 // Function to get badge color based on status
@@ -542,7 +542,7 @@ export default function AmbulanceDashboard() {
           <CardContent>
             {equipmentList.length > 0 ? (
               <div className="space-y-3">
-                {equipmentList.map((equipment, index) => {
+                {equipmentList.map((equipment: any, index: number) => {
                   const IconComponent = equipment.icon;
                   return (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
