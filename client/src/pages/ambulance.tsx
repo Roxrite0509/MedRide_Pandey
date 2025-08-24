@@ -143,11 +143,6 @@ export default function AmbulanceDashboard() {
     onSuccess: (data, variables) => {
       console.log('✅ Request accepted successfully:', data);
       
-      // Immediately activate navigation and journey
-      setShowNavigationMap(true);
-      setIsJourneyActive(true);
-      console.log('🗺️ Navigation map activated immediately after accept');
-      
       // Send socket notification about acceptance
       sendMessage('ambulance:status_update', {
         ambulanceId: variables.ambulanceId,
@@ -159,10 +154,10 @@ export default function AmbulanceDashboard() {
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
       queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
       
-      // Force immediate re-render to show navigation
+      // Route to dedicated navigation page instead of showing inline map
+      console.log('🗺️ Navigation map activated immediately after accept');
       setTimeout(() => {
-        setShowNavigationMap(true);
-        setIsJourneyActive(true);
+        setLocation(`/PatientTracking/${data.id}`);
       }, 100);
     },
     onError: (error) => {
@@ -288,19 +283,14 @@ export default function AmbulanceDashboard() {
     ['accepted', 'dispatched', 'en_route', 'at_scene', 'transporting'].includes(req.status)
   );
   
-  // Auto-restore journey state if there's an active request
+  // Auto-restore journey state if there's an active request - route to navigation page
   useEffect(() => {
     if (activeRequest && !isJourneyActive) {
       console.log('🔄 Auto-restoring journey state for request:', activeRequest.id);
-      setIsJourneyActive(true);
-      setShowNavigationMap(true);
-    } else if (!activeRequest && isJourneyActive) {
-      // Reset journey state if no active request
-      console.log('🔄 Resetting journey state - no active request');
-      setIsJourneyActive(false);
-      setShowNavigationMap(false);
+      // Route to navigation page instead of showing inline
+      setLocation(`/PatientTracking/${activeRequest.id}`);
     }
-  }, [activeRequest, isJourneyActive]);
+  }, [activeRequest, isJourneyActive, setLocation]);
   
   // Get equipment for current ambulance
   const vehicleNumber = user?.ambulanceProfile?.vehicleNumber;
@@ -657,8 +647,7 @@ export default function AmbulanceDashboard() {
               {['dispatched', 'en_route', 'at_scene'].includes(activeRequest.status) && !showNavigationMap && (
                 <Button
                   onClick={() => {
-                    setShowNavigationMap(true);
-                    setIsJourneyActive(true);
+                    setLocation(`/PatientTracking/${activeRequest.id}`);
                   }}
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                   size="sm"
