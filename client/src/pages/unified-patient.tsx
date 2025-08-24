@@ -72,7 +72,7 @@ export default function UnifiedPatientDashboard() {
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];
   const emergencyRequests = Array.isArray(emergencyRequestsQuery.data) 
     ? emergencyRequestsQuery.data.filter((req: any) => 
-        req.status !== 'deleted' && req.status !== 'cancelled' // Filter out deleted and cancelled requests
+        req.status !== 'deleted' && req.status !== 'cancelled' // Keep completed requests to show ward assignments
       )
     : [];
   
@@ -655,7 +655,6 @@ export default function UnifiedPatientDashboard() {
               {emergencyRequests
                 .filter((request: any) => 
                   request.status !== 'cancelled' && 
-                  request.status !== 'completed' &&
                   !cancellingRequests.includes(request.id)
                 )
                 .map((request: any) => (

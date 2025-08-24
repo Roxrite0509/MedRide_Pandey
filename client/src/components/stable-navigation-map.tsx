@@ -47,7 +47,7 @@ export function StableNavigationMap({
     Math.round(patientLocation.longitude * 100000)
   ]);
 
-  // Load Google Maps only once
+  // Load Google Maps only once - with immediate loading optimization
   useEffect(() => {
     const loadGoogleMaps = async () => {
       if (window.google && window.google.maps) {
@@ -55,8 +55,27 @@ export function StableNavigationMap({
         return;
       }
 
+      // Check if script is already loading/loaded
+      const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
+      if (existingScript) {
+        if (window.google && window.google.maps) {
+          setIsMapLoaded(true);
+          return;
+        }
+        existingScript.addEventListener('load', () => setIsMapLoaded(true));
+        return;
+      }
+
       try {
-        const response = await fetch('/api/maps/config');
+        // Fetch API key with timeout for faster failure
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch('/api/maps/config', {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        
         const { apiKey } = await response.json();
         
         const script = document.createElement('script');
@@ -64,9 +83,12 @@ export function StableNavigationMap({
         script.async = true;
         script.defer = true;
         script.onload = () => setIsMapLoaded(true);
+        script.onerror = () => console.error('Failed to load Google Maps script');
         document.head.appendChild(script);
       } catch (error) {
         console.error('Failed to load Google Maps:', error);
+        // Set a fallback timeout to prevent hanging
+        setTimeout(() => setIsMapLoaded(false), 2000);
       }
     };
 
@@ -139,7 +161,7 @@ export function StableNavigationMap({
       const bounds = new google.maps.LatLngBounds();
       bounds.extend(stableCoordinates.ambulance);
       bounds.extend(stableCoordinates.patient);
-      mapInstanceRef.current.fitBounds(bounds, { padding: 50 });
+      mapInstanceRef.current.fitBounds(bounds, 50);
       
     } catch (error) {
       console.error('Route calculation failed:', error);

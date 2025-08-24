@@ -669,9 +669,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         case 'patient':
           requests = await storage.getEmergencyRequestsByPatient(req.user.id);
           
-          // Filter out cancelled and completed requests for patients to prevent double-click issues
+          // Only filter out cancelled requests for patients - keep completed to show ward assignments
           requests = requests.filter((req: any) => 
-            req.status !== 'cancelled' && req.status !== 'completed'
+            req.status !== 'cancelled'
           );
           
           // Enhance requests with ambulance contact info for accepted/dispatched requests
