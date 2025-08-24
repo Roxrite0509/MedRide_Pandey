@@ -77,7 +77,7 @@ export default function Register() {
     firstName: '',
     lastName: '',
     phone: '',
-    
+
     // Role-specific fields
     // Hospital fields
     hospitalName: '',
@@ -85,7 +85,7 @@ export default function Register() {
     totalBeds: '',
     icuBeds: '',
     emergencyServices: [] as string[],
-    
+
     // Ambulance fields
     selectedHospitalId: '',
     operatorPhone: '',
@@ -93,7 +93,7 @@ export default function Register() {
     certification: '',
     hospitalAffiliation: '',
     equipmentLevel: '',
-    
+
     // Patient fields
     emergencyContact: '',
     medicalConditions: '',
@@ -170,7 +170,7 @@ export default function Register() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
-        
+
         // Role-specific data
         ...(selectedRole === 'hospital' && {
           hospitalName: formData.hospitalName,
@@ -179,7 +179,7 @@ export default function Register() {
           icuBeds: parseInt(formData.icuBeds) || 0,
           emergencyServices: formData.emergencyServices
         }),
-        
+
         ...(selectedRole === 'ambulance' && {
           operatorPhone: formData.operatorPhone,
           licenseNumber: formData.licenseNumber,
@@ -187,7 +187,7 @@ export default function Register() {
           selectedHospitalId: formData.selectedHospitalId ? parseInt(formData.selectedHospitalId) : undefined,
           equipmentLevel: formData.equipmentLevel
         }),
-        
+
         ...(selectedRole === 'patient' && {
           emergencyContact: formData.emergencyContact,
           medicalConditions: formData.medicalConditions,
@@ -230,7 +230,7 @@ export default function Register() {
             Create your account to access emergency response services
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6" data-version="v3.0-cache-bust-1751955879142">
             {/* Role Selection */}
@@ -239,11 +239,10 @@ export default function Register() {
               <div className="grid grid-cols-3 gap-4">
                 <button
                   type="button"
-                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${
-                    selectedRole === 'patient' 
-                      ? 'border-blue-500 bg-blue-50 text-blue-700' 
+                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${selectedRole === 'patient'
+                      ? 'border-blue-500 bg-blue-50 text-blue-700'
                       : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                    }`}
                   onClick={() => setSelectedRole('patient')}
                 >
                   <User className="w-6 h-6" />
@@ -251,11 +250,10 @@ export default function Register() {
                 </button>
                 <button
                   type="button"
-                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${
-                    selectedRole === 'ambulance' 
-                      ? 'border-orange-500 bg-orange-50 text-orange-700' 
+                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${selectedRole === 'ambulance'
+                      ? 'border-orange-500 bg-orange-50 text-orange-700'
                       : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                    }`}
                   onClick={() => setSelectedRole('ambulance')}
                 >
                   <Ambulance className="w-6 h-6" />
@@ -263,11 +261,10 @@ export default function Register() {
                 </button>
                 <button
                   type="button"
-                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${
-                    selectedRole === 'hospital' 
-                      ? 'border-green-500 bg-green-50 text-green-700' 
+                  className={`p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-colors ${selectedRole === 'hospital'
+                      ? 'border-green-500 bg-green-50 text-green-700'
                       : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                    }`}
                   onClick={() => setSelectedRole('hospital')}
                 >
                   <Building2 className="w-6 h-6" />
@@ -367,7 +364,7 @@ export default function Register() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="selectedHospitalId">Preferred Hospital *</Label>
-                    <HospitalSelect 
+                    <HospitalSelect
                       value={formData.selectedHospitalId}
                       onValueChange={(value) => handleInputChange('selectedHospitalId', value)}
                     />
@@ -421,8 +418,8 @@ export default function Register() {
                   </div>
                   <div className="md:col-span-2 bg-blue-50 p-3 rounded-lg">
                     <p className="text-sm text-blue-700">
-                      <strong>Note:</strong> Your ambulance vehicle number and profile will be automatically assigned (e.g., AMB-006) 
-                      and your location will be set within a 3km radius of your selected hospital.
+                      <strong>Note:</strong> Your ambulance vehicle number and profile will be automatically assigned (e.g., AMB-006)
+
                     </p>
                   </div>
                 </div>
@@ -480,18 +477,17 @@ export default function Register() {
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <Label className="text-base font-medium">Emergency Services Offered</Label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
                       {emergencyServiceOptions.map(service => (
                         <div
                           key={service}
-                          className={`p-2 rounded-lg border cursor-pointer transition-colors ${
-                            formData.emergencyServices.includes(service)
+                          className={`p-2 rounded-lg border cursor-pointer transition-colors ${formData.emergencyServices.includes(service)
                               ? 'bg-blue-100 border-blue-500 text-blue-700'
                               : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
-                          }`}
+                            }`}
                           onClick={() => handleServiceToggle(service)}
                         >
                           <div className="text-sm font-medium">{service}</div>
@@ -555,17 +551,17 @@ export default function Register() {
             )}
 
             <Separator />
-            
+
             <div className="flex justify-between items-center">
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => setLocation('/login')}
               >
                 Already have an account? Sign In
               </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={isLoading}
                 className="bg-blue-600 hover:bg-blue-700"
               >

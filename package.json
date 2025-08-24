@@ -81,7 +81,7 @@
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "tsx": "^4.20.4",
+    "tsx": "^4.20.5",
     "tw-animate-css": "^1.3.5",
     "uuid": "^10.0.0",
     "uws": "^200.0.0",
