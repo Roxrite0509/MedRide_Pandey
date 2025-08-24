@@ -101,12 +101,9 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
   io.use(authenticateSocket);
 
   io.on('connection', (socket) => {
-    console.log(`🔌 Socket connected: ${socket.id} (User: ${socket.data.username}, Role: ${socket.data.role})`);
-
     // Join role-based room for broadcasting
     const roleRoom = `role:${socket.data.role}`;
     socket.join(roleRoom);
-    console.log(`👥 User ${socket.data.username} joined room: ${roleRoom}`);
 
     // Join user-specific room
     const userRoom = `user:${socket.data.userId}`;
@@ -131,7 +128,7 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
     socket.on('ambulance:location_update', (data) => {
       if (socket.data.role !== 'ambulance') return;
       
-      console.log(`📍 Location update from ambulance ${socket.data.username}:`, data);
+      // Location update received
       
       // Broadcast to patients and hospitals
       socket.to('role:patient').emit('ambulance:location_update', {
@@ -153,7 +150,7 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
     socket.on('ambulance:status_update', (data) => {
       if (socket.data.role !== 'ambulance') return;
       
-      console.log(`🚑 Status update from ambulance ${socket.data.username}:`, data);
+      // Status update received
       
       // Broadcast to all relevant parties
       io.emit('ambulance:status_update', {
@@ -166,18 +163,18 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
     // Handle joining specific rooms
     socket.on('join_room', (roomId: string) => {
       socket.join(roomId);
-      console.log(`🏠 User ${socket.data.username} joined room: ${roomId}`);
+      // User joined room
     });
 
     // Handle leaving specific rooms
     socket.on('leave_room', (roomId: string) => {
       socket.leave(roomId);
-      console.log(`🚪 User ${socket.data.username} left room: ${roomId}`);
+      // User left room
     });
 
     // Handle communication messages
     socket.on('communication:send_message', (data) => {
-      console.log(`💬 Message from ${socket.data.username}:`, data);
+      // Message received
       
       // Broadcast to specific user or room
       if (data.targetUserId) {
@@ -192,12 +189,12 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
 
     // Handle disconnection
     socket.on('disconnect', (reason) => {
-      console.log(`🔌 Socket disconnected: ${socket.id} (User: ${socket.data.username}, Reason: ${reason})`);
+      // Socket disconnected
     });
 
     // Handle connection errors
     socket.on('error', (error) => {
-      console.error(`❌ Socket error for user ${socket.data.username}:`, error);
+      // Socket error occurred
     });
   });
 

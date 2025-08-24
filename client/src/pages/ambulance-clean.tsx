@@ -31,7 +31,7 @@ export default function AmbulanceDashboard() {
 
   const { data: emergencyRequests, isLoading: requestsLoading } = useQuery({
     queryKey: ['/api/emergency/requests'],
-    refetchInterval: 1000, // Reduced from 5000ms to 1000ms for faster updates
+    // Removed refetchInterval - use real-time WebSocket updates only
   });
 
   // Update location periodically

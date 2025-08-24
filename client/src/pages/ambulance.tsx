@@ -103,9 +103,7 @@ export default function AmbulanceDashboard() {
 
   const { data: emergencyRequests, isLoading: requestsLoading } = useQuery({
     queryKey: ['/api/emergency/requests'],
-    refetchInterval: isJourneyActive ? 60000 : 30000, // 60s during journey, 30s when idle
-    refetchIntervalInBackground: false,
-    staleTime: 10000, // Consider data fresh for 10 seconds
+    // Removed all polling - using WebSocket real-time updates only
   });
 
   // Update location less frequently to reduce server load
@@ -114,12 +112,10 @@ export default function AmbulanceDashboard() {
     
     const updateLocation = () => {
       // Only send location if connected to socket
-      if (sendMessage('location_update', {
+      sendMessage('ambulance:location_update', {
         lat: location.latitude,
         lng: location.longitude
-      })) {
-        console.log('📍 Location updated successfully');
-      }
+      });
     };
     
     // Update immediately, then every 45 seconds during journey, 60 seconds when idle

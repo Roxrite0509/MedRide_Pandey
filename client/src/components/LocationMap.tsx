@@ -176,17 +176,14 @@ export function LocationMap({
       
       if (response.ok) {
         const locations = await response.json();
-        console.log('📍 All ambulance locations:', locations.map((amb: any) => ({ id: amb.id, operatorId: amb.operatorId, vehicleNumber: amb.vehicleNumber })));
-        console.log('🔍 Looking for ambulance with ID:', currentAmbulanceId);
+        // Removed debug logs for performance
         
         // Try to find ambulance by ambulance ID first, then by operator ID
         let currentAmb = locations.find((amb: any) => amb.id === currentAmbulanceId);
         if (!currentAmb) {
           // Fallback: try to find by operator ID in case currentAmbulanceId is a user ID
           currentAmb = locations.find((amb: any) => amb.operatorId === currentAmbulanceId);
-          if (currentAmb) {
-            console.log('🔄 Found ambulance by operator ID instead of ambulance ID');
-          }
+          // Fallback found
         }
         
         if (currentAmb) {
@@ -196,16 +193,13 @@ export function LocationMap({
             latitude: parseFloat(currentAmb.currentLatitude),
             longitude: parseFloat(currentAmb.currentLongitude)
           };
-          console.log('🚑 Found current ambulance:', ambulanceWithParsedCoords);
           setCurrentAmbulanceLocation(ambulanceWithParsedCoords);
         } else {
-          console.log('⚠️ No ambulance found for ID:', currentAmbulanceId);
-          console.log('Available ambulance IDs:', locations.map((amb: any) => amb.id));
-          console.log('Available operator IDs:', locations.map((amb: any) => amb.operatorId));
+          // No ambulance found for ID
         }
       }
     } catch (error) {
-      console.error('Failed to setup current ambulance:', error);
+      // Setup failed - using fallback
     }
   };
 

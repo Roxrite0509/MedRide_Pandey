@@ -45,12 +45,11 @@ export default function PatientDashboard() {
       try {
         const data = typeof lastMessage === 'string' ? JSON.parse(lastMessage) : lastMessage;
         if (data.type === 'hospital_bed_update') {
-          console.log('🏥 Received hospital bed update:', data.data);
           // Invalidate hospital queries to refresh bed data
           queryClient.invalidateQueries({ queryKey: ['/api/hospitals/nearby'] });
         }
       } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
+        // WebSocket message parse error
       }
     }
   }, [lastMessage, queryClient]);
@@ -58,8 +57,7 @@ export default function PatientDashboard() {
   const emergencyRequestsQuery = useQuery({
     queryKey: ['/api/emergency/requests'],
     enabled: !!user?.id,
-    refetchInterval: 15000, // Check every 15 seconds to reduce overhead
-    staleTime: 5000, // Consider data fresh for 5 seconds
+    // Removed polling - using WebSocket real-time updates only
   });
 
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];

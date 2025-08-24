@@ -603,7 +603,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { emergencyRequestId, bedNumber } = req.body;
       
-      console.log('Assigning patient to bed:', { emergencyRequestId, bedNumber });
+      // Assigning patient to bed
       
       const updatedRequest = await storage.assignPatientToBed(emergencyRequestId, bedNumber);
       
@@ -615,7 +615,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         request: updatedRequest 
       });
     } catch (error) {
-      console.error('Failed to assign patient to bed:', error);
       res.status(500).json({ message: 'Failed to assign patient to bed' });
     }
   });
@@ -630,11 +629,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const offsetLat = parseFloat(latitude) + 0.005; // ~500 meters offset
       const offsetLng = parseFloat(longitude) + 0.005;
       
-      console.log('Creating emergency request:', {
-        original: { lat: latitude, lng: longitude },
-        offset: { lat: offsetLat, lng: offsetLng },
-        patientCondition
-      });
+      // Creating emergency request
       
       const emergencyRequest = await storage.createEmergencyRequest({
         patientId: req.user.id,
@@ -659,7 +654,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(emergencyRequest);
     } catch (error) {
-      console.error('Emergency request creation error:', error);
       res.status(500).json({ message: 'Failed to create emergency request' });
     }
   });
