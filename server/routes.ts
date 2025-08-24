@@ -163,7 +163,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Get ALL ambulances, not just available ones, for patient map visibility
       const allAmbulances = await storage.getAvailableAmbulances();
-      console.log(`📍 Fetching ${allAmbulances.length} ambulances for patient map`);
       
       const ambulanceLocations = allAmbulances
         .filter(ambulance => {
@@ -185,7 +184,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           isActive: ambulance.isActive
         }));
       
-      console.log(`📍 Returning ${ambulanceLocations.length} valid ambulance locations`);
       
       // Cache the result
       setCachedData(cacheKey, ambulanceLocations, 15000); // 15 seconds
@@ -228,7 +226,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       if (ambulancesNeedingLocation.length > 0) {
         const referenceLocation = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
-        console.log(`Positioning ambulances around ${source || 'reference'} location: ${referenceLocation.lat}, ${referenceLocation.lng}`);
         
         // Determine radius based on source
         let minRadius, maxRadius;
@@ -255,7 +252,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             randomLocation.latitude,
             randomLocation.longitude
           );
-          console.log(`Positioned ${ambulance.vehicleNumber} at: ${randomLocation.latitude}, ${randomLocation.longitude} (${source})`);
         }
       }
 
@@ -304,7 +300,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Optimize: Get bed status in parallel and with timeout
       const hospitalsWithRealTimeBeds = await Promise.allSettled(hospitals.map(async (hospital) => {
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout')), 500) // 500ms timeout
+          setTimeout(() => reject(new Error('Timeout')), 2000) // 2000ms timeout
         );
         
         try {
@@ -321,7 +317,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             icuBeds: (bedStatus as any).icuTotal
           };
         } catch (error) {
-          console.warn(`Bed status timeout for hospital ${hospital.id}, using fallback`);
           return hospital;
         }
       }));

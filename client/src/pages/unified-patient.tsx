@@ -97,7 +97,6 @@ export default function UnifiedPatientDashboard() {
     if (emergencyRequests.length > 0) {
       const ambulanceRequests = emergencyRequests.filter((req: any) => req.ambulanceId && req.ambulance);
       if (ambulanceRequests.length > 0) {
-        console.log('🚑 Debug ambulance data:', ambulanceRequests.length, 'requests with ambulances assigned');
         hasLoggedDebug.current = true;
       }
     }

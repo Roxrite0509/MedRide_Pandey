@@ -28,7 +28,6 @@ export default function HospitalDashboard() {
   };
 
   const handleBedUpdate = (bedId: string, status: string) => {
-    console.log(`Bed ${bedId} updated to ${status}`);
   };
 
   if (!user) {

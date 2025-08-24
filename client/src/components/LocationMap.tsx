@@ -630,7 +630,6 @@ export function LocationMap({
       }
       
       const ambulances = await response.json();
-      console.log('📍 Fetched ambulances for patient map:', ambulances);
       setAllAmbulances(ambulances);
       
       ambulances.forEach((ambulance: any) => {
@@ -639,7 +638,6 @@ export function LocationMap({
           const lng = parseFloat(ambulance.currentLongitude);
           
           if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
-            console.log(`🚑 Adding ambulance ${ambulance.vehicleNumber} at [${lat}, ${lng}]`);
             const marker = new google.maps.Marker({
               position: { lat, lng },
               map: mapInstanceRef.current,

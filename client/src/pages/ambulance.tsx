@@ -738,8 +738,6 @@ export default function AmbulanceDashboard() {
           showRefreshButton={true}
           showCurrentAmbulance={true}
           currentAmbulanceId={(() => {
-            console.log('🚑 Ambulance dashboard - user profile:', user);
-            console.log('🚑 Ambulance profile ID:', user?.ambulanceProfile?.id);
             return user?.ambulanceProfile?.id;
           })()}
           patientLocation={activeRequest ? {
@@ -747,7 +745,6 @@ export default function AmbulanceDashboard() {
             longitude: parseFloat(activeRequest.longitude || '0')
           } : null}
           onLocationChange={(newLocation) => {
-            console.log('Ambulance location updated:', newLocation);
           }}
         />
       )}

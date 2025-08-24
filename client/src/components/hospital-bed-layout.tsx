@@ -166,7 +166,6 @@ export function HospitalBedLayout({ hospitalId, onBedUpdate }: HospitalBedLayout
     });
 
     setBeds(hospitalBeds);
-    console.log(`✅ Loaded ${hospitalBeds.length} beds for hospital ID ${hospitalId}`);
   }, [hospitalId, bedStatusData, bedStatusLoading]);
 
   const updateBedStatus = (bedId: string, newStatus: 'available' | 'occupied' | 'reserved') => {
@@ -203,7 +202,6 @@ export function HospitalBedLayout({ hospitalId, onBedUpdate }: HospitalBedLayout
     });
     
     onBedUpdate?.(bedId, newStatus);
-    console.log(`Bed ${bedId} updated to ${newStatus}`);
   };
 
   const getBedIcon = (type: string) => {

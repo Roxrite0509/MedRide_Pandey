@@ -105,26 +105,21 @@ export class DatabaseStorage implements IStorage {
           const [hospital] = await db.select().from(hospitals).where(eq(hospitals.userId, id));
           if (hospital) profile.hospitalProfile = hospital;
         } catch (error) {
-          console.error('Error fetching hospital profile:', error);
         }
       } else if (user.role === 'ambulance') {
         try {
           // Fix: Use operator_id column to find ambulance profile
           const [ambulance] = await db.select().from(ambulances).where(eq(ambulances.operatorId, id));
           if (ambulance) {
-            console.log('Found ambulance profile for user', id, ':', ambulance.vehicleNumber);
             profile.ambulanceProfile = ambulance;
           } else {
-            console.log('No ambulance profile found for user', id);
           }
         } catch (error) {
-          console.error('Error fetching ambulance profile:', error);
         }
       }
 
       return profile;
     } catch (error) {
-      console.error('Error in getUserWithProfile:', error);
       // Fallback to basic user info
       const [user] = await db.select().from(users).where(eq(users.id, id));
       return user;
