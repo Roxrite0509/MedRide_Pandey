@@ -13,8 +13,9 @@ export default function AmbulanceNavigation() {
   const [eta, setEta] = useState("8 minutes");
   const [distance, setDistance] = useState("2.4 km");
 
-  const { data: emergencyRequest } = useQuery({
-    queryKey: ['/api/emergency/request', requestId],
+  const { data: emergencyRequest, isLoading, isError } = useQuery({
+    queryKey: ['/api/emergency/requests'],
+    select: (data: any[]) => data?.find((req: any) => req.id === parseInt(requestId || '0')),
     enabled: !!requestId,
   });
 
@@ -50,12 +51,29 @@ export default function AmbulanceNavigation() {
     }
   };
 
-  if (!emergencyRequest) {
+  if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold">Loading emergency details...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError || !emergencyRequest) {
+    return (
+      <div className="max-w-4xl mx-auto p-4">
+        <div className="text-center">
+          <div className="text-red-500 mb-4">
+            <AlertTriangle className="w-12 h-12 mx-auto mb-2" />
+            <h2 className="text-xl font-semibold">Error Loading Emergency Request</h2>
+            <p className="text-gray-600">Request ID: {requestId}</p>
+          </div>
+          <Button onClick={() => setLocation('/AmbulanceDashboard')}>
+            Return to Dashboard
+          </Button>
         </div>
       </div>
     );
@@ -75,7 +93,7 @@ export default function AmbulanceNavigation() {
         </Button>
         <div>
           <h1 className="text-2xl font-bold">En Route to Emergency</h1>
-          <p className="text-gray-600">Request ID: {emergencyRequest.id}</p>
+          <p className="text-gray-600">Request ID: {emergencyRequest?.id}</p>
         </div>
       </div>
 
@@ -92,28 +110,28 @@ export default function AmbulanceNavigation() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge 
-                  className={`${getPriorityColor(emergencyRequest.priority)} text-white`}
+                  className={`${getPriorityColor(emergencyRequest?.priority || 'medium')} text-white`}
                 >
-                  {emergencyRequest.priority.toUpperCase()} PRIORITY
+                  {(emergencyRequest?.priority || 'medium').toUpperCase()} PRIORITY
                 </Badge>
               </div>
-              <h3 className="font-semibold mb-1">{emergencyRequest.patientCondition}</h3>
-              <p className="text-gray-600 text-sm mb-2">{emergencyRequest.notes}</p>
+              <h3 className="font-semibold mb-1">{emergencyRequest?.patientCondition || 'Medical Emergency'}</h3>
+              <p className="text-gray-600 text-sm mb-2">{emergencyRequest?.notes || 'No additional notes'}</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <MapPin className="w-4 h-4" />
-                {emergencyRequest.address}
+                {emergencyRequest?.address || 'Emergency Location'}
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-gray-500" />
                 <span className="text-sm">
-                  Requested: {new Date(emergencyRequest.requestedAt).toLocaleTimeString()}
+                  Requested: {emergencyRequest?.requestedAt ? new Date(emergencyRequest.requestedAt).toLocaleTimeString() : 'Unknown'}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Heart className="w-4 h-4 text-red-500" />
-                <span className="text-sm">Patient ID: {emergencyRequest.patientId}</span>
+                <span className="text-sm">Patient ID: {emergencyRequest?.patientId || 'Unknown'}</span>
               </div>
             </div>
           </div>
