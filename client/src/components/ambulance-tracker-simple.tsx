@@ -175,9 +175,7 @@ export function AmbulanceTracker() {
   
   // Use the new available wards API data
   const availableWards = useMemo(() => {
-    console.log('Available wards data from API:', availableWardsData);
     const wardNames = availableWardsData.map((ward: any) => ward.wardName).filter(Boolean);
-    console.log('Filtered ward names:', wardNames);
     return wardNames;
   }, [availableWardsData]);
   
@@ -244,7 +242,6 @@ export function AmbulanceTracker() {
   const handleWardSelection = () => {
     if (!selectedAmbulance || !selectedWard) return;
     
-    console.log('Auto-assigning patient to ward:', selectedWard);
     
     patientReceivedMutation.mutate({
       requestId: selectedAmbulance.id,

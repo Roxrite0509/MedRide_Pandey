@@ -982,10 +982,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       bedStatusLogs.forEach(bed => {
         const wardName = bed.wardDescription;
-        console.log('Processing bed:', bed.bedNumber, 'Ward:', wardName, 'Status:', bed.status);
         
         if (!wardName) {
-          console.log('Skipping bed with no ward description:', bed.bedNumber);
           return;
         }
         
@@ -1010,7 +1008,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           totalBeds: data.total
         }));
       
-      console.log(`Found ${availableWards.length} wards with available beds for hospital ${hospitalId}:`, availableWards);
       res.json(availableWards);
     } catch (error) {
       console.error('Failed to get available wards:', error);
@@ -1024,7 +1021,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { hospitalId } = req.params;
       const { wardName, patientName, requestId } = req.body;
       
-      console.log('Auto-assigning patient to ward:', { hospitalId, wardName, patientName, requestId });
       
       const hospitalIdNum = parseInt(hospitalId);
       const bedStatusLogs = await storage.getBedStatusByHospital(hospitalIdNum);
@@ -1046,7 +1042,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         patientName
       );
       
-      console.log('Patient assigned to bed:', updatedBed.bedNumber, 'in ward:', wardName);
       
       // Update emergency request status to completed with assigned bed
       const updatedRequest = await storage.updateEmergencyRequest(parseInt(requestId), { 
@@ -1220,7 +1215,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/hospitals/:hospitalId/bed-status', authenticateToken, async (req, res) => {
     try {
       const identifier = parseInt(req.params.hospitalId);
-      console.log(`🏥 Fetching bed status for identifier: ${identifier}`);
       
       // Try to resolve hospital ID from identifier (supports both hospital ID and user ID)
       const hospital = await storage.getHospitalByIdOrUserId(identifier);
@@ -1228,9 +1222,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: 'Hospital not found' });
       }
       
-      console.log(`🏥 Resolved to hospital ID: ${hospital.id} (${hospital.name})`);
       const bedStatus = await storage.getBedStatusByHospital(hospital.id);
-      console.log(`🛏️ Found ${bedStatus.length} bed records for hospital ${hospital.name}`);
       res.json(bedStatus);
     } catch (error) {
       console.error('Bed status fetch error:', error);
