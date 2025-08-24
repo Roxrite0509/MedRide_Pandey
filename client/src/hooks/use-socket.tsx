@@ -236,7 +236,11 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
   const sendMessage = useCallback((event: string, data: any): boolean => {
     if (!socket || !socket.connected) {
-      console.warn('⚠️ Cannot send message - Socket.IO not connected');
+      console.warn('⚠️ Cannot send message - Socket.IO not connected. Attempting reconnection...');
+      // Auto-reconnect if not connected
+      if (!isConnecting && user && token) {
+        connectSocket();
+      }
       return false;
     }
 
@@ -257,9 +261,13 @@ export function SocketProvider({ children }: { children: ReactNode }) {
       return true;
     } catch (error) {
       console.error('❌ Error sending Socket.IO message:', error);
+      // Force reconnection on send error
+      if (!isConnecting && user && token) {
+        setTimeout(() => connectSocket(), 1000);
+      }
       return false;
     }
-  }, [socket]);
+  }, [socket, isConnecting, user, token, connectSocket]);
 
   const forceReconnect = useCallback(() => {
     console.log('🔄 Force reconnecting Socket.IO...');

@@ -58,7 +58,8 @@ export default function PatientDashboard() {
   const emergencyRequestsQuery = useQuery({
     queryKey: ['/api/emergency/requests'],
     enabled: !!user?.id,
-    refetchInterval: 5000, // Check every 5 seconds for real-time updates
+    refetchInterval: 15000, // Check every 15 seconds to reduce overhead
+    staleTime: 5000, // Consider data fresh for 5 seconds
   });
 
   const hospitals = Array.isArray(hospitalsQuery.data) ? hospitalsQuery.data : [];

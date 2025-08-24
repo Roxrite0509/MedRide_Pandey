@@ -103,8 +103,9 @@ export default function AmbulanceDashboard() {
 
   const { data: emergencyRequests, isLoading: requestsLoading } = useQuery({
     queryKey: ['/api/emergency/requests'],
-    refetchInterval: 30000, // Reduce from 5s to 30s to prevent constant reloading
+    refetchInterval: isJourneyActive ? 60000 : 30000, // 60s during journey, 30s when idle
     refetchIntervalInBackground: false,
+    staleTime: 10000, // Consider data fresh for 10 seconds
   });
 
   // Update location less frequently to reduce server load
@@ -112,18 +113,21 @@ export default function AmbulanceDashboard() {
     if (!location) return;
     
     const updateLocation = () => {
-      sendMessage('location_update', {
+      // Only send location if connected to socket
+      if (sendMessage('location_update', {
         lat: location.latitude,
         lng: location.longitude
-      });
+      })) {
+        console.log('📍 Location updated successfully');
+      }
     };
     
-    // Update immediately, then every 30 seconds instead of constantly
+    // Update immediately, then every 45 seconds during journey, 60 seconds when idle
     updateLocation();
-    const interval = setInterval(updateLocation, 30000);
+    const interval = setInterval(updateLocation, isJourneyActive ? 45000 : 60000);
     
     return () => clearInterval(interval);
-  }, [location?.latitude, location?.longitude, sendMessage]);
+  }, [location?.latitude, location?.longitude, sendMessage, isJourneyActive]);
 
   // Accept request mutation - initial acceptance
   const acceptRequestMutation = useMutation({
@@ -140,8 +144,13 @@ export default function AmbulanceDashboard() {
       
       return response.json();
     },
-    onSuccess: async (data, variables) => {
+    onSuccess: (data, variables) => {
       console.log('✅ Request accepted successfully:', data);
+      
+      // Immediately activate navigation and journey
+      setShowNavigationMap(true);
+      setIsJourneyActive(true);
+      console.log('🗺️ Navigation map activated immediately after accept');
       
       // Send socket notification about acceptance
       sendMessage('ambulance:status_update', {
@@ -150,16 +159,8 @@ export default function AmbulanceDashboard() {
         status: 'accepted'
       });
       
-      // Force invalidate and wait for refetch to complete
-      await queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      await queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
-      
-      // After data is fresh, show navigation and start journey
-      setTimeout(() => {
-        setShowNavigationMap(true);
-        setIsJourneyActive(true);
-        console.log('🗺️ Navigation map activated after successful accept');
-      }, 100);
+      // Invalidate cache to get fresh data
+      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
@@ -290,6 +291,11 @@ export default function AmbulanceDashboard() {
       console.log('🔄 Auto-restoring journey state for request:', activeRequest.id);
       setIsJourneyActive(true);
       setShowNavigationMap(true);
+    } else if (!activeRequest && isJourneyActive) {
+      // Reset journey state if no active request
+      console.log('🔄 Resetting journey state - no active request');
+      setIsJourneyActive(false);
+      setShowNavigationMap(false);
     }
   }, [activeRequest, isJourneyActive]);
   
