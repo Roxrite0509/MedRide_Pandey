@@ -311,8 +311,8 @@ export default function UnifiedPatientDashboard() {
     }
 
     await emergencyMutation.mutateAsync({
-      type: emergencyType,
-      description: emergencyDescription,
+      patientCondition: emergencyType,  // Fixed: use correct field name
+      notes: emergencyDescription,      // Fixed: use correct field name  
       priority: emergencyPriority, // Use the selected priority instead of auto-calculated
       latitude: location.latitude,
       longitude: location.longitude,

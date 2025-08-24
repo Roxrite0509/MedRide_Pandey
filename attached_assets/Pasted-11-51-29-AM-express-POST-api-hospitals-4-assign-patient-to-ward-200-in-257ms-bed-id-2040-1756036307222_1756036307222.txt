@@ -1,0 +1,144 @@
+11:51:29 AM [express] POST /api/hospitals/4/assign-patient-to-ward 200 in 257ms :: {"bed":{"id":20404…
+🏥 Fetching bed status for identifier: 4
+11:51:29 AM [express] GET /api/emergency/requests 304 in 1ms :: [{"id":110,"patientId":4,"ambulanceId…
+🏥 Resolved to hospital ID: 4 (Bombay Hospital Indore)
+🛏️ Found 118 bed records for hospital Bombay Hospital Indore
+11:51:29 AM [express] GET /api/hospitals/4/bed-status 200 in 132ms :: [{"id":20491,"hospitalId":4,"be…
+Processing bed: ORT-01 Ward: Orthopedic Ward Status: occupied
+Processing bed: PED-08 Ward: Pediatric Ward Status: occupied
+Processing bed: NICU-08 Ward: Neuro Intensive Care Status: occupied
+Processing bed: PED-05 Ward: Pediatric Ward Status: occupied
+Processing bed: SUR-03 Ward: General Surgery Ward Status: occupied
+Processing bed: GAS-10 Ward: Gastroenterology Ward Status: occupied
+Processing bed: PED-06 Ward: Pediatric Ward Status: occupied
+Processing bed: SUR-06 Ward: General Surgery Ward Status: occupied
+Processing bed: SUR-05 Ward: General Surgery Ward Status: occupied
+Processing bed: SUR-04 Ward: General Surgery Ward Status: occupied
+Processing bed: SUR-01 Ward: General Surgery Ward Status: occupied
+Processing bed: PED-04 Ward: Pediatric Ward Status: occupied
+Processing bed: PED-03 Ward: Pediatric Ward Status: occupied
+Processing bed: PED-02 Ward: Pediatric Ward Status: occupied
+Processing bed: PED-08 Ward: Pediatric Ward Status: occupied
+Processing bed: PED-01 Ward: Pediatric Ward Status: available
+Processing bed: PED-07 Ward: Pediatric Ward Status: occupied
+Processing bed: SUR-02 Ward: General Surgery Ward Status: occupied
+Processing bed: GAS-01 Ward: Gastroenterology Ward Status: available
+Processing bed: CAR-13 Ward: Cardiology Ward Status: occupied
+Processing bed: NEU-01 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-02 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-03 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-04 Ward: Neurology Ward Status: available
+Processing bed: NEU-05 Ward: Neurology Ward Status: available
+Processing bed: NEU-06 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-07 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-08 Ward: Neurology Ward Status: available
+Processing bed: NEU-09 Ward: Neurology Ward Status: occupied
+Processing bed: NEU-10 Ward: Neurology Ward Status: available
+Processing bed: NEU-11 Ward: Neurology Ward Status: available
+Processing bed: NEU-12 Ward: Neurology Ward Status: available
+Processing bed: ONC-01 Ward: Oncology Ward Status: available
+Processing bed: ONC-02 Ward: Oncology Ward Status: available
+Processing bed: ONC-03 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-04 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-05 Ward: Oncology Ward Status: available
+Processing bed: ONC-06 Ward: Oncology Ward Status: available
+Processing bed: ONC-07 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-08 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-09 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-10 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-11 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-12 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-13 Ward: Oncology Ward Status: available
+Processing bed: ONC-14 Ward: Oncology Ward Status: occupied
+Processing bed: ONC-15 Ward: Oncology Ward Status: available
+Processing bed: ORT-04 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-06 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-07 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-09 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-10 Ward: Orthopedic Ward Status: available
+Processing bed: ORT-02 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-11 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-03 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-05 Ward: Orthopedic Ward Status: occupied
+Processing bed: CAR-14 Ward: Cardiology Ward Status: occupied
+Processing bed: ORT-12 Ward: Orthopedic Ward Status: occupied
+Processing bed: GAS-02 Ward: Gastroenterology Ward Status: occupied
+Processing bed: GAS-03 Ward: Gastroenterology Ward Status: available
+Processing bed: GAS-04 Ward: Gastroenterology Ward Status: available
+Processing bed: GAS-05 Ward: Gastroenterology Ward Status: available
+Processing bed: GAS-06 Ward: Gastroenterology Ward Status: occupied
+Processing bed: GAS-07 Ward: Gastroenterology Ward Status: available
+Processing bed: GAS-08 Ward: Gastroenterology Ward Status: available
+Processing bed: GAS-09 Ward: Gastroenterology Ward Status: occupied
+Processing bed: ORT-01 Ward: Orthopedic Ward Status: occupied
+Processing bed: ORT-08 Ward: Orthopedic Ward Status: occupied
+Processing bed: CICU-07 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: SICU-03 Ward: Surgical Intensive Care Status: occupied
+Processing bed: SICU-04 Ward: Surgical Intensive Care Status: occupied
+Processing bed: SICU-05 Ward: Surgical Intensive Care Status: available
+Processing bed: SICU-06 Ward: Surgical Intensive Care Status: available
+Processing bed: SICU-07 Ward: Surgical Intensive Care Status: occupied
+Processing bed: SICU-08 Ward: Surgical Intensive Care Status: available
+Processing bed: SICU-09 Ward: Surgical Intensive Care Status: available
+Processing bed: SICU-10 Ward: Surgical Intensive Care Status: occupied
+Processing bed: PICU-01 Ward: Pediatric Intensive Care Status: occupied
+Processing bed: PICU-02 Ward: Pediatric Intensive Care Status: occupied
+Processing bed: PICU-03 Ward: Pediatric Intensive Care Status: occupied
+Processing bed: PICU-04 Ward: Pediatric Intensive Care Status: occupied
+Processing bed: MICU-01 Ward: Medical Intensive Care Status: occupied
+Processing bed: MICU-02 Ward: Medical Intensive Care Status: occupied
+Processing bed: MICU-03 Ward: Medical Intensive Care Status: available
+Processing bed: MICU-04 Ward: Medical Intensive Care Status: occupied
+Processing bed: MICU-05 Ward: Medical Intensive Care Status: available
+Processing bed: CAR-01 Ward: Cardiology Ward Status: available
+Processing bed: CAR-02 Ward: Cardiology Ward Status: occupied
+Processing bed: CAR-03 Ward: Cardiology Ward Status: available
+Processing bed: CAR-04 Ward: Cardiology Ward Status: available
+Processing bed: CAR-05 Ward: Cardiology Ward Status: occupied
+Processing bed: CAR-06 Ward: Cardiology Ward Status: available
+Processing bed: CAR-07 Ward: Cardiology Ward Status: occupied
+Processing bed: CICU-01 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: CAR-08 Ward: Cardiology Ward Status: occupied
+Processing bed: CAR-09 Ward: Cardiology Ward Status: available
+Processing bed: CAR-10 Ward: Cardiology Ward Status: occupied
+Processing bed: CAR-11 Ward: Cardiology Ward Status: occupied
+Processing bed: CAR-12 Ward: Cardiology Ward Status: available
+Processing bed: SICU-01 Ward: Surgical Intensive Care Status: occupied
+Processing bed: CICU-06 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: CICU-05 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: CICU-03 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: CICU-02 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: SICU-02 Ward: Surgical Intensive Care Status: occupied
+Processing bed: NICU-06 Ward: Neuro Intensive Care Status: occupied
+Processing bed: PICU-05 Ward: Pediatric Intensive Care Status: occupied
+Processing bed: CICU-04 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: CICU-08 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: NICU-07 Ward: Neuro Intensive Care Status: occupied
+Processing bed: NICU-05 Ward: Neuro Intensive Care Status: occupied
+Processing bed: NICU-04 Ward: Neuro Intensive Care Status: occupied
+Processing bed: NICU-03 Ward: Neuro Intensive Care Status: occupied
+Processing bed: NICU-02 Ward: Neuro Intensive Care Status: occupied
+Processing bed: NICU-01 Ward: Neuro Intensive Care Status: occupied
+Processing bed: CICU-10 Ward: Cardiac Intensive Care Status: occupied
+Processing bed: NICU-08 Ward: Neuro Intensive Care Status: occupied
+Processing bed: CICU-09 Ward: Cardiac Intensive Care Status: occupied
+Found 8 wards with available beds for hospital 4: [
+  { wardName: 'Orthopedic Ward', availableBeds: 1, totalBeds: 13 },
+  { wardName: 'Pediatric Ward', availableBeds: 1, totalBeds: 9 },
+  {
+    wardName: 'Gastroenterology Ward',
+    availableBeds: 6,
+    totalBeds: 10
+  },
+  { wardName: 'Cardiology Ward', availableBeds: 6, totalBeds: 14 },
+  { wardName: 'Neurology Ward', availableBeds: 6, totalBeds: 12 },
+  { wardName: 'Oncology Ward', availableBeds: 6, totalBeds: 15 },
+  {
+    wardName: 'Surgical Intensive Care',
+    availableBeds: 4,
+    totalBeds: 10
+  },
+  {
+    wardName: 'Medical Intensive Care',
+    availableBeds: 2,
+    totalBeds: 5
