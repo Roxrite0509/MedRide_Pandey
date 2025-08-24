@@ -204,55 +204,6 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
   return io;
 }
 
-// Utility functions for broadcasting to specific groups
-export function broadcastToRole(role: string, event: string, data: any) {
-  if (!io) {
-    console.warn('Socket.IO not initialized, cannot broadcast to role:', role);
-    return;
-  }
-  
-  console.log(`📢 Broadcasting ${event} to role: ${role}`);
-  io.to(`role:${role}`).emit(event as keyof ServerToClientEvents, data);
-}
-
-export function broadcastToUser(userId: number, event: string, data: any) {
-  if (!io) {
-    console.warn('Socket.IO not initialized, cannot broadcast to user:', userId);
-    return;
-  }
-  
-  console.log(`📢 Broadcasting ${event} to user: ${userId}`);
-  io.to(`user:${userId}`).emit(event as keyof ServerToClientEvents, data);
-}
-
-export function broadcastToAmbulance(ambulanceId: number, event: string, data: any) {
-  if (!io) {
-    console.warn('Socket.IO not initialized, cannot broadcast to ambulance:', ambulanceId);
-    return;
-  }
-  
-  console.log(`📢 Broadcasting ${event} to ambulance: ${ambulanceId}`);
-  io.to(`ambulance:${ambulanceId}`).emit(event as keyof ServerToClientEvents, data);
-}
-
-export function broadcastToHospital(hospitalId: number, event: string, data: any) {
-  if (!io) {
-    console.warn('Socket.IO not initialized, cannot broadcast to hospital:', hospitalId);
-    return;
-  }
-  
-  console.log(`📢 Broadcasting ${event} to hospital: ${hospitalId}`);
-  io.to(`hospital:${hospitalId}`).emit(event as keyof ServerToClientEvents, data);
-}
-
-export function broadcastToAll(event: string, data: any) {
-  if (!io) {
-    console.warn('Socket.IO not initialized, cannot broadcast to all');
-    return;
-  }
-  
-  console.log(`📢 Broadcasting ${event} to all connected clients`);
-  io.emit(event as keyof ServerToClientEvents, data);
-}
+// Removed all broadcasting functions - using simplified Socket.IO for basic real-time communication only
 
 export { io };

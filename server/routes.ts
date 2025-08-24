@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import jwt from "jsonwebtoken";
-import { initializeSocketIO, broadcastToRole, broadcastToUser, broadcastToAmbulance, broadcastToAll } from "./socket";
+import { initializeSocketIO } from "./socket";
 import bcrypt from "bcryptjs";
 import { storage } from "./storage";
 import { db } from "./db";
@@ -665,7 +665,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Broadcast to all available ambulances
-      broadcastToRole('ambulance', 'emergency:new', emergencyRequest);
+      // No broadcasting - let polling handle updates
 
       res.json(emergencyRequest);
     } catch (error) {
@@ -801,20 +801,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Send targeted real-time updates for all critical status changes
-      if (updates.status === 'accepted' || updates.status === 'cancelled' || updates.status === 'completed') {
-        // Send specific ambulance response for accepted/rejected requests
-        broadcastToRole('patient', 'ambulance_response', {
-          requestId: parseInt(id),
-          status: updates.status,
-          ambulanceId: updates.ambulanceId || updatedRequest.ambulanceId
-        });
-        
-        // Send status update to all roles for dashboard updates
-        broadcastToRole('patient', 'emergency_status_update', updatedRequest);
-        broadcastToRole('hospital', 'emergency_status_update', updatedRequest);
-        broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
-      }
+      // No broadcasting - let polling handle updates
 
       res.json(updatedRequest);
     } catch (error) {
@@ -853,9 +840,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
       
-      // Send targeted deletion update
-      broadcastToRole('patient', 'emergency_status_update', deletedRequest);
-      broadcastToRole('ambulance', 'emergency_status_update', deletedRequest);
+      // No broadcasting - let polling handle updates
       
       res.json({ message: 'Emergency request deleted successfully' });
     } catch (error) {
@@ -886,11 +871,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Send targeted update only for specific status changes
-      if (updates.status === 'cancelled') {
-        broadcastToRole('patient', 'emergency_status_update', updatedRequest);
-        broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
-      }
+      // No broadcasting - let polling handle updates
       
       res.json(updatedRequest);
     } catch (error) {
@@ -938,9 +919,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
 
-      // Send targeted cancellation update  
-      broadcastToRole('patient', 'emergency_status_update', updatedRequest);
-      broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
+      // No broadcasting - let polling handle updates
       
       res.json(updatedRequest);
     } catch (error) {
@@ -1097,10 +1076,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         assignedBedNumber: availableBed.bedNumber
       });
       
-      // Send proper real-time updates to patient dashboard
-      broadcastToRole('patient', 'emergency_status_update', updatedRequest);
-      broadcastToRole('hospital', 'emergency_status_update', updatedRequest);
-      broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
+      // No broadcasting - let polling handle updates
       
       res.json({ 
         bed: updatedBed,
@@ -1141,11 +1117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log('Bed assigned successfully:', updatedBed);
       
-      // Broadcast bed update to all connected hospital users
-      broadcastToRole('hospital', {
-        type: 'bed_status_updated',
-        data: updatedBed
-      });
+      // No broadcasting - let polling handle updates
       
       res.json(updatedBed);
     } catch (error) {
@@ -1188,13 +1160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const ambulance = await storage.updateAmbulanceLocation(parseInt(id), lat, lng);
       
-      // Broadcast location update
-      broadcastToRole('hospital', {
-        type: 'ambulance_location_update',
-        ambulanceId: parseInt(id),
-        lat,
-        lng
-      });
+      // No broadcasting - let polling handle updates
 
       res.json(ambulance);
     } catch (error) {
@@ -1241,8 +1207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         availableIcuBeds
       });
 
-      // Broadcast hospital status update
-      broadcastToRole('ambulance', 'hospital:bed_update', hospital);
+      // No broadcasting - let polling handle updates
 
       res.json(hospital);
     } catch (error) {
@@ -1263,15 +1228,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         availableIcuBeds
       });
 
-      // Broadcast bed update to all connected clients via WebSocket
-      broadcastToAll('hospital:bed_update', {
-        hospitalId,
-        totalBeds,
-        availableBeds,
-        icuBeds,
-        availableIcuBeds,
-        timestamp: Date.now()
-      });
+      // No broadcasting - let polling handle updates
 
       res.json(hospital);
     } catch (error) {
