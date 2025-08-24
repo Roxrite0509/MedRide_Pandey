@@ -211,7 +211,7 @@ export default function AmbulanceNavigation() {
         </CardHeader>
         <CardContent>
           {emergencyRequest && location ? (
-            <div className="w-full h-96">
+            <div className="w-full h-80 md:h-96 relative overflow-hidden rounded-lg">
               <StableNavigationMap
                 ambulanceLocation={{
                   latitude: location.latitude,
@@ -230,7 +230,7 @@ export default function AmbulanceNavigation() {
               />
             </div>
           ) : (
-            <div className="w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+            <div className="w-full h-80 md:h-96 bg-gray-100 rounded-lg flex items-center justify-center">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-blue-500 mx-auto mb-2" />
                 <p className="text-gray-600 font-medium">Loading Navigation Map...</p>
@@ -241,21 +241,49 @@ export default function AmbulanceNavigation() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Button className="h-12" variant="outline">
-          <Phone className="w-4 h-4 mr-2" />
-          Call Patient
-        </Button>
-        <Button className="h-12" variant="outline">
-          <MessageSquare className="w-4 h-4 mr-2" />
-          Contact Hospital
-        </Button>
-        <Button className="h-12 bg-green-600 hover:bg-green-700 text-white">
-          <CheckCircle className="w-4 h-4 mr-2" />
-          Mark Arrived
-        </Button>
-      </div>
+      {/* Quick Actions - Enhanced Responsive Design */}
+      <Card className="bg-blue-50 border-blue-200">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg text-blue-800">Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <Button 
+              className="h-12 w-full text-sm font-medium" 
+              variant="outline"
+              onClick={() => {
+                const phoneNumber = emergencyRequest?.patientId || 'Unknown';
+                console.log(`Calling patient ${phoneNumber}`);
+              }}
+            >
+              <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span className="truncate">Call Patient</span>
+            </Button>
+            <Button 
+              className="h-12 w-full text-sm font-medium" 
+              variant="outline"
+              onClick={() => {
+                console.log('Contacting hospital');
+              }}
+            >
+              <MessageSquare className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span className="truncate">Contact Hospital</span>
+            </Button>
+            <Button 
+              className="h-12 w-full bg-green-600 hover:bg-green-700 text-white text-sm font-medium sm:col-span-2 lg:col-span-1"
+              onClick={() => {
+                console.log('Marking as arrived at location');
+              }}
+            >
+              <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span className="truncate">Mark Arrived</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+      
+      {/* Additional spacing for mobile to ensure buttons are always visible */}
+      <div className="h-4 md:h-0"></div>
     </div>
   );
 }
