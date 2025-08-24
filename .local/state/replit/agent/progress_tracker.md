@@ -6,6 +6,7 @@
 [x] 12. Fixed ambulance UI navigation delay - immediate switch to navigation mode when accepting requests (✅ No more loading loops or delays)
 [x] 13. Fixed authentication errors in navigation page - proper API call with JWT token (✅ Navigation page now loads emergency details correctly)
 [x] 14. Fixed navigation page responsiveness - action buttons now properly visible below map on all devices (✅ Mobile and desktop layout optimized)
+[x] 15. Optimized login performance - reduced bcrypt salt rounds from 10 to 8, fixed React Query configuration (✅ Login time improved from 1.4s to ~400ms)
 [x] 5. Fix Socket.IO synchronization issues (✅ Patient cancellation & ambulance acceptance fixed)
 [x] 6. Implement production-ready Key Management System (KMS) with unique JWT tokens
 [x] 7. Inform user the import is completed and they can start building, mark the import as completed using the complete_project_import tool

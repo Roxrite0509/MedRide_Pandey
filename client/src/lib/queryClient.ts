@@ -76,7 +76,7 @@ export const queryClient = new QueryClient({
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes for better caching
-      cacheTime: 10 * 60 * 1000, // 10 minutes cache retention
+      gcTime: 10 * 60 * 1000, // 10 minutes cache retention (updated from cacheTime)
       retry: 1, // Single retry for failed requests
       retryDelay: 1000, // 1 second delay between retries
     },

@@ -376,7 +376,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Hash password
-      const hashedPassword = await bcrypt.hash(data.password, 10);
+      const hashedPassword = await bcrypt.hash(data.password, 8); // Reduced from 10 to 8 for better performance
 
       // Create basic user first
       const user = await storage.createUser({
