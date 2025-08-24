@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Timer, Navigation as NavigationIcon, Clock, Heart, AlertTriangle, Phone, MessageSquare, CheckCircle } from "lucide-react";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
+import { StableNavigationMap } from "@/components/stable-navigation-map";
+import { useAuth } from "@/hooks/use-auth";
+import { useGeolocation } from "@/hooks/use-geolocation";
 
 export default function AmbulanceNavigation() {
   const { requestId } = useParams();
@@ -14,6 +17,9 @@ export default function AmbulanceNavigation() {
   const [eta, setEta] = useState("8 minutes");
   const [distance, setDistance] = useState("2.4 km");
 
+  const { user } = useAuth();
+  const { location } = useGeolocation();
+  
   const { data: emergencyRequest, isLoading, isError } = useQuery({
     queryKey: ['/api/emergency/request', requestId],
     queryFn: async () => {
@@ -21,19 +27,16 @@ export default function AmbulanceNavigation() {
       return response.json();
     },
     enabled: !!requestId,
-    retry: 3,
-    retryDelay: 1000,
+    staleTime: 30000, // 30 seconds
+    gcTime: 300000, // 5 minutes (updated from cacheTime)
+    retry: 2,
+    retryDelay: 500,
   });
 
-  // Mock GPS coordinates for demonstration
-  const mockCurrentLocation = { lat: 40.7580, lng: -73.9855 };
-  const mockDestination = emergencyRequest ? {
-    lat: parseFloat((emergencyRequest as any)?.latitude || '40.7128'),
-    lng: parseFloat((emergencyRequest as any)?.longitude || '-74.0060')
-  } : { lat: 40.7128, lng: -74.0060 };
-
+  // Real-time ETA countdown - only start after we have route data
   useEffect(() => {
-    // Simulate ETA countdown
+    if (eta === "Arriving" || eta === "8 minutes") return; // Don't countdown from default value
+    
     const interval = setInterval(() => {
       setEta(prev => {
         const currentMinutes = parseInt(prev.split(' ')[0]);
@@ -42,10 +45,11 @@ export default function AmbulanceNavigation() {
         }
         return "Arriving";
       });
-    }, 10000); // Update every 10 seconds for demo
+    }, 60000); // Update every minute for realistic countdown
 
     return () => clearInterval(interval);
-  }, []);
+  }, [eta]);
+
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -199,39 +203,41 @@ export default function AmbulanceNavigation() {
         </Card>
       </div>
 
-      {/* Mock Map */}
+      {/* Live Google Maps Navigation */}
       <Card>
         <CardHeader>
-          <CardTitle>Navigation Map</CardTitle>
-          <CardDescription>Real-time route to emergency location</CardDescription>
+          <CardTitle>Live Navigation Map</CardTitle>
+          <CardDescription>Real-time route with Google Maps</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center relative">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-blue-500 mx-auto mb-2" />
-              <p className="text-gray-600 font-medium">Interactive Map View</p>
-              <p className="text-sm text-gray-500">
-                From: {mockCurrentLocation.lat.toFixed(4)}, {mockCurrentLocation.lng.toFixed(4)}
-              </p>
-              <p className="text-sm text-gray-500">
-                To: {mockDestination.lat.toFixed(4)}, {mockDestination.lng.toFixed(4)}
-              </p>
-            </div>
-            
-            {/* Mock route indicators */}
-            <div className="absolute top-4 left-4 bg-blue-500 w-3 h-3 rounded-full animate-pulse"></div>
-            <div className="absolute bottom-4 right-4 bg-red-500 w-3 h-3 rounded-full"></div>
-            <svg className="absolute inset-0 w-full h-full pointer-events-none">
-              <path
-                d="M 20 20 Q 150 100 250 240"
-                stroke="#3B82F6"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray="5,5"
-                className="animate-pulse"
+          {emergencyRequest && location ? (
+            <div className="w-full h-96">
+              <StableNavigationMap
+                ambulanceLocation={{
+                  latitude: location.latitude,
+                  longitude: location.longitude
+                }}
+                patientLocation={{
+                  latitude: parseFloat(emergencyRequest.latitude),
+                  longitude: parseFloat(emergencyRequest.longitude)
+                }}
+                onStartJourney={() => console.log('Journey started from navigation page')}
+                onJourneyUpdate={(eta, distance) => {
+                  setEta(`${Math.ceil(eta / 60)} minutes`);
+                  setDistance(`${distance.toFixed(1)} km`);
+                }}
+                isJourneyActive={true}
               />
-            </svg>
-          </div>
+            </div>
+          ) : (
+            <div className="w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <MapPin className="w-12 h-12 text-blue-500 mx-auto mb-2" />
+                <p className="text-gray-600 font-medium">Loading Navigation Map...</p>
+                <p className="text-sm text-gray-500">Getting your location and route</p>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 

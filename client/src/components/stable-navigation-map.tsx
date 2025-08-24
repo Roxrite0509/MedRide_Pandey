@@ -71,8 +71,14 @@ export function StableNavigationMap({
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3000);
         
+        // Get authenticated token
+        const token = localStorage.getItem('token');
         const response = await fetch('/api/maps/config', {
-          signal: controller.signal
+          signal: controller.signal,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         });
         clearTimeout(timeoutId);
         
