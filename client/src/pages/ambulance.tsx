@@ -155,8 +155,15 @@ export default function AmbulanceDashboard() {
         status: 'accepted'
       });
       
-      // Invalidate cache to get fresh data
+      // Force immediate query refetch to ensure assignedRequests updates
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
+      
+      // Force immediate re-render to show navigation
+      setTimeout(() => {
+        setShowNavigationMap(true);
+        setIsJourneyActive(true);
+      }, 100);
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
@@ -342,7 +349,7 @@ export default function AmbulanceDashboard() {
       </Dialog>
 
       {/* Navigation Map - Show prominently when request is accepted */}
-      {showNavigationMap && assignedRequests.length > 0 && location && (
+      {showNavigationMap && (assignedRequests.length > 0 || activeRequest) && location && (
         <StableNavigationMap
           ambulanceLocation={{
             latitude: location.latitude,
