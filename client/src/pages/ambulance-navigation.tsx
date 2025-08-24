@@ -14,9 +14,17 @@ export default function AmbulanceNavigation() {
   const [distance, setDistance] = useState("2.4 km");
 
   const { data: emergencyRequest, isLoading, isError } = useQuery({
-    queryKey: ['/api/emergency/requests'],
-    select: (data: any[]) => data?.find((req: any) => req.id === parseInt(requestId || '0')),
+    queryKey: ['/api/emergency/request', requestId],
+    queryFn: async () => {
+      const response = await fetch(`/api/emergency/request/${requestId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch emergency request');
+      }
+      return response.json();
+    },
     enabled: !!requestId,
+    retry: 3,
+    retryDelay: 1000,
   });
 
   // Mock GPS coordinates for demonstration

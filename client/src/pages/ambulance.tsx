@@ -154,11 +154,9 @@ export default function AmbulanceDashboard() {
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
       queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
       
-      // Route to dedicated navigation page instead of showing inline map
+      // Route to dedicated navigation page immediately - no delay
       console.log('🗺️ Navigation map activated immediately after accept');
-      setTimeout(() => {
-        setLocation(`/PatientTracking/${data.id}`);
-      }, 100);
+      setLocation(`/PatientTracking/${data.id}`);
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
@@ -285,9 +283,9 @@ export default function AmbulanceDashboard() {
   
   // Auto-restore journey state if there's an active request - route to navigation page
   useEffect(() => {
-    if (activeRequest && !isJourneyActive) {
+    if (activeRequest && !isJourneyActive && window.location.pathname === '/AmbulanceDashboard') {
       console.log('🔄 Auto-restoring journey state for request:', activeRequest.id);
-      // Route to navigation page instead of showing inline
+      // Route to navigation page instead of showing inline - only from dashboard
       setLocation(`/PatientTracking/${activeRequest.id}`);
     }
   }, [activeRequest, isJourneyActive, setLocation]);

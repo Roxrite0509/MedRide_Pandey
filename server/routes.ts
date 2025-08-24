@@ -734,6 +734,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get single emergency request by ID  
+  app.get('/api/emergency/request/:id', authenticateToken, async (req, res) => {
+    try {
+      const requestId = parseInt(req.params.id);
+      const userId = req.user.id;
+      const userRole = req.user.role;
+      
+      if (isNaN(requestId)) {
+        return res.status(400).json({ message: 'Invalid request ID' });
+      }
+      
+      const request = await storage.getEmergencyRequest(requestId);
+      
+      if (!request) {
+        return res.status(404).json({ message: 'Emergency request not found' });
+      }
+      
+      // Check authorization based on user role
+      switch (userRole) {
+        case 'patient':
+          if (request.patientId !== userId) {
+            return res.status(403).json({ message: 'Unauthorized to view this request' });
+          }
+          break;
+        case 'ambulance':
+          // Ambulance can view if it's assigned to them or if it's pending
+          const ambulanceProfile = await storage.getAmbulanceByUserId(userId);
+          if (ambulanceProfile && request.ambulanceId !== ambulanceProfile.id && request.status !== 'pending') {
+            return res.status(403).json({ message: 'Unauthorized to view this request' });
+          }
+          break;
+        case 'hospital':
+        case 'admin':
+          // Hospital and admin can view all requests
+          break;
+        default:
+          return res.status(403).json({ message: 'Unauthorized' });
+      }
+      
+      res.json(request);
+    } catch (error) {
+      console.error('Failed to fetch emergency request:', error);
+      res.status(500).json({ message: 'Failed to fetch emergency request' });
+    }
+  });
+
   app.put('/api/emergency/request/:id', authenticateToken, async (req, res) => {
     try {
       const { id } = req.params;
