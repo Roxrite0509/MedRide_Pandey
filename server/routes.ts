@@ -801,8 +801,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Send targeted real-time updates only for critical status changes
-      if (updates.status === 'accepted' || updates.status === 'cancelled') {
+      // Send targeted real-time updates for all critical status changes
+      if (updates.status === 'accepted' || updates.status === 'cancelled' || updates.status === 'completed') {
         // Send specific ambulance response for accepted/rejected requests
         broadcastToRole('patient', 'ambulance_response', {
           requestId: parseInt(id),
@@ -1091,22 +1091,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('Patient assigned to bed:', updatedBed.bedNumber, 'in ward:', wardName);
       
       // Update emergency request status to completed with assigned bed
-      await storage.updateEmergencyRequest(parseInt(requestId), { 
+      const updatedRequest = await storage.updateEmergencyRequest(parseInt(requestId), { 
         status: 'completed',
         hospitalId: hospitalIdNum,
         assignedBedNumber: availableBed.bedNumber
       });
       
-      // Broadcast updates
-      broadcastToRole('hospital', {
-        type: 'bed_status_updated',
-        data: updatedBed
-      });
-      
-      broadcastToRole('patient', {
-        type: 'emergency_request_updated',
-        data: { id: requestId, status: 'completed' }
-      });
+      // Send proper real-time updates to patient dashboard
+      broadcastToRole('patient', 'emergency_status_update', updatedRequest);
+      broadcastToRole('hospital', 'emergency_status_update', updatedRequest);
+      broadcastToRole('ambulance', 'emergency_status_update', updatedRequest);
       
       res.json({ 
         bed: updatedBed,

@@ -140,15 +140,8 @@ export default function AmbulanceDashboard() {
       
       return response.json();
     },
-    onSuccess: (data, variables) => {
+    onSuccess: async (data, variables) => {
       console.log('✅ Request accepted successfully:', data);
-      // Force invalidate and refetch to get latest data
-      queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
-      
-      // Immediately show navigation map and start journey
-      setShowNavigationMap(true);
-      setIsJourneyActive(true);
       
       // Send socket notification about acceptance
       sendMessage('ambulance:status_update', {
@@ -156,6 +149,17 @@ export default function AmbulanceDashboard() {
         requestId: variables.requestId,
         status: 'accepted'
       });
+      
+      // Force invalidate and wait for refetch to complete
+      await queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      await queryClient.refetchQueries({ queryKey: ['/api/emergency/requests'] });
+      
+      // After data is fresh, show navigation and start journey
+      setTimeout(() => {
+        setShowNavigationMap(true);
+        setIsJourneyActive(true);
+        console.log('🗺️ Navigation map activated after successful accept');
+      }, 100);
     },
     onError: (error) => {
       console.error('Failed to accept request:', error);
