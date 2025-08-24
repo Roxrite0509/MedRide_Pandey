@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useWebSocket } from "@/hooks/use-websocket";
 import { useGeolocation } from "@/hooks/use-geolocation";
+import { useAuth } from "@/hooks/use-auth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { 
   Ambulance, 
@@ -26,17 +27,17 @@ export default function AmbulanceDashboard() {
   const { sendMessage } = useWebSocket();
   const [, setLocation] = useLocation();
   const [showRejectDialog, setShowRejectDialog] = useState<any>(null);
+  const { user } = useAuth();
 
   const { data: emergencyRequests, isLoading: requestsLoading } = useQuery({
     queryKey: ['/api/emergency/requests'],
-    refetchInterval: 5000,
+    refetchInterval: 1000, // Reduced from 5000ms to 1000ms for faster updates
   });
 
   // Update location periodically
   useEffect(() => {
     if (location) {
-      sendMessage({
-        type: 'location_update',
+      sendMessage('ambulance:location_update', {
         lat: location.latitude,
         lng: location.longitude
       });
@@ -82,9 +83,16 @@ export default function AmbulanceDashboard() {
   });
 
   const handleAcceptRequest = (request: any) => {
+    // Get actual ambulance ID from user profile
+    const ambulanceId = user?.ambulanceProfile?.id;
+    if (!ambulanceId) {
+      alert('Ambulance profile not found. Please contact support.');
+      return;
+    }
+    
     acceptRequestMutation.mutate({
       requestId: request.id,
-      ambulanceId: 1 // Should be actual ambulance ID from auth context
+      ambulanceId: ambulanceId
     });
   };
 

@@ -354,14 +354,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         availableIcuBeds
       );
       
-      // Broadcast bed status update to all connected clients
-      broadcastToAll('hospital:bed_update', {
-        hospitalId,
-        totalBeds,
-        availableBeds,
-        icuBeds,
-        availableIcuBeds
-      });
+      // Note: Real-time updates disabled to improve performance
+      // Use polling for bed status updates instead
       
       res.json(updatedHospital);
     } catch (error) {
@@ -613,12 +607,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const updatedRequest = await storage.assignPatientToBed(emergencyRequestId, bedNumber);
       
-      // Broadcast update to all connected clients
-      broadcastToAll('emergency:status_update', {
-        emergencyRequestId,
-        bedNumber,
-        request: updatedRequest
-      });
+      // Note: Real-time updates disabled to improve performance
+      // Use polling for emergency status updates instead
       
       res.json({ 
         message: 'Patient successfully assigned to bed',
@@ -980,8 +970,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Broadcast update to all connected clients
-      broadcastToAll('emergency:status_update', updatedRequest);
+      // Note: Real-time updates disabled to improve performance
+      // Use polling for emergency status updates instead
       
       res.json(updatedRequest);
     } catch (error) {
