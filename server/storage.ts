@@ -388,11 +388,17 @@ export class DatabaseStorage implements IStorage {
       ambulance: {
         id: ambulances.id,
         vehicleNumber: ambulances.vehicleNumber,
+        operatorId: ambulances.operatorId,
+        hospitalId: ambulances.hospitalId,
+        currentLatitude: ambulances.currentLatitude,
+        currentLongitude: ambulances.currentLongitude,
+        status: ambulances.status,
         operatorPhone: ambulances.operatorPhone,
+        licenseNumber: ambulances.licenseNumber,
         certification: ambulances.certification,
         equipmentLevel: ambulances.equipmentLevel,
         hospitalAffiliation: ambulances.hospitalAffiliation,
-        status: ambulances.status
+        isActive: ambulances.isActive
       }
     })
     .from(emergencyRequests)
@@ -492,7 +498,7 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(emergencyRequests.createdAt));
   }
 
-  async getActiveEmergencyRequests(): Promise<EmergencyRequest[]> {
+  async getActiveEmergencyRequests(): Promise<any[]> {
     return db.select({
       ...emergencyRequests,
       patient: {
@@ -678,8 +684,7 @@ export class DatabaseStorage implements IStorage {
       .set({ 
         status,
         patientName,
-        patientId,
-        updatedAt: new Date()
+        patientId
       })
       .where(
         and(

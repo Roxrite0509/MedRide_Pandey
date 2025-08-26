@@ -135,9 +135,9 @@ export function AmbulanceTracker() {
       priority: req.priority as 'low' | 'medium' | 'high' | 'critical',
       status: req.status as 'dispatched' | 'en_route' | 'arriving',
       departureTime: new Date(req.requestedAt),
-      condition: formatEmergencyType(req.patientCondition),
+      condition: formatEmergencyType(req.patientCondition || ''),
       description: req.notes || req.description || 'No additional details provided',
-      contactNumber: req.ambulance?.operatorPhone
+      contactNumber: req.patient?.phoneNumber || req.ambulance?.licenseNumber || 'N/A'
     }));
   }, [emergencyRequests]);
   
@@ -175,7 +175,7 @@ export function AmbulanceTracker() {
   
   // Use the new available wards API data
   const availableWards = useMemo(() => {
-    const wardNames = availableWardsData.map((ward: any) => ward.wardName).filter(Boolean);
+    const wardNames = Array.isArray(availableWardsData) ? availableWardsData.map((ward: any) => ward.wardName).filter(Boolean) : [];
     return wardNames;
   }, [availableWardsData]);
   
@@ -406,10 +406,10 @@ export function AmbulanceTracker() {
                 <SelectValue placeholder="Select a ward" />
               </SelectTrigger>
               <SelectContent>
-                {availableWardsData.length === 0 ? (
+                {!Array.isArray(availableWardsData) || availableWardsData.length === 0 ? (
                   <div className="p-2 text-gray-500">No available wards found</div>
                 ) : (
-                  availableWardsData
+                  (Array.isArray(availableWardsData) ? availableWardsData : [])
                     .filter((ward: any) => ward.wardName)
                     .map((ward: any, index: number) => (
                       <SelectItem key={`ward-${index}-${ward.wardName}`} value={ward.wardName}>
