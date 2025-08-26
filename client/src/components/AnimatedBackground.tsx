@@ -89,7 +89,7 @@ const AnimatedBackground: React.FC = () => {
       const segments = 200;
       const a = aValues[i];
       
-      // Using the equation: y^(2/3) + 0.9 * (3.3 - x^2)^(1/2) * sin(a * π * x) 
+      // Using the equation: x^(2/3) + 0.9 * (3.3 - x^2)^(1/2) * sin(a * π * x) = y
       // We'll parametrize this for x from -1.8 to 1.8
       for (let j = 0; j <= segments; j++) {
         const x = -1.8 + (j / segments) * 3.6; // x range from -1.8 to 1.8
@@ -97,21 +97,14 @@ const AnimatedBackground: React.FC = () => {
         // Calculate the wave equation
         const xSquared = x * x;
         if (xSquared <= 3.3) { // Ensure we don't get negative values under square root
+          const xTerm = Math.pow(Math.abs(x), 2/3) * Math.sign(x); // x^(2/3) with proper sign
           const sqrtTerm = Math.sqrt(3.3 - xSquared);
           const sinTerm = Math.sin(a * Math.PI * x);
           
-          // For the y^(2/3) term, we'll create both positive and negative y values
-          const waveValue = 0.9 * sqrtTerm * sinTerm;
+          // Calculate y using the corrected equation
+          const y = xTerm + 0.9 * sqrtTerm * sinTerm;
           
-          // Create upper curve
-          if (waveValue >= 0) {
-            const y = Math.pow(Math.abs(waveValue), 2/3);
-            points.push(new THREE.Vector3(x * 0.5, y * 0.5, i * 0.02));
-          }
-          
-          // Create lower curve (mirror)
-          const yLower = -Math.pow(Math.abs(waveValue), 2/3);
-          points.push(new THREE.Vector3(x * 0.5, yLower * 0.5, i * 0.02));
+          points.push(new THREE.Vector3(x * 0.5, y * 0.5, i * 0.02));
         }
       }
       
