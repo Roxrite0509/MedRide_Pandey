@@ -249,6 +249,16 @@ export default function UnifiedPatientDashboard() {
     onSettled: () => {
       // Always refetch to ensure server state
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      // Also invalidate related caches that might show the request
+      queryClient.invalidateQueries({ queryKey: ['/api/ambulances/locations'] });
+      queryClient.invalidateQueries({ predicate: query => 
+        query.queryKey.some(key => 
+          typeof key === 'string' && (
+            key.includes('emergency') || 
+            key.includes('ambulance')
+          )
+        )
+      });
     },
   });
 
@@ -295,6 +305,16 @@ export default function UnifiedPatientDashboard() {
     onSettled: () => {
       // Always refetch after error or success to ensure server state
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      // Also invalidate related caches that might show the request
+      queryClient.invalidateQueries({ queryKey: ['/api/ambulances/locations'] });
+      queryClient.invalidateQueries({ predicate: query => 
+        query.queryKey.some(key => 
+          typeof key === 'string' && (
+            key.includes('emergency') || 
+            key.includes('ambulance')
+          )
+        )
+      });
     },
   });
 

@@ -198,9 +198,23 @@ export function AmbulanceTracker() {
       return response;
     },
     onSuccess: (data: any) => {
+      // Comprehensive cache invalidation to ensure UI updates immediately
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
       queryClient.invalidateQueries({ queryKey: [`/api/hospitals/${hospitalId}/bed-status`] });
       queryClient.invalidateQueries({ queryKey: [`/api/hospitals/${hospitalId}/available-wards`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/ambulances/locations'] });
+      
+      // Also invalidate any cached requests by specific patterns
+      queryClient.invalidateQueries({ predicate: query => 
+        query.queryKey.some(key => 
+          typeof key === 'string' && (
+            key.includes('emergency') || 
+            key.includes('ambulance') || 
+            key.includes('bed-status')
+          )
+        )
+      });
+      
       alert(data.message || "Patient has been successfully admitted and assigned to a bed.");
       setWardDialogOpen(false);
       setSelectedWard('');
@@ -220,7 +234,17 @@ export function AmbulanceTracker() {
       await apiRequest('PUT', `/api/emergency/requests/${requestId}`, { status: 'cancelled' });
     },
     onSuccess: () => {
+      // Comprehensive cache invalidation for cancellation
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/ambulances/locations'] });
+      queryClient.invalidateQueries({ predicate: query => 
+        query.queryKey.some(key => 
+          typeof key === 'string' && (
+            key.includes('emergency') || 
+            key.includes('ambulance')
+          )
+        )
+      });
       alert("Emergency request has been cancelled.");
     },
     onError: (error: Error) => {
