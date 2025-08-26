@@ -9,7 +9,7 @@ const AnimatedBackground: React.FC = () => {
   const spiralRef = useRef<THREE.Group>();
   const gridRef = useRef<THREE.Group>();
   const heartRef = useRef<THREE.Group>();
-  const ambulanceRef = useRef<THREE.Group>();
+  const particlesRef = useRef<THREE.Group>();
   const [webglSupported, setWebglSupported] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const mouseRef = useRef(new THREE.Vector2());
@@ -173,60 +173,68 @@ const AnimatedBackground: React.FC = () => {
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
 
-    // Create ambulance
-    const ambulanceGroup = new THREE.Group();
+    // Create floating geometric particles
+    const particlesGroup = new THREE.Group();
+    const particleCount = 12;
     
-    // Ambulance body (main rectangle)
-    const bodyGeometry = new THREE.BoxGeometry(0.8, 0.3, 0.2);
-    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    ambulanceGroup.add(body);
+    for (let i = 0; i < particleCount; i++) {
+      const particleGroup = new THREE.Group();
+      
+      // Create different geometric shapes
+      let geometry;
+      const shapeType = i % 4;
+      
+      switch (shapeType) {
+        case 0: // Tetrahedron
+          geometry = new THREE.TetrahedronGeometry(0.08);
+          break;
+        case 1: // Octahedron
+          geometry = new THREE.OctahedronGeometry(0.06);
+          break;
+        case 2: // Icosahedron
+          geometry = new THREE.IcosahedronGeometry(0.05);
+          break;
+        case 3: // Dodecahedron
+          geometry = new THREE.DodecahedronGeometry(0.04);
+          break;
+      }
+      
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        transparent: true,
+        opacity: 0.7,
+        wireframe: true
+      });
+      
+      const particle = new THREE.Mesh(geometry, material);
+      particleGroup.add(particle);
+      
+      // Random positioning across viewport
+      const x = (Math.random() - 0.5) * 8;
+      const y = (Math.random() - 0.5) * 4;
+      const z = (Math.random() - 0.5) * 2;
+      
+      particleGroup.position.set(x, y, z);
+      
+      // Store initial position and animation properties
+      particleGroup.userData = {
+        initialX: x,
+        initialY: y,
+        initialZ: z,
+        rotationSpeed: {
+          x: (Math.random() - 0.5) * 0.02,
+          y: (Math.random() - 0.5) * 0.02,
+          z: (Math.random() - 0.5) * 0.02
+        },
+        floatSpeed: Math.random() * 0.5 + 0.3,
+        floatAmplitude: Math.random() * 0.3 + 0.1
+      };
+      
+      particlesGroup.add(particleGroup);
+    }
     
-    // Red stripe
-    const stripeGeometry = new THREE.BoxGeometry(0.82, 0.08, 0.21);
-    const stripeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    const stripe = new THREE.Mesh(stripeGeometry, stripeMaterial);
-    stripe.position.y = 0.05;
-    ambulanceGroup.add(stripe);
-    
-    // Red cross on side
-    const crossHGeometry = new THREE.BoxGeometry(0.15, 0.03, 0.22);
-    const crossVGeometry = new THREE.BoxGeometry(0.03, 0.15, 0.22);
-    const crossMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    
-    const crossH = new THREE.Mesh(crossHGeometry, crossMaterial);
-    const crossV = new THREE.Mesh(crossVGeometry, crossMaterial);
-    crossH.position.set(-0.2, 0, 0.11);
-    crossV.position.set(-0.2, 0, 0.11);
-    ambulanceGroup.add(crossH);
-    ambulanceGroup.add(crossV);
-    
-    // Windows
-    const windowGeometry = new THREE.BoxGeometry(0.25, 0.15, 0.21);
-    const windowMaterial = new THREE.MeshBasicMaterial({ color: 0x87ceeb });
-    const frontWindow = new THREE.Mesh(windowGeometry, windowMaterial);
-    frontWindow.position.set(0.25, 0.1, 0);
-    ambulanceGroup.add(frontWindow);
-    
-    // Wheels
-    const wheelGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.05, 16);
-    const wheelMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 });
-    
-    const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-    const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-    wheel1.position.set(-0.25, -0.22, 0.125);
-    wheel2.position.set(0.25, -0.22, 0.125);
-    wheel1.rotation.z = Math.PI / 2;
-    wheel2.rotation.z = Math.PI / 2;
-    ambulanceGroup.add(wheel1);
-    ambulanceGroup.add(wheel2);
-    
-    // Position ambulance to start off-screen left at 0.2 height
-    ambulanceGroup.position.set(-8, -1.5, 0); // Start off-screen left, 0.2 height from bottom
-    ambulanceGroup.scale.set(0.8, 0.8, 0.8);
-    
-    ambulanceRef.current = ambulanceGroup;
-    scene.add(ambulanceGroup);
+    particlesRef.current = particlesGroup;
+    scene.add(particlesGroup);
 
     // Mouse and click handlers
     const handleMouseMove = (event: MouseEvent) => {
@@ -336,23 +344,26 @@ const AnimatedBackground: React.FC = () => {
         });
       }
 
-      // Animate ambulance
-      if (ambulanceRef.current) {
-        // Move ambulance from left to right across viewport
-        ambulanceRef.current.position.x += 0.02;
-        
-        // Reset position when it goes off-screen right
-        if (ambulanceRef.current.position.x > 8) {
-          ambulanceRef.current.position.x = -8;
-        }
-        
-        // Add slight bobbing motion
-        ambulanceRef.current.position.y = -1.5 + Math.sin(time * 3) * 0.05;
-        
-        // Rotate wheels
-        const wheels = [ambulanceRef.current.children[5], ambulanceRef.current.children[6]];
-        wheels.forEach(wheel => {
-          if (wheel) wheel.rotation.x += 0.1;
+      // Animate floating particles
+      if (particlesRef.current) {
+        particlesRef.current.children.forEach((particleGroup, index) => {
+          const userData = particleGroup.userData;
+          const particle = particleGroup.children[0];
+          
+          // Floating motion
+          particleGroup.position.y = userData.initialY + Math.sin(time * userData.floatSpeed + index) * userData.floatAmplitude;
+          particleGroup.position.x = userData.initialX + Math.cos(time * userData.floatSpeed * 0.7 + index) * 0.2;
+          
+          // Gentle rotation
+          particle.rotation.x += userData.rotationSpeed.x;
+          particle.rotation.y += userData.rotationSpeed.y;
+          particle.rotation.z += userData.rotationSpeed.z;
+          
+          // Subtle opacity pulsing
+          const opacityVariation = 0.4 + Math.sin(time * 2 + index * 0.5) * 0.3;
+          if (particle.material instanceof THREE.MeshBasicMaterial) {
+            particle.material.opacity = opacityVariation;
+          }
         });
       }
 
