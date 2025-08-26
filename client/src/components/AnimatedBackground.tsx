@@ -109,6 +109,8 @@ const AnimatedBackground: React.FC = () => {
       heartGroup.add(heartLine);
     }
     
+    // Position heart in top left
+    heartGroup.position.set(-3, 2, 0);
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -133,6 +135,8 @@ const AnimatedBackground: React.FC = () => {
       spiralGroup.add(circle);
     }
     
+    // Position spiral in top left (same as heart)
+    spiralGroup.position.set(-3, 2, 0);
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
 
@@ -141,9 +145,16 @@ const AnimatedBackground: React.FC = () => {
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
       
-      // Check if mouse is near center (login area)
-      const distance = Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2);
-      setIsHovering(distance < 0.5);
+      // Check if mouse is near top left area where heart/spiral is positioned
+      const topLeftX = -3; // Heart position
+      const topLeftY = 2;
+      
+      // Convert mouse position to world coordinates
+      const worldX = mouseRef.current.x * 5; // Adjust scale based on camera distance
+      const worldY = mouseRef.current.y * 5;
+      
+      const distance = Math.sqrt((worldX - topLeftX) ** 2 + (worldY - topLeftY) ** 2);
+      setIsHovering(distance < 1.5);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
