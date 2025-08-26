@@ -101,9 +101,9 @@ const AnimatedBackground: React.FC = () => {
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
         
-        // Apply scaling and position
+        // Apply scaling and center the heart shape
         const scaledX = (x * scale * 0.03);
-        const scaledY = (y * scale * 0.03);
+        const scaledY = (y * scale * 0.03) + 0.3; // Offset to center the heart vertically
         
         points.push(new THREE.Vector3(scaledX, scaledY, i * 0.02));
       }
