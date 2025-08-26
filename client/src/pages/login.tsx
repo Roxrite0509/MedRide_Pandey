@@ -72,7 +72,7 @@ export default function Login() {
       <AnimatedBackground />
       <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
         <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl">
-        <Card className="shadow-2xl mx-auto backdrop-blur-sm bg-white/95 border-white/20">
+        <Card className="shadow-2xl mx-auto backdrop-blur-md bg-gradient-to-br from-white/90 via-white/85 to-white/80 border-red-100/30 border-2">
           <CardHeader className="text-center p-4 sm:p-6">
             <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 sm:mb-4">
               <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
