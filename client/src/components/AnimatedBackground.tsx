@@ -82,7 +82,7 @@ const AnimatedBackground: React.FC = () => {
     
     // Create multiple wave outlines with different frequencies
     const waveCount = 6;
-    const aValues = [5.0, 7.5, 10.0, 12.5, 15.0, 18.21]; // Different 'a' values for varying frequencies
+    const aValues = [2.5, 3.75, 5.0, 6.25, 7.5, 9.105]; // Different 'a' values for varying frequencies (reduced by half)
     
     for (let i = 0; i < waveCount; i++) {
       const points = [];
