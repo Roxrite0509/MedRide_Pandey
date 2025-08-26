@@ -117,8 +117,6 @@ const AnimatedBackground: React.FC = () => {
       });
       
       const waveLine = new THREE.Line(waveGeometry, waveMaterial);
-      // Rotate 90 degrees left (counter-clockwise)
-      waveLine.rotation.z = Math.PI / 2;
       heartGroup.add(waveLine);
     }
     
