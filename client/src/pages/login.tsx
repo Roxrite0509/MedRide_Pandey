@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Heart, UserPlus, LogIn } from "lucide-react";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 export default function Login() {
   const { login, register, isLoading } = useAuth();
@@ -67,9 +68,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-      <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl">
-        <Card className="shadow-2xl mx-auto">
+    <>
+      <AnimatedBackground />
+      <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
+        <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl">
+        <Card className="shadow-2xl mx-auto backdrop-blur-sm bg-white/95 border-white/20">
           <CardHeader className="text-center p-4 sm:p-6">
             <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 sm:mb-4">
               <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
@@ -142,7 +145,8 @@ export default function Login() {
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
