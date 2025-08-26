@@ -77,36 +77,56 @@ const AnimatedBackground: React.FC = () => {
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
-    // Create cardioid (heart shape) - default state
+    // Create wave pattern using the mathematical equation from the image
     const heartGroup = new THREE.Group();
     
-    // Create multiple heart outlines for beating effect
-    const heartCount = 6;
-    for (let i = 0; i < heartCount; i++) {
-      // Cardioid parametric equation: r = a(1 - cos(θ))
+    // Create multiple wave outlines with different frequencies
+    const waveCount = 6;
+    const aValues = [5.0, 7.5, 10.0, 12.5, 15.0, 18.21]; // Different 'a' values for varying frequencies
+    
+    for (let i = 0; i < waveCount; i++) {
       const points = [];
-      const segments = 100;
-      const scale = 0.8 + i * 0.15;
+      const segments = 200;
+      const a = aValues[i];
       
+      // Using the equation: y^(2/3) + 0.9 * (3.3 - x^2)^(1/2) * sin(a * π * x) 
+      // We'll parametrize this for x from -1.8 to 1.8
       for (let j = 0; j <= segments; j++) {
-        const t = (j / segments) * Math.PI * 2;
-        const r = scale * (1 - Math.cos(t));
-        const x = r * Math.cos(t);
-        const y = r * Math.sin(t);
-        points.push(new THREE.Vector3(x, y, i * 0.02));
+        const x = -1.8 + (j / segments) * 3.6; // x range from -1.8 to 1.8
+        
+        // Calculate the wave equation
+        const xSquared = x * x;
+        if (xSquared <= 3.3) { // Ensure we don't get negative values under square root
+          const sqrtTerm = Math.sqrt(3.3 - xSquared);
+          const sinTerm = Math.sin(a * Math.PI * x);
+          
+          // For the y^(2/3) term, we'll create both positive and negative y values
+          const waveValue = 0.9 * sqrtTerm * sinTerm;
+          
+          // Create upper curve
+          if (waveValue >= 0) {
+            const y = Math.pow(Math.abs(waveValue), 2/3);
+            points.push(new THREE.Vector3(x * 0.5, y * 0.5, i * 0.02));
+          }
+          
+          // Create lower curve (mirror)
+          const yLower = -Math.pow(Math.abs(waveValue), 2/3);
+          points.push(new THREE.Vector3(x * 0.5, yLower * 0.5, i * 0.02));
+        }
       }
       
-      const heartGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const heartMaterial = new THREE.LineBasicMaterial({
+      const waveGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      const waveMaterial = new THREE.LineBasicMaterial({
         color: 0xff0000,
         transparent: true,
         opacity: 0.8 - (i * 0.12),
         linewidth: 2
       });
       
-      const heartLine = new THREE.Line(heartGeometry, heartMaterial);
-      heartLine.rotation.x = Math.PI; // Flip to correct orientation
-      heartGroup.add(heartLine);
+      const waveLine = new THREE.Line(waveGeometry, waveMaterial);
+      // Rotate 90 degrees left (counter-clockwise)
+      waveLine.rotation.z = Math.PI / 2;
+      heartGroup.add(waveLine);
     }
     
     // Position heart in top left
