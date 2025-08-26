@@ -59,6 +59,7 @@ export interface IStorage {
   getActiveEmergencyRequests(): Promise<EmergencyRequest[]>;
   createEmergencyRequest(request: InsertEmergencyRequest): Promise<EmergencyRequest>;
   updateEmergencyRequest(id: number, request: Partial<InsertEmergencyRequest>): Promise<EmergencyRequest>;
+  deleteEmergencyRequest(id: number): Promise<void>;
   assignPatientToBed(emergencyRequestId: number, bedNumber: string): Promise<EmergencyRequest>;
   
   // Statistics operations
@@ -637,6 +638,10 @@ export class DatabaseStorage implements IStorage {
       .where(eq(emergencyRequests.id, id))
       .returning();
     return updatedRequest;
+  }
+
+  async deleteEmergencyRequest(id: number): Promise<void> {
+    await db.delete(emergencyRequests).where(eq(emergencyRequests.id, id));
   }
 
   async assignPatientToBed(emergencyRequestId: number, bedNumber: string): Promise<EmergencyRequest> {

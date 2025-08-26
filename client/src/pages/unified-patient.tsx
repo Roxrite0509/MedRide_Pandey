@@ -262,50 +262,15 @@ export default function UnifiedPatientDashboard() {
     },
   });
 
-  // Delete request mutation with optimistic updates
+  // Delete request mutation - simplified without optimistic updates to prevent race conditions
   const deleteMutation = useMutation({
     mutationFn: async (requestId: number) => {
       const response = await apiRequest('DELETE', `/api/emergency/requests/${requestId}`);
       return response.json();
     },
-    onMutate: async (requestId) => {
-      // Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['/api/emergency/requests'] });
-      
-      // Snapshot the previous value
-      const previousRequests = queryClient.getQueryData(['/api/emergency/requests']);
-      
-      // Optimistically remove from cache
-      queryClient.setQueryData(['/api/emergency/requests'], (oldData: any) => {
-        if (!Array.isArray(oldData)) return oldData;
-        return oldData.filter((req: any) => req.id !== requestId);
-      });
-      
-      // Return a context object with the snapshotted value
-      return { previousRequests };
-    },
     onSuccess: (data, requestId) => {
-      toast({
-        title: "Request deleted",
-        description: "Emergency request has been removed from your history.",
-        duration: 3000,
-      });
-    },
-    onError: (error, requestId, context) => {
-      // Rollback on error
-      queryClient.setQueryData(['/api/emergency/requests'], context?.previousRequests);
-      console.error('Error deleting emergency request:', error);
-      toast({
-        title: "Deletion failed",
-        description: "Failed to delete request. Please try again.",
-        variant: "destructive",
-        duration: 3000,
-      });
-    },
-    onSettled: () => {
-      // Always refetch after error or success to ensure server state
+      // Comprehensive cache invalidation after successful deletion
       queryClient.invalidateQueries({ queryKey: ['/api/emergency/requests'] });
-      // Also invalidate related caches that might show the request
       queryClient.invalidateQueries({ queryKey: ['/api/ambulances/locations'] });
       queryClient.invalidateQueries({ predicate: query => 
         query.queryKey.some(key => 
@@ -315,7 +280,22 @@ export default function UnifiedPatientDashboard() {
           )
         )
       });
+      
+      toast({
+        title: "Request deleted",
+        description: "Emergency request has been permanently removed.",
+        duration: 3000,
+      });
     },
+    onError: (error) => {
+      console.error('Error deleting emergency request:', error);
+      toast({
+        title: "Deletion failed",
+        description: "Failed to delete request. Please try again.",
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
   });
 
   const handleEmergencySubmit = async () => {

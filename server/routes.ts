@@ -863,7 +863,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Delete emergency request
+  // Delete emergency request (support both singular and plural endpoints)
   app.delete('/api/emergency/request/:id', authenticateToken, async (req, res) => {
     try {
       const requestId = parseInt(req.params.id);
@@ -894,6 +894,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // No broadcasting - let polling handle updates
+      
+      res.json({ message: 'Emergency request deleted successfully' });
+    } catch (error) {
+      console.error('Delete emergency request error:', error);
+      res.status(500).json({ message: 'Failed to delete emergency request' });
+    }
+  });
+
+  // Delete emergency request (plural endpoint for frontend compatibility)
+  app.delete('/api/emergency/requests/:id', authenticateToken, async (req, res) => {
+    try {
+      const requestId = parseInt(req.params.id);
+      const userId = req.user.id;
+      
+      // Get the request to verify ownership
+      const request = await storage.getEmergencyRequest(requestId);
+      if (!request) {
+        return res.status(404).json({ message: 'Emergency request not found' });
+      }
+      
+      // Only allow deletion by the patient who created it or admin roles
+      if (request.patientId !== userId && !['hospital', 'ambulance'].includes(req.user.role)) {
+        return res.status(403).json({ message: 'Unauthorized to delete this request' });
+      }
+      
+      // Actually delete the request instead of marking as deleted
+      await storage.deleteEmergencyRequest(requestId);
+      
+      // Clear cache to ensure fresh data on next request
+      cache.forEach((value, key) => {
+        if (key.startsWith('emergency_requests_')) {
+          cache.delete(key);
+        }
+      });
       
       res.json({ message: 'Emergency request deleted successfully' });
     } catch (error) {
