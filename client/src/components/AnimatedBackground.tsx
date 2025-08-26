@@ -77,59 +77,64 @@ const AnimatedBackground: React.FC = () => {
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
-    // Create spiral circle
+    // Create cardioid (heart shape) - default state
+    const heartGroup = new THREE.Group();
+    
+    // Create multiple heart outlines for beating effect
+    const heartCount = 6;
+    for (let i = 0; i < heartCount; i++) {
+      // Cardioid parametric equation: r = a(1 - cos(θ))
+      const points = [];
+      const segments = 100;
+      const scale = 0.8 + i * 0.15;
+      
+      for (let j = 0; j <= segments; j++) {
+        const t = (j / segments) * Math.PI * 2;
+        const r = scale * (1 - Math.cos(t));
+        const x = r * Math.cos(t);
+        const y = r * Math.sin(t);
+        points.push(new THREE.Vector3(x, y, i * 0.02));
+      }
+      
+      const heartGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      const heartMaterial = new THREE.LineBasicMaterial({
+        color: 0xff0000,
+        transparent: true,
+        opacity: 0.8 - (i * 0.12),
+        linewidth: 2
+      });
+      
+      const heartLine = new THREE.Line(heartGeometry, heartMaterial);
+      heartLine.rotation.x = Math.PI; // Flip to correct orientation
+      heartGroup.add(heartLine);
+    }
+    
+    heartRef.current = heartGroup;
+    scene.add(heartGroup);
+
+    // Create spiral circles - hover state
     const spiralGroup = new THREE.Group();
     
     // Create multiple circles for spiral effect
-    const circleCount = 10;
-    const radius = 3.5; // Expanded radius
+    const circleCount = 8;
+    const radius = 2.5;
     
     for (let i = 0; i < circleCount; i++) {
-      const circleGeometry = new THREE.RingGeometry(radius + i * 0.15, radius + i * 0.15 + 0.03, 64);
+      const circleGeometry = new THREE.RingGeometry(radius + i * 0.12, radius + i * 0.12 + 0.025, 64);
       const circleMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff0000, // Red color
+        color: 0xff0000,
         transparent: true,
-        opacity: 0.8 - (i * 0.08),
+        opacity: 0, // Start hidden
         side: THREE.DoubleSide
       });
       
       const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-      circle.position.z = i * 0.1;
+      circle.position.z = i * 0.08;
       spiralGroup.add(circle);
     }
     
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
-
-    // Create heart shape
-    const heartGroup = new THREE.Group();
-    
-    // Heart shape using curves
-    const heartShape = new THREE.Shape();
-    const x = 0, y = 0;
-    heartShape.moveTo(x + 25, y + 25);
-    heartShape.bezierCurveTo(x + 25, y + 25, x + 20, y, x, y);
-    heartShape.bezierCurveTo(x - 30, y, x - 30, y + 35, x - 30, y + 35);
-    heartShape.bezierCurveTo(x - 30, y + 55, x - 10, y + 77, x + 25, y + 95);
-    heartShape.bezierCurveTo(x + 60, y + 77, x + 80, y + 55, x + 80, y + 35);
-    heartShape.bezierCurveTo(x + 80, y + 35, x + 80, y, x + 50, y);
-    heartShape.bezierCurveTo(x + 35, y, x + 25, y + 25, x + 25, y + 25);
-
-    const heartGeometry = new THREE.ShapeGeometry(heartShape);
-    const heartMaterial = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      transparent: true,
-      opacity: 0,
-      side: THREE.DoubleSide
-    });
-    
-    const heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
-    heartMesh.scale.set(0.02, 0.02, 0.02);
-    heartMesh.position.set(0, 0, 0);
-    heartGroup.add(heartMesh);
-    
-    heartRef.current = heartGroup;
-    scene.add(heartGroup);
 
     // Mouse move handler
     const handleMouseMove = (event: MouseEvent) => {
@@ -149,46 +154,54 @@ const AnimatedBackground: React.FC = () => {
 
       const time = Date.now() * 0.001;
 
-      // Animate spiral and heart transition
+      // Animate heart and spiral transition
       if (spiralRef.current && heartRef.current) {
         if (isHovering) {
-          // Transition to heart
-          spiralRef.current.children.forEach((child, index) => {
-            const mesh = child as THREE.Mesh;
-            if (mesh.material instanceof THREE.MeshBasicMaterial) {
-              mesh.material.opacity = Math.max(0, mesh.material.opacity - 0.05);
-            }
-          });
-          
-          const heartMesh = heartRef.current.children[0] as THREE.Mesh;
-          if (heartMesh.material instanceof THREE.MeshBasicMaterial) {
-            heartMesh.material.opacity = Math.min(0.9, heartMesh.material.opacity + 0.05);
-            // Beating effect
-            const beatScale = 1 + Math.sin(time * 8) * 0.2;
-            heartRef.current.scale.set(beatScale, beatScale, 1);
-          }
-        } else {
-          // Transition back to spiral
-          heartRef.current.children.forEach((child) => {
-            const mesh = child as THREE.Mesh;
-            if (mesh.material instanceof THREE.MeshBasicMaterial) {
-              mesh.material.opacity = Math.max(0, mesh.material.opacity - 0.05);
+          // Transition to spiral
+          heartRef.current.children.forEach((child, index) => {
+            const line = child as THREE.Line;
+            if (line.material instanceof THREE.LineBasicMaterial) {
+              line.material.opacity = Math.max(0, line.material.opacity - 0.08);
             }
           });
           
           spiralRef.current.children.forEach((child, index) => {
             const mesh = child as THREE.Mesh;
             if (mesh.material instanceof THREE.MeshBasicMaterial) {
-              const targetOpacity = 0.8 - (index * 0.08);
-              mesh.material.opacity = Math.min(targetOpacity, mesh.material.opacity + 0.05);
+              const targetOpacity = 0.8 - (index * 0.1);
+              mesh.material.opacity = Math.min(targetOpacity, mesh.material.opacity + 0.08);
             }
           });
           
           // Rotate spiral
-          spiralRef.current.rotation.z += 0.01;
-          // Add subtle breathing effect
-          const scale = 1 + Math.sin(time * 2) * 0.1;
+          spiralRef.current.rotation.z += 0.015;
+          // Add breathing effect to spiral
+          const scale = 1 + Math.sin(time * 3) * 0.1;
           spiralRef.current.scale.set(scale, scale, 1);
+        } else {
+          // Transition back to heart (default state)
+          spiralRef.current.children.forEach((child) => {
+            const mesh = child as THREE.Mesh;
+            if (mesh.material instanceof THREE.MeshBasicMaterial) {
+              mesh.material.opacity = Math.max(0, mesh.material.opacity - 0.08);
+            }
+          });
+          
+          heartRef.current.children.forEach((child, index) => {
+            const line = child as THREE.Line;
+            if (line.material instanceof THREE.LineBasicMaterial) {
+              const targetOpacity = 0.8 - (index * 0.12);
+              line.material.opacity = Math.min(targetOpacity, line.material.opacity + 0.08);
+            }
+          });
+          
+          // Beating heart effect with varying scales for each outline
+          heartRef.current.children.forEach((child, index) => {
+            const beatOffset = index * 0.3; // Different timing for each outline
+            const beatScale = 1 + Math.sin((time * 6) + beatOffset) * (0.15 - index * 0.02);
+            const randomOffset = Math.sin((time * 4) + index) * 0.05;
+            child.scale.set(beatScale + randomOffset, beatScale + randomOffset, 1);
+          });
         }
       }
 
