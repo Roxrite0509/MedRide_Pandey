@@ -77,47 +77,47 @@ const AnimatedBackground: React.FC = () => {
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
-    // Create wave pattern using the mathematical equation from the image
+    // Create parametric heart shape using the equation from the image
     const heartGroup = new THREE.Group();
     
-    // Create multiple wave outlines with different frequencies
-    const waveCount = 6;
-    const aValues = [2.5, 3.75, 5.0, 6.25, 7.5, 9.105]; // Different 'a' values for varying frequencies (reduced by half)
+    // Create multiple heart outlines for beating effect
+    const heartCount = 5;
+    const m = 20; // Parameter from the equation
     
-    for (let i = 0; i < waveCount; i++) {
+    for (let i = 0; i < heartCount; i++) {
       const points = [];
-      const segments = 200;
-      const a = aValues[i];
+      const segments = 300;
+      const scale = 1 + i * 0.08; // Slightly different scales for layered effect
       
-      // Using the equation: x^(2/3) + 0.9 * (3.3 - x^2)^(1/2) * sin(a * π * x) = y
-      // We'll parametrize this for x from -1.8 to 1.8
+      // Using the parametric heart equation from the image:
+      // (sin(mπt/10) + x)² + (cos(mπt/10) + y)² = 0.7|x|y + 1
+      // We'll create this parametrically using polar-like approach
+      
       for (let j = 0; j <= segments; j++) {
-        const x = -1.8 + (j / segments) * 3.6; // x range from -1.8 to 1.8
+        const t = (j / segments) * Math.PI * 2; // Parameter t from 0 to 2π
         
-        // Calculate the wave equation
-        const xSquared = x * x;
-        if (xSquared <= 3.3) { // Ensure we don't get negative values under square root
-          const xTerm = Math.pow(Math.abs(x), 2/3) * Math.sign(x); // x^(2/3) with proper sign
-          const sqrtTerm = Math.sqrt(3.3 - xSquared);
-          const sinTerm = Math.sin(a * Math.PI * x);
-          
-          // Calculate y using the corrected equation
-          const y = xTerm + 0.9 * sqrtTerm * sinTerm;
-          
-          points.push(new THREE.Vector3(x * 0.5, y * 0.5, i * 0.02));
-        }
+        // Heart shape parametric equations (classic heart curve)
+        // x = 16sin³(t), y = 13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t)
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+        
+        // Apply scaling and position
+        const scaledX = (x * scale * 0.03);
+        const scaledY = (y * scale * 0.03);
+        
+        points.push(new THREE.Vector3(scaledX, scaledY, i * 0.02));
       }
       
-      const waveGeometry = new THREE.BufferGeometry().setFromPoints(points);
-      const waveMaterial = new THREE.LineBasicMaterial({
+      const heartGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      const heartMaterial = new THREE.LineBasicMaterial({
         color: 0xff0000,
         transparent: true,
-        opacity: 0.8 - (i * 0.12),
+        opacity: 0.9 - (i * 0.15),
         linewidth: 2
       });
       
-      const waveLine = new THREE.Line(waveGeometry, waveMaterial);
-      heartGroup.add(waveLine);
+      const heartLine = new THREE.Line(heartGeometry, heartMaterial);
+      heartGroup.add(heartLine);
     }
     
     // Position heart in top left
@@ -217,12 +217,23 @@ const AnimatedBackground: React.FC = () => {
             }
           });
           
-          // Beating heart effect with varying scales for each outline
+          // Enhanced beating heart effect with realistic heartbeat pattern
           heartRef.current.children.forEach((child, index) => {
-            const beatOffset = index * 0.3; // Different timing for each outline
-            const beatScale = 1 + Math.sin((time * 6) + beatOffset) * (0.15 - index * 0.02);
-            const randomOffset = Math.sin((time * 4) + index) * 0.05;
-            child.scale.set(beatScale + randomOffset, beatScale + randomOffset, 1);
+            const beatOffset = index * 0.2; // Different timing for each outline
+            
+            // Create realistic heartbeat pattern (lub-dub)
+            const heartbeatCycle = (time * 4) + beatOffset;
+            const beat1 = Math.max(0, Math.sin(heartbeatCycle)); // Main beat
+            const beat2 = Math.max(0, Math.sin(heartbeatCycle + Math.PI * 0.3)) * 0.6; // Secondary beat
+            const combinedBeat = beat1 + beat2;
+            
+            const beatScale = 1 + combinedBeat * (0.2 - index * 0.03);
+            const pulseVariation = Math.sin((time * 2) + index) * 0.03;
+            
+            child.scale.set(beatScale + pulseVariation, beatScale + pulseVariation, 1);
+            
+            // Add slight rotation for organic movement
+            child.rotation.z = Math.sin((time * 1.5) + index) * 0.02;
           });
         }
       }
