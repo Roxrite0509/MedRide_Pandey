@@ -1124,7 +1124,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         assignedBedNumber: availableBed.bedNumber
       });
       
-      // No broadcasting - let polling handle updates
+      // Update ambulance status to available since request is now completed
+      if (updatedRequest.ambulanceId) {
+        try {
+          await storage.updateAmbulance(updatedRequest.ambulanceId, { status: 'available' });
+          console.log(`Updated ambulance ${updatedRequest.ambulanceId} status to available after patient ward assignment`);
+        } catch (error) {
+          console.error('Error updating ambulance status after ward assignment:', error);
+        }
+      }
+      
+      // Clear all emergency request caches to ensure real-time updates
+      cache.forEach((value, key) => {
+        if (key.startsWith('emergency_requests_')) {
+          cache.delete(key);
+        }
+      });
+      
+      // Clear ambulance location cache as well
+      cache.forEach((value, key) => {
+        if (key.includes('ambulance') && key.includes('location')) {
+          cache.delete(key);
+        }
+      });
       
       res.json({ 
         bed: updatedBed,
