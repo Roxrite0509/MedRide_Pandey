@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Heart, UserPlus, LogIn } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import ScrollingPlus from "@/components/ScrollingPlus";
 
 export default function Login() {
   const { login, register, isLoading } = useAuth();
@@ -71,7 +70,6 @@ export default function Login() {
   return (
     <>
       <AnimatedBackground />
-      <ScrollingPlus />
       <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
         <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl">
         <Card className="shadow-2xl mx-auto backdrop-blur-md bg-gradient-to-br from-white/90 via-white/85 to-white/80 border-red-100/30 border-2">

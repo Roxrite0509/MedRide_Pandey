@@ -51,29 +51,48 @@ const AnimatedBackground: React.FC = () => {
     // Add renderer to DOM
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create dotted grid
+    // Create plus symbol grid
     const gridGroup = new THREE.Group();
-    const gridMaterial = new THREE.PointsMaterial({
-      color: 0xff0000, // Red color
-      size: 0.02,
-      transparent: true,
-      opacity: 0.6
-    });
-
-    const gridGeometry = new THREE.BufferGeometry();
-    const gridPoints = [];
     const gridSize = 20;
     const gridSpacing = 0.5;
 
     for (let i = -gridSize; i <= gridSize; i++) {
       for (let j = -gridSize; j <= gridSize; j++) {
-        gridPoints.push(i * gridSpacing, j * gridSpacing, -2);
+        // Create plus symbol using two perpendicular lines
+        const plusGroup = new THREE.Group();
+        
+        // Horizontal line
+        const hLineGeometry = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(-0.02, 0, 0),
+          new THREE.Vector3(0.02, 0, 0)
+        ]);
+        const hLineMaterial = new THREE.LineBasicMaterial({
+          color: 0xff0000,
+          transparent: true,
+          opacity: 0.6
+        });
+        const hLine = new THREE.Line(hLineGeometry, hLineMaterial);
+        plusGroup.add(hLine);
+        
+        // Vertical line
+        const vLineGeometry = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, -0.02, 0),
+          new THREE.Vector3(0, 0.02, 0)
+        ]);
+        const vLineMaterial = new THREE.LineBasicMaterial({
+          color: 0xff0000,
+          transparent: true,
+          opacity: 0.6
+        });
+        const vLine = new THREE.Line(vLineGeometry, vLineMaterial);
+        plusGroup.add(vLine);
+        
+        // Position the plus symbol
+        plusGroup.position.set(i * gridSpacing, j * gridSpacing, -2);
+        gridGroup.add(plusGroup);
       }
     }
 
-    gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPoints, 3));
-    const grid = new THREE.Points(gridGeometry, gridMaterial);
-    gridGroup.add(grid);
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
@@ -248,10 +267,17 @@ const AnimatedBackground: React.FC = () => {
       if (gridRef.current) {
         gridRef.current.rotation.z += 0.002;
         const opacity = 0.6 + Math.sin(time) * 0.2;
-        const gridMesh = gridRef.current.children[0] as THREE.Points;
-        if (gridMesh.material instanceof THREE.PointsMaterial) {
-          gridMesh.material.opacity = opacity;
-        }
+        
+        // Update opacity for all plus symbols
+        gridRef.current.children.forEach((plusGroup) => {
+          if (plusGroup instanceof THREE.Group) {
+            plusGroup.children.forEach((line) => {
+              if (line instanceof THREE.Line && line.material instanceof THREE.LineBasicMaterial) {
+                line.material.opacity = opacity;
+              }
+            });
+          }
+        });
       }
 
       renderer.render(scene, camera);
