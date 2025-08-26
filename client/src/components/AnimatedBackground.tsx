@@ -9,7 +9,7 @@ const AnimatedBackground: React.FC = () => {
   const spiralRef = useRef<THREE.Group>();
   const gridRef = useRef<THREE.Group>();
   const heartRef = useRef<THREE.Group>();
-  const particlesRef = useRef<THREE.Group>();
+
   const [webglSupported, setWebglSupported] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const mouseRef = useRef(new THREE.Vector2());
@@ -140,9 +140,9 @@ const AnimatedBackground: React.FC = () => {
       heartGroup.add(heartLine);
     }
     
-    // Position heart behind the card (center screen, further back)
-    heartGroup.position.set(0, 0, -1);
-    heartGroup.scale.set(7, 7, 7); // Make it much bigger
+    // Position heart centered and lowered
+    heartGroup.position.set(0, -0.3, -1); // Lowered slightly to center better
+    heartGroup.scale.set(9, 9, 9); // 9x larger
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -173,68 +173,7 @@ const AnimatedBackground: React.FC = () => {
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
 
-    // Create floating geometric particles
-    const particlesGroup = new THREE.Group();
-    const particleCount = 6; // Reduced frequency
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particleGroup = new THREE.Group();
-      
-      // Create different geometric shapes
-      let geometry;
-      const shapeType = i % 4;
-      
-      switch (shapeType) {
-        case 0: // Tetrahedron
-          geometry = new THREE.TetrahedronGeometry(0.08);
-          break;
-        case 1: // Octahedron
-          geometry = new THREE.OctahedronGeometry(0.06);
-          break;
-        case 2: // Icosahedron
-          geometry = new THREE.IcosahedronGeometry(0.05);
-          break;
-        case 3: // Dodecahedron
-          geometry = new THREE.DodecahedronGeometry(0.04);
-          break;
-      }
-      
-      const material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        transparent: true,
-        opacity: 0.7,
-        wireframe: true
-      });
-      
-      const particle = new THREE.Mesh(geometry, material);
-      particleGroup.add(particle);
-      
-      // More random positioning across wider viewport area
-      const x = (Math.random() - 0.5) * 12; // Wider horizontal spread
-      const y = (Math.random() - 0.5) * 6;  // Wider vertical spread
-      const z = (Math.random() - 0.5) * 4;  // More depth variation
-      
-      particleGroup.position.set(x, y, z);
-      
-      // Store initial position and animation properties
-      particleGroup.userData = {
-        initialX: x,
-        initialY: y,
-        initialZ: z,
-        rotationSpeed: {
-          x: (Math.random() - 0.5) * 0.02,
-          y: (Math.random() - 0.5) * 0.02,
-          z: (Math.random() - 0.5) * 0.02
-        },
-        floatSpeed: Math.random() * 0.3 + 0.2, // Slower movement
-        floatAmplitude: Math.random() * 0.2 + 0.1 // Smaller amplitude
-      };
-      
-      particlesGroup.add(particleGroup);
-    }
-    
-    particlesRef.current = particlesGroup;
-    scene.add(particlesGroup);
+
 
     // Mouse and click handlers
     const handleMouseMove = (event: MouseEvent) => {
@@ -344,28 +283,7 @@ const AnimatedBackground: React.FC = () => {
         });
       }
 
-      // Animate floating particles
-      if (particlesRef.current) {
-        particlesRef.current.children.forEach((particleGroup, index) => {
-          const userData = particleGroup.userData;
-          const particle = particleGroup.children[0];
-          
-          // Floating motion
-          particleGroup.position.y = userData.initialY + Math.sin(time * userData.floatSpeed + index) * userData.floatAmplitude;
-          particleGroup.position.x = userData.initialX + Math.cos(time * userData.floatSpeed * 0.7 + index) * 0.2;
-          
-          // Gentle rotation
-          particle.rotation.x += userData.rotationSpeed.x;
-          particle.rotation.y += userData.rotationSpeed.y;
-          particle.rotation.z += userData.rotationSpeed.z;
-          
-          // Subtle opacity pulsing
-          const opacityVariation = 0.4 + Math.sin(time * 2 + index * 0.5) * 0.3;
-          if (particle instanceof THREE.Mesh && particle.material instanceof THREE.MeshBasicMaterial) {
-            particle.material.opacity = opacityVariation;
-          }
-        });
-      }
+
 
       renderer.render(scene, camera);
     };
