@@ -75,13 +75,16 @@ export const queryClient = new QueryClient({
       queryFn: getQueryFn({ on401: "throw" }),
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes for better caching
-      gcTime: 10 * 60 * 1000, // 10 minutes cache retention (updated from cacheTime)
-      retry: 1, // Single retry for failed requests
-      retryDelay: 1000, // 1 second delay between retries
+      // Optimized cache times based on environment and data type
+      staleTime: parseInt(import.meta.env.VITE_QUERY_STALE_TIME || '300000'), // 5 minutes default
+      gcTime: parseInt(import.meta.env.VITE_QUERY_GC_TIME || '600000'), // 10 minutes default
+      // Adaptive retry policy based on environment
+      retry: parseInt(import.meta.env.VITE_QUERY_RETRY_COUNT || '2'), // 2 retries default
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
     },
     mutations: {
-      retry: false,
+      retry: parseInt(import.meta.env.VITE_MUTATION_RETRY_COUNT || '1'), // 1 retry for mutations
+      retryDelay: parseInt(import.meta.env.VITE_MUTATION_RETRY_DELAY || '2000'), // 2 second delay
     },
   },
 });

@@ -1,0 +1,87 @@
+⚠️ MAJOR LATENCY ISSUES IDENTIFIED
+1. Database Performance Bottlenecks
+❌ N+1 Query Problems:
+* getUserWithProfile() - Multiple separate DB calls instead of JOINs
+* getBedAvailabilityStatus() - Fetches ALL bed logs, filters in memory
+* Hospital bed calculations happening in real-time for each request
+❌ Missing Database Optimizations:
+-- No spatial indexing for location queries
+getNearbyHospitals() uses: sqrt(power(lat1-lat2, 2) + power(lng1-lng2, 2))
+getNearbyAmbulances() uses: sqrt(power(lat1-lat2, 2) + power(lng1-lng2, 2))
+-- Should use PostGIS with proper indexes
+
+❌ Connection Pool Issues:
+* Single connection pool without optimization
+* No connection pooling configuration
+* Database queries not batched efficiently
+2. Real-time Inefficiencies
+❌ Socket.IO Broadcasting:
+// Broadcasts to ALL users instead of targeted
+io.emit('ambulance:status_update', data); // Line 156 socket.ts
+socket.to('role:patient').emit(); // Broadcasts to ALL patients
+
+❌ Cache Inefficiencies:
+// Short TTL causing frequent DB hits
+setCachedData(cacheKey, ambulanceLocations, 15000); // 15 seconds
+setCachedData(cacheKey, results, 30000); // 30 seconds
+
+3. Client-Side Performance Issues
+❌ Frequent API Calls:
+* Real-time polling instead of optimized WebSocket updates
+* No request batching or debouncing
+* Multiple simultaneous location requests
+
+
+3. Performance Configuration Hardcoding
+// Query retry policy hardcoded (queryClient.ts:80-81)
+retry: 1, // Single retry
+retryDelay: 1000, // 1 second delay
+
+// TanStack Query cache times hardcoded (queryClient.ts:78-79)
+staleTime: 5 * 60 * 1000, // 5 minutes
+gcTime: 10 * 60 * 1000, // 10 minutes
+
+// bcrypt rounds hardcoded (routes.ts - assumed 8-10 rounds)
+
+4. Network Configuration Hardcoding
+// Port hardcoded (index.ts:78)
+const port = 5000; // ALWAYS serve on port 5000
+
+// Socket.IO ping settings hardcoded (socket.ts:96-97)
+pingTimeout: 60000, // 60 seconds
+pingInterval: 25000, // 25 seconds
+
+
+📊 PERFORMANCE IMPACT ANALYSIS
+High Impact Issues:
+1. Bed availability calculation - Real-time filtering causing 2-3s delays
+2. Location queries without spatial indexing - O(n) complexity scaling poorly
+3. N+1 queries in user profile loading - Multiple DB roundtrips
+4. Inefficient Socket.IO broadcasting - Unnecessary network overhead
+Medium Impact Issues:
+1. Short cache TTL - Frequent DB hits
+2. No request batching - Multiple API calls
+3. Hardcoded geographic coordinates - Limiting India-wide scalability
+Low Impact Issues:
+1. Fixed retry policies - Suboptimal for different network conditions
+2. Hardcoded timeouts - Not adaptive to user conditions
+
+🚀 OPTIMIZATION OPPORTUNITIES
+1. Database Layer:
+    * Implement PostGIS for spatial queries
+    * Add database connection pooling
+    * Create proper indexes on location columns
+    * Batch queries and use JOINs instead of N+1 patterns
+2. Caching Strategy:
+    * Implement Redis for distributed caching
+    * Increase cache TTL for static data
+    * Add cache invalidation strategies
+3. Real-time Optimization:
+    * Targeted Socket.IO room broadcasting
+    * WebSocket connection pooling
+    * Event batching and debouncing
+4. Configuration Management:
+    * Move hardcoded values to environment variables
+    * Dynamic configuration based on deployment environment
+    * Geographic region-based configuration
+The architecture is solid but needs performance optimization, especially around database queries and real-time broadcasting efficiency.

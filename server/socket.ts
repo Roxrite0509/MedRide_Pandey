@@ -93,8 +93,9 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
       credentials: true
     },
     transports: ['websocket', 'polling'],
-    pingTimeout: 60000,
-    pingInterval: 25000
+    // Optimized connection settings - configurable via environment
+    pingTimeout: parseInt(process.env.SOCKET_PING_TIMEOUT || '60000'), // Default 60s
+    pingInterval: parseInt(process.env.SOCKET_PING_INTERVAL || '25000'), // Default 25s
   });
 
   // Authentication middleware
@@ -152,12 +153,19 @@ export function initializeSocketIO(httpServer: HttpServer): IOServer {
       
       // Status update received
       
-      // Broadcast to all relevant parties
-      io.emit('ambulance:status_update', {
+      // Optimized targeted broadcast instead of global emission
+      const updateData = {
         ambulanceId: socket.data.ambulanceId,
         ...data,
         timestamp: new Date().toISOString()
-      });
+      };
+      
+      // Send to relevant hospitals and patients only
+      socket.to('role:patient').emit('ambulance:status_update', updateData);
+      socket.to('role:hospital').emit('ambulance:status_update', updateData);
+      
+      // Send to admin users for monitoring
+      socket.to('role:admin').emit('ambulance:status_update', updateData);
     });
 
     // Handle joining specific rooms

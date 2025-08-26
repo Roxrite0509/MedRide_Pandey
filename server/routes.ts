@@ -25,11 +25,39 @@ function getCachedData(key: string) {
 }
 
 function setCachedData(key: string, data: any, ttlMs: number = 30000) {
+  // Optimized cache TTL based on data type
+  const optimizedTtl = getOptimizedCacheTtl(key, ttlMs);
   cache.set(key, {
     data,
     timestamp: Date.now(),
-    ttl: ttlMs
+    ttl: optimizedTtl
   });
+}
+
+// Smart cache TTL based on data volatility
+function getOptimizedCacheTtl(key: string, defaultTtl: number): number {
+  // Hospital static data - cache longer (5 minutes)
+  if (key.includes('hospital') && !key.includes('bed')) {
+    return parseInt(process.env.CACHE_HOSPITAL_TTL || '300000'); // 5 minutes
+  }
+  
+  // Ambulance locations - shorter cache (30 seconds)  
+  if (key.includes('ambulance') && key.includes('location')) {
+    return parseInt(process.env.CACHE_LOCATION_TTL || '30000'); // 30 seconds
+  }
+  
+  // Bed status - medium cache (1 minute)
+  if (key.includes('bed')) {
+    return parseInt(process.env.CACHE_BED_TTL || '60000'); // 1 minute
+  }
+  
+  // Emergency requests - very short cache (15 seconds)
+  if (key.includes('emergency')) {
+    return parseInt(process.env.CACHE_EMERGENCY_TTL || '15000'); // 15 seconds
+  }
+  
+  // Default cache
+  return parseInt(process.env.CACHE_DEFAULT_TTL || defaultTtl.toString());
 }
 // Google Maps integration - using fetch API instead of the googlemaps package
 // This avoids ES module compatibility issues

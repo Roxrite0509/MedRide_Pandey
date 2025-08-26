@@ -95,30 +95,110 @@ export class DatabaseStorage implements IStorage {
 
   async getUserWithProfile(id: number): Promise<User & { hospitalProfile?: Hospital; ambulanceProfile?: Ambulance } | undefined> {
     try {
-      const [user] = await db.select().from(users).where(eq(users.id, id));
-      if (!user) return undefined;
+      // Single optimized query with LEFT JOINs instead of N+1 queries
+      const result = await db
+        .select({
+          // User fields
+          id: users.id,
+          username: users.username,
+          email: users.email,
+          password: users.password,
+          role: users.role,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          phone: users.phone,
+          profileImageUrl: users.profileImageUrl,
+          isActive: users.isActive,
+          createdAt: users.createdAt,
+          updatedAt: users.updatedAt,
+          // Hospital profile (if exists)
+          hospitalId: hospitals.id,
+          hospitalName: hospitals.name,
+          hospitalAddress: hospitals.address,
+          hospitalPhone: hospitals.phone,
+          hospitalLatitude: hospitals.latitude,
+          hospitalLongitude: hospitals.longitude,
+          hospitalTotalBeds: hospitals.totalBeds,
+          hospitalAvailableBeds: hospitals.availableBeds,
+          hospitalIcuBeds: hospitals.icuBeds,
+          hospitalAvailableIcuBeds: hospitals.availableIcuBeds,
+          hospitalEmergencyStatus: hospitals.emergencyStatus,
+          hospitalEmergencyServices: hospitals.emergencyServices,
+          // Ambulance profile (if exists)
+          ambulanceId: ambulances.id,
+          ambulanceVehicleNumber: ambulances.vehicleNumber,
+          ambulanceLatitude: ambulances.currentLatitude,
+          ambulanceLongitude: ambulances.currentLongitude,
+          ambulanceStatus: ambulances.status,
+          ambulanceOperatorPhone: ambulances.operatorPhone,
+          ambulanceLicenseNumber: ambulances.licenseNumber,
+          ambulanceCertification: ambulances.certification,
+          ambulanceEquipmentLevel: ambulances.equipmentLevel,
+          ambulanceHospitalAffiliation: ambulances.hospitalAffiliation,
+          ambulanceIsActive: ambulances.isActive,
+        })
+        .from(users)
+        .leftJoin(hospitals, eq(hospitals.userId, users.id))
+        .leftJoin(ambulances, eq(ambulances.operatorId, users.id))
+        .where(eq(users.id, id))
+        .limit(1);
 
-      let profile: any = { ...user };
+      if (!result.length) return undefined;
 
-      if (user.role === 'hospital') {
-        try {
-          const [hospital] = await db.select().from(hospitals).where(eq(hospitals.userId, id));
-          if (hospital) profile.hospitalProfile = hospital;
-        } catch (error) {
-        }
-      } else if (user.role === 'ambulance') {
-        try {
-          // Fix: Use operator_id column to find ambulance profile
-          const [ambulance] = await db.select().from(ambulances).where(eq(ambulances.operatorId, id));
-          if (ambulance) {
-            profile.ambulanceProfile = ambulance;
-          } else {
-          }
-        } catch (error) {
-        }
+      const userData = result[0];
+      const user: any = {
+        id: userData.id,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        role: userData.role,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        phone: userData.phone,
+        profileImageUrl: userData.profileImageUrl,
+        isActive: userData.isActive,
+        createdAt: userData.createdAt,
+        updatedAt: userData.updatedAt,
+      };
+
+      // Add hospital profile if exists
+      if (userData.hospitalId) {
+        user.hospitalProfile = {
+          id: userData.hospitalId,
+          userId: userData.id,
+          name: userData.hospitalName,
+          address: userData.hospitalAddress,
+          phone: userData.hospitalPhone,
+          latitude: userData.hospitalLatitude,
+          longitude: userData.hospitalLongitude,
+          totalBeds: userData.hospitalTotalBeds,
+          availableBeds: userData.hospitalAvailableBeds,
+          icuBeds: userData.hospitalIcuBeds,
+          availableIcuBeds: userData.hospitalAvailableIcuBeds,
+          emergencyStatus: userData.hospitalEmergencyStatus,
+          emergencyServices: userData.hospitalEmergencyServices,
+        };
       }
 
-      return profile;
+      // Add ambulance profile if exists
+      if (userData.ambulanceId) {
+        user.ambulanceProfile = {
+          id: userData.ambulanceId,
+          vehicleNumber: userData.ambulanceVehicleNumber,
+          operatorId: userData.id,
+          currentLatitude: userData.ambulanceLatitude,
+          currentLongitude: userData.ambulanceLongitude,
+          status: userData.ambulanceStatus,
+          operatorPhone: userData.ambulanceOperatorPhone,
+          licenseNumber: userData.ambulanceLicenseNumber,
+          certification: userData.ambulanceCertification,
+          equipmentLevel: userData.ambulanceEquipmentLevel,
+          hospitalAffiliation: userData.ambulanceHospitalAffiliation,
+          isActive: userData.ambulanceIsActive,
+        };
+      }
+
+      return user;
     } catch (error) {
       // Fallback to basic user info
       const [user] = await db.select().from(users).where(eq(users.id, id));
@@ -165,9 +245,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getNearbyHospitals(lat: number, lng: number, radius: number): Promise<Hospital[]> {
-    // Simple distance calculation - in production, use PostGIS
+    // Optimized Haversine distance calculation for better accuracy (in kilometers)
+    // Uses Earth's radius (6371 km) for proper spherical distance
     return db.select().from(hospitals).where(
-      sql`sqrt(power(${hospitals.latitude} - ${lat}, 2) + power(${hospitals.longitude} - ${lng}, 2)) <= ${radius}`
+      sql`(6371 * acos(cos(radians(${lat})) * cos(radians(CAST(${hospitals.latitude} AS float))) * 
+           cos(radians(CAST(${hospitals.longitude} AS float)) - radians(${lng})) + 
+           sin(radians(${lat})) * sin(radians(CAST(${hospitals.latitude} AS float))))) <= ${radius}`
+    ).orderBy(
+      sql`(6371 * acos(cos(radians(${lat})) * cos(radians(CAST(${hospitals.latitude} AS float))) * 
+           cos(radians(CAST(${hospitals.longitude} AS float)) - radians(${lng})) + 
+           sin(radians(${lat})) * sin(radians(CAST(${hospitals.latitude} AS float)))))`
     );
   }
 
@@ -229,12 +316,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getNearbyAmbulances(lat: number, lng: number, radius: number): Promise<Ambulance[]> {
+    // Optimized Haversine distance calculation with proper ordering by distance
     return db.select().from(ambulances).where(
       and(
         eq(ambulances.isActive, true),
-        sql`sqrt(power(${ambulances.currentLatitude} - ${lat}, 2) + power(${ambulances.currentLongitude} - ${lng}, 2)) <= ${radius}`
+        sql`(6371 * acos(cos(radians(${lat})) * cos(radians(CAST(${ambulances.currentLatitude} AS float))) * 
+             cos(radians(CAST(${ambulances.currentLongitude} AS float)) - radians(${lng})) + 
+             sin(radians(${lat})) * sin(radians(CAST(${ambulances.currentLatitude} AS float))))) <= ${radius}`
       )
-    ).orderBy(ambulances.id);
+    ).orderBy(
+      sql`(6371 * acos(cos(radians(${lat})) * cos(radians(CAST(${ambulances.currentLatitude} AS float))) * 
+           cos(radians(CAST(${ambulances.currentLongitude} AS float)) - radians(${lng})) + 
+           sin(radians(${lat})) * sin(radians(CAST(${ambulances.currentLatitude} AS float)))))`
+    );
   }
 
   async createAmbulance(ambulance: InsertAmbulance): Promise<Ambulance> {
@@ -730,25 +824,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBedAvailabilityStatus(hospitalId: number): Promise<{ available: number; total: number; icuAvailable: number; icuTotal: number }> {
-    // Calculate real-time bed availability from bed_status_logs table
-    const bedStatusData = await db.select().from(bedStatusLogs).where(eq(bedStatusLogs.hospitalId, hospitalId));
-    
-    if (bedStatusData.length === 0) {
-      return { available: 0, total: 0, icuAvailable: 0, icuTotal: 0 };
-    }
+    // Optimized single query with aggregation instead of fetching all records and filtering in memory
+    const result = await db
+      .select({
+        generalTotal: sql<number>`COUNT(CASE WHEN bed_type = 'general' THEN 1 END)`,
+        generalAvailable: sql<number>`COUNT(CASE WHEN bed_type = 'general' AND status = 'available' THEN 1 END)`,
+        icuTotal: sql<number>`COUNT(CASE WHEN bed_type = 'icu' THEN 1 END)`,
+        icuAvailable: sql<number>`COUNT(CASE WHEN bed_type = 'icu' AND status = 'available' THEN 1 END)`,
+      })
+      .from(bedStatusLogs)
+      .where(eq(bedStatusLogs.hospitalId, hospitalId));
 
-    // Count beds by type and status
-    const generalTotal = bedStatusData.filter(bed => bed.bedType === 'general').length;
-    const generalAvailable = bedStatusData.filter(bed => bed.bedType === 'general' && bed.status === 'available').length;
-    
-    const icuTotal = bedStatusData.filter(bed => bed.bedType === 'icu').length;
-    const icuAvailable = bedStatusData.filter(bed => bed.bedType === 'icu' && bed.status === 'available').length;
+    const stats = result[0] || { generalTotal: 0, generalAvailable: 0, icuTotal: 0, icuAvailable: 0 };
+    const { generalTotal, generalAvailable, icuTotal, icuAvailable } = stats;
     
     return {
       available: generalAvailable,
       total: generalTotal,
-      icuAvailable: icuAvailable,
-      icuTotal: icuTotal
+      icuAvailable,
+      icuTotal
     };
   }
 }
