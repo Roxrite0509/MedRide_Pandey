@@ -9,6 +9,7 @@ const AnimatedBackground: React.FC = () => {
   const spiralRef = useRef<THREE.Group>();
   const gridRef = useRef<THREE.Group>();
   const heartRef = useRef<THREE.Group>();
+  const ambulanceRef = useRef<THREE.Group>();
   const [webglSupported, setWebglSupported] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const mouseRef = useRef(new THREE.Vector2());
@@ -172,6 +173,61 @@ const AnimatedBackground: React.FC = () => {
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
 
+    // Create ambulance
+    const ambulanceGroup = new THREE.Group();
+    
+    // Ambulance body (main rectangle)
+    const bodyGeometry = new THREE.BoxGeometry(0.8, 0.3, 0.2);
+    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    ambulanceGroup.add(body);
+    
+    // Red stripe
+    const stripeGeometry = new THREE.BoxGeometry(0.82, 0.08, 0.21);
+    const stripeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    const stripe = new THREE.Mesh(stripeGeometry, stripeMaterial);
+    stripe.position.y = 0.05;
+    ambulanceGroup.add(stripe);
+    
+    // Red cross on side
+    const crossHGeometry = new THREE.BoxGeometry(0.15, 0.03, 0.22);
+    const crossVGeometry = new THREE.BoxGeometry(0.03, 0.15, 0.22);
+    const crossMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    
+    const crossH = new THREE.Mesh(crossHGeometry, crossMaterial);
+    const crossV = new THREE.Mesh(crossVGeometry, crossMaterial);
+    crossH.position.set(-0.2, 0, 0.11);
+    crossV.position.set(-0.2, 0, 0.11);
+    ambulanceGroup.add(crossH);
+    ambulanceGroup.add(crossV);
+    
+    // Windows
+    const windowGeometry = new THREE.BoxGeometry(0.25, 0.15, 0.21);
+    const windowMaterial = new THREE.MeshBasicMaterial({ color: 0x87ceeb });
+    const frontWindow = new THREE.Mesh(windowGeometry, windowMaterial);
+    frontWindow.position.set(0.25, 0.1, 0);
+    ambulanceGroup.add(frontWindow);
+    
+    // Wheels
+    const wheelGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.05, 16);
+    const wheelMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 });
+    
+    const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+    const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+    wheel1.position.set(-0.25, -0.22, 0.125);
+    wheel2.position.set(0.25, -0.22, 0.125);
+    wheel1.rotation.z = Math.PI / 2;
+    wheel2.rotation.z = Math.PI / 2;
+    ambulanceGroup.add(wheel1);
+    ambulanceGroup.add(wheel2);
+    
+    // Position ambulance to start off-screen left at 0.2 height
+    ambulanceGroup.position.set(-8, -1.5, 0); // Start off-screen left, 0.2 height from bottom
+    ambulanceGroup.scale.set(0.8, 0.8, 0.8);
+    
+    ambulanceRef.current = ambulanceGroup;
+    scene.add(ambulanceGroup);
+
     // Mouse and click handlers
     const handleMouseMove = (event: MouseEvent) => {
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -277,6 +333,26 @@ const AnimatedBackground: React.FC = () => {
               }
             });
           }
+        });
+      }
+
+      // Animate ambulance
+      if (ambulanceRef.current) {
+        // Move ambulance from left to right across viewport
+        ambulanceRef.current.position.x += 0.02;
+        
+        // Reset position when it goes off-screen right
+        if (ambulanceRef.current.position.x > 8) {
+          ambulanceRef.current.position.x = -8;
+        }
+        
+        // Add slight bobbing motion
+        ambulanceRef.current.position.y = -1.5 + Math.sin(time * 3) * 0.05;
+        
+        // Rotate wheels
+        const wheels = [ambulanceRef.current.children[5], ambulanceRef.current.children[6]];
+        wheels.forEach(wheel => {
+          if (wheel) wheel.rotation.x += 0.1;
         });
       }
 
