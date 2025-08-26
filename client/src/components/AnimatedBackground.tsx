@@ -102,8 +102,8 @@ const AnimatedBackground: React.FC = () => {
         const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
         
         // Apply scaling and center the heart shape
-        const scaledX = (x * scale * 0.03);
-        const scaledY = (y * scale * 0.03) + 0.3; // Offset to center the heart vertically
+        const scaledX = (x * scale * 0.02); // Slightly smaller base scale since we're scaling the group
+        const scaledY = (y * scale * 0.02) + 0.2; // Offset to center the heart vertically
         
         points.push(new THREE.Vector3(scaledX, scaledY, i * 0.02));
       }
@@ -120,8 +120,9 @@ const AnimatedBackground: React.FC = () => {
       heartGroup.add(heartLine);
     }
     
-    // Position heart in top left
-    heartGroup.position.set(-3, 2, 0);
+    // Position heart behind the card (center screen, further back)
+    heartGroup.position.set(0, 0, -1);
+    heartGroup.scale.set(3, 3, 3); // Make it much bigger
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -146,29 +147,34 @@ const AnimatedBackground: React.FC = () => {
       spiralGroup.add(circle);
     }
     
-    // Position spiral in top left (same as heart)
-    spiralGroup.position.set(-3, 2, 0);
+    // Position spiral behind the card (same as heart)
+    spiralGroup.position.set(0, 0, -1);
+    spiralGroup.scale.set(2, 2, 2); // Scale spiral appropriately
     spiralRef.current = spiralGroup;
     scene.add(spiralGroup);
 
-    // Mouse move handler
+    // Mouse and click handlers
     const handleMouseMove = (event: MouseEvent) => {
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
       
-      // Check if mouse is near top left area where heart/spiral is positioned
-      const topLeftX = -3; // Heart position
-      const topLeftY = 2;
+      // Check if mouse is near center where enlarged heart is positioned
+      const distance = Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2);
+      setIsHovering(distance < 0.8); // Larger hover area for bigger heart
+    };
+
+    const handleClick = (event: MouseEvent) => {
+      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
       
-      // Convert mouse position to world coordinates
-      const worldX = mouseRef.current.x * 5; // Adjust scale based on camera distance
-      const worldY = mouseRef.current.y * 5;
-      
-      const distance = Math.sqrt((worldX - topLeftX) ** 2 + (worldY - topLeftY) ** 2);
-      setIsHovering(distance < 1.5);
+      const distance = Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2);
+      if (distance < 0.8) {
+        setIsHovering(prev => !prev); // Toggle on click
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('click', handleClick);
 
     // Animation loop
     const animate = () => {
@@ -272,6 +278,7 @@ const AnimatedBackground: React.FC = () => {
       }
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('click', handleClick);
       
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
