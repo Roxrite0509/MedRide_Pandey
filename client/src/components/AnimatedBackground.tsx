@@ -122,7 +122,7 @@ const AnimatedBackground: React.FC = () => {
     
     // Position heart behind the card (center screen, further back)
     heartGroup.position.set(0, 0, -1);
-    heartGroup.scale.set(3, 3, 3); // Make it much bigger
+    heartGroup.scale.set(7, 7, 7); // Make it much bigger
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
