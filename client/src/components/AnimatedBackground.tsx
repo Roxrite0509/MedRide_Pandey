@@ -175,7 +175,7 @@ const AnimatedBackground: React.FC = () => {
 
     // Create floating geometric particles
     const particlesGroup = new THREE.Group();
-    const particleCount = 12;
+    const particleCount = 6; // Reduced frequency
     
     for (let i = 0; i < particleCount; i++) {
       const particleGroup = new THREE.Group();
@@ -209,10 +209,10 @@ const AnimatedBackground: React.FC = () => {
       const particle = new THREE.Mesh(geometry, material);
       particleGroup.add(particle);
       
-      // Random positioning across viewport
-      const x = (Math.random() - 0.5) * 8;
-      const y = (Math.random() - 0.5) * 4;
-      const z = (Math.random() - 0.5) * 2;
+      // More random positioning across wider viewport area
+      const x = (Math.random() - 0.5) * 12; // Wider horizontal spread
+      const y = (Math.random() - 0.5) * 6;  // Wider vertical spread
+      const z = (Math.random() - 0.5) * 4;  // More depth variation
       
       particleGroup.position.set(x, y, z);
       
@@ -226,8 +226,8 @@ const AnimatedBackground: React.FC = () => {
           y: (Math.random() - 0.5) * 0.02,
           z: (Math.random() - 0.5) * 0.02
         },
-        floatSpeed: Math.random() * 0.5 + 0.3,
-        floatAmplitude: Math.random() * 0.3 + 0.1
+        floatSpeed: Math.random() * 0.3 + 0.2, // Slower movement
+        floatAmplitude: Math.random() * 0.2 + 0.1 // Smaller amplitude
       };
       
       particlesGroup.add(particleGroup);
@@ -361,7 +361,7 @@ const AnimatedBackground: React.FC = () => {
           
           // Subtle opacity pulsing
           const opacityVariation = 0.4 + Math.sin(time * 2 + index * 0.5) * 0.3;
-          if (particle.material instanceof THREE.MeshBasicMaterial) {
+          if (particle instanceof THREE.Mesh && particle.material instanceof THREE.MeshBasicMaterial) {
             particle.material.opacity = opacityVariation;
           }
         });
