@@ -60,12 +60,24 @@ function createCardGridOverlay(cardEl: HTMLElement | null) {
 function syncHeartWithCard(cardRect: DOMRect) {
   // Only sync heart position on larger viewports (laptop size and above)
   if (window.innerWidth >= 1024 && window.innerHeight >= 600) {
+    // Calculate more precise center position for better "stuck" effect
+    const cardCenterX = cardRect.left + cardRect.width / 2;
+    const cardCenterY = cardRect.top + cardRect.height / 2;
+    const viewportCenterX = window.innerWidth / 2;
+    const viewportCenterY = window.innerHeight / 2;
+    
+    // Normalize to Three.js coordinate system with enhanced precision
+    const normalizedX = (cardCenterX - viewportCenterX) / (window.innerWidth / 2);
+    const normalizedY = -(cardCenterY - viewportCenterY) / (window.innerHeight / 2);
+    
     // Dispatch custom event to update heart position in AnimatedBackground
     const event = new CustomEvent('syncHeartPosition', {
       detail: {
         cardRect,
-        centerX: (cardRect.left + cardRect.width / 2 - window.innerWidth / 2) / window.innerWidth * 2,
-        centerY: -(cardRect.top + cardRect.height / 2 - window.innerHeight / 2) / window.innerHeight * 2
+        centerX: normalizedX,
+        centerY: normalizedY,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight
       }
     });
     window.dispatchEvent(event);
@@ -140,7 +152,7 @@ export default function Login() {
         const rect = card.getBoundingClientRect();
         syncHeartWithCard(rect);
       }
-    }, 100); // Sync every 100ms for smooth responsiveness
+    }, 50); // Sync every 50ms for smoother responsiveness
     
     // Cleanup overlay and interval on unmount
     return () => {

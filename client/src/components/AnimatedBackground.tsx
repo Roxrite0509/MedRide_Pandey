@@ -185,7 +185,9 @@ const AnimatedBackground: React.FC = () => {
     
     // Position heart to align with login card position
     heartGroup.position.set(0, 0, -1); // Centered position
-    heartGroup.scale.set(8, 8, 8); // Larger scale to encapsulate the form
+    // Calculate scale based on viewport to ensure consistent encapsulation
+    const baseScale = Math.max(8, Math.min(window.innerWidth / 120, window.innerHeight / 80));
+    heartGroup.scale.set(baseScale, baseScale, baseScale);
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -253,15 +255,24 @@ const AnimatedBackground: React.FC = () => {
           y: event.detail.centerY
         };
         
-        // Update heart position to stick to card with better proportional positioning
-        const positionMultiplier = Math.min(window.innerWidth / 1000, 3); // Responsive positioning
-        heartRef.current.position.x = event.detail.centerX * positionMultiplier;
-        heartRef.current.position.y = event.detail.centerY * positionMultiplier;
+        // Calculate precise positioning to make heart truly "stuck" to card
+        // Use viewport-aware calculations for consistent positioning
+        const viewportWidthFactor = window.innerWidth / 1440; // Reference width
+        const viewportHeightFactor = window.innerHeight / 900; // Reference height
+        const avgFactor = (viewportWidthFactor + viewportHeightFactor) / 2;
         
-        // Update spiral position too
+        // More precise positioning multiplier based on viewport characteristics
+        const baseMultiplier = 2.5;
+        const responsiveMultiplier = baseMultiplier * Math.max(0.8, Math.min(1.5, avgFactor));
+        
+        // Apply positioning with improved calculations
+        heartRef.current.position.x = event.detail.centerX * responsiveMultiplier;
+        heartRef.current.position.y = event.detail.centerY * responsiveMultiplier;
+        
+        // Update spiral position to match heart exactly
         if (spiralRef.current) {
-          spiralRef.current.position.x = event.detail.centerX * positionMultiplier;
-          spiralRef.current.position.y = event.detail.centerY * positionMultiplier;
+          spiralRef.current.position.x = event.detail.centerX * responsiveMultiplier;
+          spiralRef.current.position.y = event.detail.centerY * responsiveMultiplier;
         }
       } else if (!shouldShowHeart) {
         // Hide heart and spiral on small viewports
@@ -452,18 +463,23 @@ const AnimatedBackground: React.FC = () => {
         // Show and adjust heart positioning for larger viewports
         if (heartRef.current) {
           heartRef.current.visible = true;
-          // Scale heart based on viewport size for responsiveness - larger to encapsulate form
-          const baseScale = Math.min(width / 250, height / 300) * 2.5; // Increased base scale
-          const clampedScale = Math.max(7, Math.min(12, baseScale)); // Increased range for better encapsulation
-          heartRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+          // Calculate optimal scale to encapsulate the form consistently across all large viewports
+          // Base the calculation on both width and height to maintain consistent appearance
+          const widthFactor = width / 1440; // Using 1440 as reference width
+          const heightFactor = height / 900; // Using 900 as reference height
+          const scaleFactor = Math.min(widthFactor, heightFactor);
+          const optimalScale = Math.max(8, 12 * scaleFactor); // Minimum 8, scales up with viewport
+          heartRef.current.scale.set(optimalScale, optimalScale, optimalScale);
         }
         
         if (spiralRef.current) {
           spiralRef.current.visible = true;
-          // Scale spiral proportionally
-          const baseScale = Math.min(width / 400, height / 500) * 2;
-          const clampedScale = Math.max(1.5, Math.min(3.5, baseScale));
-          spiralRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+          // Scale spiral proportionally to heart
+          const widthFactor = width / 1440;
+          const heightFactor = height / 900;
+          const scaleFactor = Math.min(widthFactor, heightFactor);
+          const spiralScale = Math.max(2, 3 * scaleFactor);
+          spiralRef.current.scale.set(spiralScale, spiralScale, spiralScale);
         }
       }
     };
