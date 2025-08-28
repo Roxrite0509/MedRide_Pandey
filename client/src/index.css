@@ -379,13 +379,28 @@
     background: transparent !important;
   }
 
-  /* make all card elements transparent */
-  .login-card *,
+  /* make backgrounds transparent but keep text visible */
   .login-card [data-radix-tabs-root],
   .login-card [data-radix-tabs-list],
   .login-card [data-radix-tabs-content],
-  .login-card .border-t,
-  .login-card div {
+  .login-card .border-t {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* ensure text elements are visible */
+  .login-card h1,
+  .login-card h2,
+  .login-card p,
+  .login-card label,
+  .login-card [class*="text-"] {
+    color: inherit !important;
+    opacity: 1 !important;
+  }
+
+  /* make card header and content backgrounds transparent but keep text */
+  .login-card .card-header,
+  .login-card .card-content {
     background: transparent !important;
     background-color: transparent !important;
   }
