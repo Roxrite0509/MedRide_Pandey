@@ -25,9 +25,9 @@ const AnimatedBackground: React.FC = () => {
       return;
     }
 
-    // Scene setup
+    // Scene setup (transparent background so DOM card can show canvas underneath)
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff); // White background
+    scene.background = null;
     sceneRef.current = scene;
 
     // Camera setup
@@ -39,14 +39,15 @@ const AnimatedBackground: React.FC = () => {
     );
     camera.position.z = 5;
 
-    // Renderer setup
+    // Renderer setup (alpha true so DOM translucency shows through)
     const renderer = new THREE.WebGLRenderer({ 
       antialias: true,
-      alpha: false,
+      alpha: true, // IMPORTANT: makes canvas transparent
       powerPreference: 'high-performance'
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0); // fully transparent clear color
     rendererRef.current = renderer;
 
     // Add renderer to DOM
@@ -67,10 +68,12 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(-0.02, 0, 0),
           new THREE.Vector3(0.02, 0, 0)
         ]);
+        const softColor = 0xff8b8b; // softer pink/red
+        const baseOpacity = 0.28;
         const hLineMaterial = new THREE.LineBasicMaterial({
-          color: 0xff0000,
+          color: softColor,
           transparent: true,
-          opacity: 0.6
+          opacity: baseOpacity
         });
         const hLine = new THREE.Line(hLineGeometry, hLineMaterial);
         plusGroup.add(hLine);
@@ -81,15 +84,16 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(0, 0.02, 0)
         ]);
         const vLineMaterial = new THREE.LineBasicMaterial({
-          color: 0xff0000,
+          color: softColor,
           transparent: true,
-          opacity: 0.6
+          opacity: baseOpacity
         });
         const vLine = new THREE.Line(vLineGeometry, vLineMaterial);
         plusGroup.add(vLine);
         
         // Position the plus symbol
         plusGroup.position.set(i * gridSpacing, j * gridSpacing, -2);
+        plusGroup.userData.baseOpacity = baseOpacity; // save for animation
         gridGroup.add(plusGroup);
       }
     }
@@ -266,17 +270,26 @@ const AnimatedBackground: React.FC = () => {
         }
       }
 
-      // Subtle grid animation
+      // Subtle grid animation with center fade for embedded card effect
       if (gridRef.current) {
         gridRef.current.rotation.z += 0.002;
-        const opacity = 0.6 + Math.sin(time) * 0.2;
-        
-        // Update opacity for all plus symbols
+        const globalPulse = (gridRef.current.userData?.pulseBase ?? 0.28) + Math.sin(time) * 0.02;
+
+        // approximate card radius in world units (tweak later)
+        const cardRadius = 2.1;
+
         gridRef.current.children.forEach((plusGroup) => {
+          const dist = Math.hypot(plusGroup.position.x, plusGroup.position.y);
+          const factor = Math.min(1, Math.max(0, (dist / cardRadius))); // 0 near center, 1 far
+          const base = plusGroup.userData.baseOpacity ?? 0.28;
+          const wobble = Math.sin(time + dist) * 0.01;
+          const targetOpacity = base * (0.35 + 0.65 * factor) + wobble;
+
           if (plusGroup instanceof THREE.Group) {
             plusGroup.children.forEach((line) => {
               if (line instanceof THREE.Line && line.material instanceof THREE.LineBasicMaterial) {
-                line.material.opacity = opacity;
+                // smooth approach to targetOpacity
+                line.material.opacity += (targetOpacity - line.material.opacity) * 0.08;
               }
             });
           }

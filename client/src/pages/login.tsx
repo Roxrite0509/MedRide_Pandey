@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,45 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Heart, UserPlus, LogIn } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
+
+// Helper function to create card grid overlay
+function createCardGridOverlay(cardEl: HTMLElement | null) {
+  if (!cardEl) return;
+  const existing = document.getElementById('card-grid-overlay');
+  if (existing) existing.remove();
+
+  const rect = cardEl.getBoundingClientRect();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'card-grid-overlay';
+  overlay.style.position = 'absolute';
+  overlay.style.pointerEvents = 'none';
+  overlay.style.left = `${rect.left + window.scrollX}px`;
+  overlay.style.top = `${rect.top + window.scrollY}px`;
+  overlay.style.width = `${rect.width}px`;
+  overlay.style.height = `${rect.height}px`;
+  overlay.style.zIndex = '2';
+  overlay.style.borderRadius = window.getComputedStyle(cardEl).borderRadius || '10px';
+
+  // subtle repeating pattern that matches the background grid tone
+  overlay.style.backgroundImage = `repeating-linear-gradient(0deg, rgba(255,139,139,0.06) 0 1px, transparent 1px 32px),
+                                   repeating-linear-gradient(90deg, rgba(255,139,139,0.06) 0 1px, transparent 1px 32px)`;
+  overlay.style.backgroundSize = '32px 32px';
+  overlay.style.filter = 'blur(0.3px)'; // tiny blur to soften matching
+  overlay.style.mixBlendMode = 'normal';
+
+  document.body.appendChild(overlay);
+
+  const sync = () => {
+    const r = cardEl.getBoundingClientRect();
+    overlay.style.left = `${r.left + window.scrollX}px`;
+    overlay.style.top = `${r.top + window.scrollY}px`;
+    overlay.style.width = `${r.width}px`;
+    overlay.style.height = `${r.height}px`;
+  };
+  window.addEventListener('resize', sync);
+  window.addEventListener('scroll', sync);
+}
 
 export default function Login() {
   const { login, register, isLoading } = useAuth();
@@ -67,12 +106,24 @@ export default function Login() {
     }
   };
 
+  // Create grid overlay after component mounts
+  useEffect(() => {
+    const card = document.querySelector('.login-card') as HTMLElement | null;
+    createCardGridOverlay(card);
+    
+    // Cleanup overlay on unmount
+    return () => {
+      const existing = document.getElementById('card-grid-overlay');
+      if (existing) existing.remove();
+    };
+  }, []);
+
   return (
     <>
       <AnimatedBackground />
       <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-10">
         <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl">
-        <Card className="shadow-lg mx-auto backdrop-blur-lg bg-gradient-to-br from-white/60 via-white/50 to-white/40 border-red-200/20 border">
+        <Card className="login-card shadow-lg mx-auto backdrop-blur-lg border-red-200/20 border">
           <CardHeader className="text-center p-4 sm:p-6">
             <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 sm:mb-4">
               <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
@@ -82,7 +133,7 @@ export default function Login() {
               Connecting lives in critical moments
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-4 sm:p-6">
+          <CardContent className="card-content p-4 sm:p-6">
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2 h-10 sm:h-12">
                 <TabsTrigger value="login" className="text-sm sm:text-base">Login</TabsTrigger>

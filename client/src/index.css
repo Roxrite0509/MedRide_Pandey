@@ -333,6 +333,35 @@
   .bg-priority-low {
     @apply bg-blue-50;
   }
+
+  /* Login card - embedded glass style */
+  .login-card {
+    background: rgba(255, 255, 255, 0.86);         /* translucent glass */
+    backdrop-filter: blur(6px) saturate(110%);     /* blur grid behind card */
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 86, 86, 0.06);     /* soft pink-red border */
+    box-shadow: 0 8px 20px rgba(10, 10, 10, 0.04); /* very soft outer shadow */
+    position: relative;
+    overflow: visible;
+  }
+
+  /* inner shadow to give impression of a recess */
+  .login-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 8px 24px rgba(0,0,0,0.04);
+    z-index: 0;
+  }
+
+  /* ensure card content is above pseudo overlay */
+  .login-card .card-content {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 /* Custom scrollbar for chat areas */
