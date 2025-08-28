@@ -334,7 +334,7 @@
     @apply bg-blue-50;
   }
 
-  /* Login card - completely transparent embedded style */
+  /* Login card - completely transparent embedded style with responsive sizing */
   .login-card {
     background: none !important;
     background-color: transparent !important;
@@ -348,6 +348,7 @@
     position: relative;
     overflow: hidden;
     transform: translateZ(0);
+    transition: all 0.3s ease-in-out;
   }
 
   /* red gradient overlay - only source of background */
@@ -423,7 +424,7 @@
     background-color: transparent !important;
   }
 
-  /* ensure the card itself has no background bleeding */
+  /* ensure the card itself has no background bleeding with viewport responsiveness */
   .login-card {
     background: transparent !important;
     background-color: transparent !important;
@@ -437,6 +438,8 @@
     position: relative;
     overflow: hidden;
     transform: translateZ(0);
+    transition: all 0.3s ease-in-out;
+    max-width: 90vw; /* Ensure card doesn't exceed viewport width */
   }
 }
 

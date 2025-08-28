@@ -14,6 +14,7 @@ const AnimatedBackground: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isLowPerformanceDevice, setIsLowPerformanceDevice] = useState(false);
   const mouseRef = useRef(new THREE.Vector2());
+  const cardPositionRef = useRef({ x: 0, y: 0 });
 
   // Device performance detection
   const detectDevicePerformance = () => {
@@ -84,10 +85,12 @@ const AnimatedBackground: React.FC = () => {
     // Add renderer to DOM
     mountRef.current.appendChild(renderer.domElement);
 
-    // Optimized grid - reduce size for better performance
+    // Dynamic grid that covers the entire viewport
     const gridGroup = new THREE.Group();
-    const gridSize = 15; // reduced from 20 to 15
-    const gridSpacing = 0.5;
+    // Calculate grid size based on viewport and camera to ensure full coverage
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    const gridSize = Math.max(25, Math.ceil(aspectRatio * 20)); // Ensure grid covers viewport edges
+    const gridSpacing = 0.4;
 
     for (let i = -gridSize; i <= gridSize; i++) {
       for (let j = -gridSize; j <= gridSize; j++) {
@@ -177,9 +180,9 @@ const AnimatedBackground: React.FC = () => {
       heartGroup.add(heartLine);
     }
     
-    // Position heart centered and lowered
-    heartGroup.position.set(0, -0.3, -1); // Lowered slightly to center better
-    heartGroup.scale.set(9, 9, 9); // 9x larger
+    // Position heart to align with login card position
+    heartGroup.position.set(0, 0, -1); // Centered position
+    heartGroup.scale.set(6, 6, 6); // Smaller scale for better proportion
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -206,7 +209,7 @@ const AnimatedBackground: React.FC = () => {
     
       // Position spiral behind the card (same as heart)
       spiralGroup.position.set(0, 0, -1);
-      spiralGroup.scale.set(2, 2, 2); // Scale spiral appropriately
+      spiralGroup.scale.set(1.5, 1.5, 1.5); // Scale spiral appropriately
       spiralRef.current = spiralGroup;
       scene.add(spiralGroup);
     } // End of high-performance device check
@@ -235,6 +238,28 @@ const AnimatedBackground: React.FC = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('click', handleClick);
+    
+    // Listen for card position sync events
+    const handleHeartSync = (event: CustomEvent) => {
+      if (heartRef.current && event.detail) {
+        cardPositionRef.current = {
+          x: event.detail.centerX,
+          y: event.detail.centerY
+        };
+        
+        // Update heart position to stick to card
+        heartRef.current.position.x = event.detail.centerX * 2.5;
+        heartRef.current.position.y = event.detail.centerY * 2.5;
+        
+        // Update spiral position too
+        if (spiralRef.current) {
+          spiralRef.current.position.x = event.detail.centerX * 2.5;
+          spiralRef.current.position.y = event.detail.centerY * 2.5;
+        }
+      }
+    };
+    
+    window.addEventListener('syncHeartPosition', handleHeartSync as EventListener);
 
     // Animation loop
     const animate = () => {
@@ -310,8 +335,9 @@ const AnimatedBackground: React.FC = () => {
         gridRef.current.rotation.z += 0.002;
         const globalPulse = (gridRef.current.userData?.pulseBase ?? 0.28) + Math.sin(time) * 0.02;
 
-        // approximate card radius in world units - larger for better embedding effect
-        const cardRadius = 3.2;
+        // Dynamic card radius based on viewport size for responsive embedding effect
+        const baseCardRadius = Math.min(window.innerWidth / 300, window.innerHeight / 400) * 2;
+        const cardRadius = Math.max(2.5, Math.min(4.5, baseCardRadius));
 
         gridRef.current.children.forEach((plusGroup) => {
           const dist = Math.hypot(plusGroup.position.x, plusGroup.position.y);
@@ -339,7 +365,7 @@ const AnimatedBackground: React.FC = () => {
 
     animate();
 
-    // Handle window resize
+    // Handle window resize with grid and heart repositioning
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -347,6 +373,73 @@ const AnimatedBackground: React.FC = () => {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+      
+      // Regenerate grid to ensure full viewport coverage
+      if (gridRef.current) {
+        scene.remove(gridRef.current);
+        
+        // Recreate grid with new viewport dimensions
+        const newGridGroup = new THREE.Group();
+        const aspectRatio = width / height;
+        const newGridSize = Math.max(25, Math.ceil(aspectRatio * 20));
+        const gridSpacing = 0.4;
+        
+        for (let i = -newGridSize; i <= newGridSize; i++) {
+          for (let j = -newGridSize; j <= newGridSize; j++) {
+            const plusGroup = new THREE.Group();
+            
+            // Horizontal line
+            const hLineGeometry = new THREE.BufferGeometry().setFromPoints([
+              new THREE.Vector3(-0.02, 0, 0),
+              new THREE.Vector3(0.02, 0, 0)
+            ]);
+            const softColor = 0xff0000;
+            const baseOpacity = 0.9;
+            const hLineMaterial = new THREE.LineBasicMaterial({
+              color: softColor,
+              transparent: true,
+              opacity: baseOpacity
+            });
+            const hLine = new THREE.Line(hLineGeometry, hLineMaterial);
+            plusGroup.add(hLine);
+            
+            // Vertical line
+            const vLineGeometry = new THREE.BufferGeometry().setFromPoints([
+              new THREE.Vector3(0, -0.02, 0),
+              new THREE.Vector3(0, 0.02, 0)
+            ]);
+            const vLineMaterial = new THREE.LineBasicMaterial({
+              color: softColor,
+              transparent: true,
+              opacity: baseOpacity
+            });
+            const vLine = new THREE.Line(vLineGeometry, vLineMaterial);
+            plusGroup.add(vLine);
+            
+            plusGroup.position.set(i * gridSpacing, j * gridSpacing, -2);
+            plusGroup.userData.baseOpacity = baseOpacity;
+            newGridGroup.add(plusGroup);
+          }
+        }
+        
+        gridRef.current = newGridGroup;
+        scene.add(newGridGroup);
+      }
+      
+      // Adjust heart and spiral positioning based on viewport
+      if (heartRef.current) {
+        // Scale heart based on viewport size for responsiveness
+        const baseScale = Math.min(width / 300, height / 400) * 2; // Responsive scaling
+        const clampedScale = Math.max(4, Math.min(8, baseScale)); // Clamp between reasonable sizes
+        heartRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+      }
+      
+      if (spiralRef.current) {
+        // Scale spiral proportionally
+        const baseScale = Math.min(width / 400, height / 500) * 1.5;
+        const clampedScale = Math.max(1, Math.min(2.5, baseScale));
+        spiralRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -359,6 +452,7 @@ const AnimatedBackground: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('click', handleClick);
+      window.removeEventListener('syncHeartPosition', handleHeartSync as EventListener);
       
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);

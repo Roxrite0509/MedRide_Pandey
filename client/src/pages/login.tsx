@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Heart, UserPlus, LogIn } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
 
-// Helper function to create card grid overlay
+// Helper function to create card grid overlay and sync heart position
 function createCardGridOverlay(cardEl: HTMLElement | null) {
   if (!cardEl) return;
   const existing = document.getElementById('card-grid-overlay');
@@ -44,9 +44,29 @@ function createCardGridOverlay(cardEl: HTMLElement | null) {
     overlay.style.top = `${r.top + window.scrollY}px`;
     overlay.style.width = `${r.width}px`;
     overlay.style.height = `${r.height}px`;
+    
+    // Sync heart position with card for "stuck" effect
+    syncHeartWithCard(r);
   };
+  
+  // Initial sync
+  sync();
+  
   window.addEventListener('resize', sync);
   window.addEventListener('scroll', sync);
+}
+
+// Function to sync heart position with login card
+function syncHeartWithCard(cardRect: DOMRect) {
+  // Dispatch custom event to update heart position in AnimatedBackground
+  const event = new CustomEvent('syncHeartPosition', {
+    detail: {
+      cardRect,
+      centerX: (cardRect.left + cardRect.width / 2 - window.innerWidth / 2) / window.innerWidth * 2,
+      centerY: -(cardRect.top + cardRect.height / 2 - window.innerHeight / 2) / window.innerHeight * 2
+    }
+  });
+  window.dispatchEvent(event);
 }
 
 export default function Login() {
@@ -106,15 +126,24 @@ export default function Login() {
     }
   };
 
-  // Create grid overlay after component mounts
+  // Create grid overlay and sync heart position after component mounts
   useEffect(() => {
     const card = document.querySelector('.login-card') as HTMLElement | null;
     createCardGridOverlay(card);
     
-    // Cleanup overlay on unmount
+    // Continuous sync for better responsiveness
+    const syncInterval = setInterval(() => {
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        syncHeartWithCard(rect);
+      }
+    }, 100); // Sync every 100ms for smooth responsiveness
+    
+    // Cleanup overlay and interval on unmount
     return () => {
       const existing = document.getElementById('card-grid-overlay');
       if (existing) existing.remove();
+      clearInterval(syncInterval);
     };
   }, []);
 
