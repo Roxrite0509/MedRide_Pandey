@@ -58,15 +58,18 @@ function createCardGridOverlay(cardEl: HTMLElement | null) {
 
 // Function to sync heart position with login card
 function syncHeartWithCard(cardRect: DOMRect) {
-  // Dispatch custom event to update heart position in AnimatedBackground
-  const event = new CustomEvent('syncHeartPosition', {
-    detail: {
-      cardRect,
-      centerX: (cardRect.left + cardRect.width / 2 - window.innerWidth / 2) / window.innerWidth * 2,
-      centerY: -(cardRect.top + cardRect.height / 2 - window.innerHeight / 2) / window.innerHeight * 2
-    }
-  });
-  window.dispatchEvent(event);
+  // Only sync heart position on larger viewports (laptop size and above)
+  if (window.innerWidth >= 1024 && window.innerHeight >= 600) {
+    // Dispatch custom event to update heart position in AnimatedBackground
+    const event = new CustomEvent('syncHeartPosition', {
+      detail: {
+        cardRect,
+        centerX: (cardRect.left + cardRect.width / 2 - window.innerWidth / 2) / window.innerWidth * 2,
+        centerY: -(cardRect.top + cardRect.height / 2 - window.innerHeight / 2) / window.innerHeight * 2
+      }
+    });
+    window.dispatchEvent(event);
+  }
 }
 
 export default function Login() {
@@ -131,9 +134,9 @@ export default function Login() {
     const card = document.querySelector('.login-card') as HTMLElement | null;
     createCardGridOverlay(card);
     
-    // Continuous sync for better responsiveness
+    // Continuous sync for better responsiveness (only on larger viewports)
     const syncInterval = setInterval(() => {
-      if (card) {
+      if (card && window.innerWidth >= 1024 && window.innerHeight >= 600) {
         const rect = card.getBoundingClientRect();
         syncHeartWithCard(rect);
       }

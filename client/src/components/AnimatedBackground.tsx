@@ -39,7 +39,10 @@ const AnimatedBackground: React.FC = () => {
     // Check if mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    return isLowEndGPU || isLowMemory || isLowCPU || isMobile;
+    // Check viewport size - hide heart on small screens (smaller than laptop)
+    const isSmallViewport = window.innerWidth < 1024 || window.innerHeight < 600;
+    
+    return isLowEndGPU || isLowMemory || isLowCPU || isMobile || isSmallViewport;
   };
 
   useEffect(() => {
@@ -135,8 +138,8 @@ const AnimatedBackground: React.FC = () => {
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
-    // Only create heart and spiral on higher performance devices
-    if (!isLowPerf) {
+    // Only create heart and spiral on higher performance devices and larger viewports
+    if (!isLowPerf && window.innerWidth >= 1024 && window.innerHeight >= 600) {
       // Create parametric heart shape using the equation from the image
       const heartGroup = new THREE.Group();
     
@@ -182,7 +185,7 @@ const AnimatedBackground: React.FC = () => {
     
     // Position heart to align with login card position
     heartGroup.position.set(0, 0, -1); // Centered position
-    heartGroup.scale.set(6, 6, 6); // Smaller scale for better proportion
+    heartGroup.scale.set(8, 8, 8); // Larger scale to encapsulate the form
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -241,21 +244,29 @@ const AnimatedBackground: React.FC = () => {
     
     // Listen for card position sync events
     const handleHeartSync = (event: CustomEvent) => {
-      if (heartRef.current && event.detail) {
+      // Only update position if viewport is large enough to show heart
+      const shouldShowHeart = window.innerWidth >= 1024 && window.innerHeight >= 600;
+      
+      if (heartRef.current && event.detail && shouldShowHeart) {
         cardPositionRef.current = {
           x: event.detail.centerX,
           y: event.detail.centerY
         };
         
-        // Update heart position to stick to card
-        heartRef.current.position.x = event.detail.centerX * 2.5;
-        heartRef.current.position.y = event.detail.centerY * 2.5;
+        // Update heart position to stick to card with better proportional positioning
+        const positionMultiplier = Math.min(window.innerWidth / 1000, 3); // Responsive positioning
+        heartRef.current.position.x = event.detail.centerX * positionMultiplier;
+        heartRef.current.position.y = event.detail.centerY * positionMultiplier;
         
         // Update spiral position too
         if (spiralRef.current) {
-          spiralRef.current.position.x = event.detail.centerX * 2.5;
-          spiralRef.current.position.y = event.detail.centerY * 2.5;
+          spiralRef.current.position.x = event.detail.centerX * positionMultiplier;
+          spiralRef.current.position.y = event.detail.centerY * positionMultiplier;
         }
+      } else if (!shouldShowHeart) {
+        // Hide heart and spiral on small viewports
+        if (heartRef.current) heartRef.current.visible = false;
+        if (spiralRef.current) spiralRef.current.visible = false;
       }
     };
     
@@ -426,19 +437,34 @@ const AnimatedBackground: React.FC = () => {
         scene.add(newGridGroup);
       }
       
-      // Adjust heart and spiral positioning based on viewport
-      if (heartRef.current) {
-        // Scale heart based on viewport size for responsiveness
-        const baseScale = Math.min(width / 300, height / 400) * 2; // Responsive scaling
-        const clampedScale = Math.max(4, Math.min(8, baseScale)); // Clamp between reasonable sizes
-        heartRef.current.scale.set(clampedScale, clampedScale, clampedScale);
-      }
+      // Check if heart should be visible based on new viewport size
+      const shouldShowHeart = width >= 1024 && height >= 600;
       
-      if (spiralRef.current) {
-        // Scale spiral proportionally
-        const baseScale = Math.min(width / 400, height / 500) * 1.5;
-        const clampedScale = Math.max(1, Math.min(2.5, baseScale));
-        spiralRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+      if (!shouldShowHeart) {
+        // Hide heart and spiral on small viewports
+        if (heartRef.current) {
+          heartRef.current.visible = false;
+        }
+        if (spiralRef.current) {
+          spiralRef.current.visible = false;
+        }
+      } else {
+        // Show and adjust heart positioning for larger viewports
+        if (heartRef.current) {
+          heartRef.current.visible = true;
+          // Scale heart based on viewport size for responsiveness - larger to encapsulate form
+          const baseScale = Math.min(width / 250, height / 300) * 2.5; // Increased base scale
+          const clampedScale = Math.max(7, Math.min(12, baseScale)); // Increased range for better encapsulation
+          heartRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+        }
+        
+        if (spiralRef.current) {
+          spiralRef.current.visible = true;
+          // Scale spiral proportionally
+          const baseScale = Math.min(width / 400, height / 500) * 2;
+          const clampedScale = Math.max(1.5, Math.min(3.5, baseScale));
+          spiralRef.current.scale.set(clampedScale, clampedScale, clampedScale);
+        }
       }
     };
 
