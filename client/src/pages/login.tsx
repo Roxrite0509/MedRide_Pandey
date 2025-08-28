@@ -27,7 +27,7 @@ function createCardGridOverlay(cardEl: HTMLElement | null) {
   overlay.style.width = `${rect.width}px`;
   overlay.style.height = `${rect.height}px`;
   overlay.style.zIndex = '2';
-  overlay.style.borderRadius = window.getComputedStyle(cardEl).borderRadius || '10px';
+  overlay.style.borderRadius = window.getComputedStyle(cardEl).borderRadius || '32px';
 
   // stronger red pattern that matches the stark background grid
   overlay.style.backgroundImage = `repeating-linear-gradient(0deg, rgba(255,0,0,0.12) 0 1px, transparent 1px 32px),

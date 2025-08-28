@@ -69,7 +69,7 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(0.02, 0, 0)
         ]);
         const softColor = 0xff0000; // stark red
-        const baseOpacity = 0.8;
+        const baseOpacity = 0.6; // slightly more subtle
         const hLineMaterial = new THREE.LineBasicMaterial({
           color: softColor,
           transparent: true,
@@ -283,8 +283,8 @@ const AnimatedBackground: React.FC = () => {
           const factor = Math.min(1, Math.max(0, (dist / cardRadius))); // 0 near center, 1 far
           const base = plusGroup.userData.baseOpacity ?? 0.8;
           const wobble = Math.sin(time + dist) * 0.02;
-          // More dramatic fade - almost invisible at center, full opacity at edges
-          const targetOpacity = base * (0.1 + 0.9 * Math.pow(factor, 2)) + wobble;
+          // Smooth minimal fade - very subtle at center, full opacity at edges
+          const targetOpacity = base * (0.05 + 0.95 * Math.pow(factor, 1.5)) + wobble;
 
           if (plusGroup instanceof THREE.Group) {
             plusGroup.children.forEach((line) => {

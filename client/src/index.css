@@ -336,29 +336,29 @@
 
   /* Login card - embedded glass style */
   .login-card {
-    background: rgba(255, 255, 255, 0.92);         /* more opaque for better contrast */
-    backdrop-filter: blur(8px) saturate(120%);     /* stronger blur for embedding effect */
-    -webkit-backdrop-filter: blur(8px) saturate(120%);
-    border-radius: 24px;                           /* more rounded corners */
-    border: 1px solid rgba(255, 0, 0, 0.15);       /* stronger red border */
+    background: rgba(255, 255, 255, 0.85);         /* slightly more transparent */
+    backdrop-filter: blur(12px) saturate(110%);    /* stronger blur for better embedding */
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    border-radius: 32px;                           /* more minimal rounded corners */
+    border: none;                                   /* remove white edge border */
     box-shadow: 
-      0 12px 32px rgba(255, 0, 0, 0.08),           /* red-tinted outer shadow */
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);      /* subtle inner highlight */
+      0 8px 32px rgba(255, 0, 0, 0.12),            /* subtle red outer glow */
+      0 2px 8px rgba(0, 0, 0, 0.06);               /* minimal depth shadow */
     position: relative;
     overflow: visible;
-    transform: translateZ(0);                       /* force hardware acceleration */
+    transform: translateZ(0);
   }
 
-  /* stronger inner shadow for deeper recess effect */
+  /* subtle inner shadow for minimal recess effect */
   .login-card::before {
     content: "";
     position: absolute;
-    inset: 2px;
-    border-radius: 22px;
+    inset: 1px;
+    border-radius: 31px;
     pointer-events: none;
     box-shadow: 
-      inset 0 4px 12px rgba(255, 0, 0, 0.12),       /* red inner shadow */
-      inset 0 -2px 6px rgba(0, 0, 0, 0.08);         /* depth shadow */
+      inset 0 2px 8px rgba(255, 0, 0, 0.08),        /* subtle red inner glow */
+      inset 0 -1px 4px rgba(0, 0, 0, 0.04);         /* minimal depth */
     z-index: 0;
   }
 
