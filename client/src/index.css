@@ -388,13 +388,16 @@
     background-color: transparent !important;
   }
 
-  /* ensure text elements are visible */
+  /* make all text white for better visibility on red gradient */
   .login-card h1,
   .login-card h2,
+  .login-card h3,
   .login-card p,
   .login-card label,
-  .login-card [class*="text-"] {
-    color: inherit !important;
+  .login-card [class*="text-"],
+  .login-card .text-gray-800,
+  .login-card .text-gray-600 {
+    color: white !important;
     opacity: 1 !important;
   }
 
