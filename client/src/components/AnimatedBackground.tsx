@@ -69,7 +69,7 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(0.02, 0, 0)
         ]);
         const softColor = 0xff0000; // stark red
-        const baseOpacity = 0.6; // slightly more subtle
+        const baseOpacity = 0.9; // more visible red gradient
         const hLineMaterial = new THREE.LineBasicMaterial({
           color: softColor,
           transparent: true,

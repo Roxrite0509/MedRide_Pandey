@@ -366,10 +366,23 @@
     z-index: 0;
   }
 
-  /* ensure card content is above pseudo overlay */
+  /* ensure card content is above pseudo overlay with no white background */
   .login-card .card-content {
     position: relative;
     z-index: 1;
+    background: transparent !important;
+  }
+
+  /* remove white backgrounds from card header and content */
+  .login-card .card-header {
+    background: transparent !important;
+  }
+
+  /* make tabs background transparent */
+  .login-card [data-radix-tabs-root],
+  .login-card [data-radix-tabs-list],
+  .login-card [data-radix-tabs-content] {
+    background: transparent !important;
   }
 }
 
