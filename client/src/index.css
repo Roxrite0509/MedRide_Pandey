@@ -411,6 +411,11 @@
     color: rgb(75, 85, 99) !important;
   }
 
+  /* make tabs text gray-800 */
+  .login-card [role="tablist"] button {
+    color: rgb(31, 41, 55) !important;
+  }
+
   /* make card header and content backgrounds transparent but keep text */
   .login-card .card-header,
   .login-card .card-content {
