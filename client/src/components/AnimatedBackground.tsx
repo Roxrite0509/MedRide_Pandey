@@ -68,8 +68,8 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(-0.02, 0, 0),
           new THREE.Vector3(0.02, 0, 0)
         ]);
-        const softColor = 0xff8b8b; // softer pink/red
-        const baseOpacity = 0.28;
+        const softColor = 0xff0000; // stark red
+        const baseOpacity = 0.8;
         const hLineMaterial = new THREE.LineBasicMaterial({
           color: softColor,
           transparent: true,
@@ -275,15 +275,16 @@ const AnimatedBackground: React.FC = () => {
         gridRef.current.rotation.z += 0.002;
         const globalPulse = (gridRef.current.userData?.pulseBase ?? 0.28) + Math.sin(time) * 0.02;
 
-        // approximate card radius in world units (tweak later)
-        const cardRadius = 2.1;
+        // approximate card radius in world units - larger for better embedding effect
+        const cardRadius = 3.2;
 
         gridRef.current.children.forEach((plusGroup) => {
           const dist = Math.hypot(plusGroup.position.x, plusGroup.position.y);
           const factor = Math.min(1, Math.max(0, (dist / cardRadius))); // 0 near center, 1 far
-          const base = plusGroup.userData.baseOpacity ?? 0.28;
-          const wobble = Math.sin(time + dist) * 0.01;
-          const targetOpacity = base * (0.35 + 0.65 * factor) + wobble;
+          const base = plusGroup.userData.baseOpacity ?? 0.8;
+          const wobble = Math.sin(time + dist) * 0.02;
+          // More dramatic fade - almost invisible at center, full opacity at edges
+          const targetOpacity = base * (0.1 + 0.9 * Math.pow(factor, 2)) + wobble;
 
           if (plusGroup instanceof THREE.Group) {
             plusGroup.children.forEach((line) => {

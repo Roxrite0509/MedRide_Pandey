@@ -29,12 +29,12 @@ function createCardGridOverlay(cardEl: HTMLElement | null) {
   overlay.style.zIndex = '2';
   overlay.style.borderRadius = window.getComputedStyle(cardEl).borderRadius || '10px';
 
-  // subtle repeating pattern that matches the background grid tone
-  overlay.style.backgroundImage = `repeating-linear-gradient(0deg, rgba(255,139,139,0.06) 0 1px, transparent 1px 32px),
-                                   repeating-linear-gradient(90deg, rgba(255,139,139,0.06) 0 1px, transparent 1px 32px)`;
+  // stronger red pattern that matches the stark background grid
+  overlay.style.backgroundImage = `repeating-linear-gradient(0deg, rgba(255,0,0,0.12) 0 1px, transparent 1px 32px),
+                                   repeating-linear-gradient(90deg, rgba(255,0,0,0.12) 0 1px, transparent 1px 32px)`;
   overlay.style.backgroundSize = '32px 32px';
-  overlay.style.filter = 'blur(0.3px)'; // tiny blur to soften matching
-  overlay.style.mixBlendMode = 'normal';
+  overlay.style.filter = 'blur(0.5px)'; // slightly more blur for embedding effect
+  overlay.style.mixBlendMode = 'multiply'; // blend mode for better integration
 
   document.body.appendChild(overlay);
 
