@@ -388,17 +388,27 @@
     background-color: transparent !important;
   }
 
-  /* make all text white for better visibility on red gradient */
+  /* keep text elements visible with original colors */
   .login-card h1,
   .login-card h2,
   .login-card h3,
   .login-card p,
-  .login-card label,
-  .login-card [class*="text-"],
-  .login-card .text-gray-800,
-  .login-card .text-gray-600 {
-    color: white !important;
+  .login-card label {
     opacity: 1 !important;
+  }
+
+  /* only make button text white */
+  .login-card button {
+    color: white !important;
+  }
+
+  /* preserve original gray colors for titles and descriptions */
+  .login-card .text-gray-800 {
+    color: rgb(31, 41, 55) !important;
+  }
+
+  .login-card .text-gray-600 {
+    color: rgb(75, 85, 99) !important;
   }
 
   /* make card header and content backgrounds transparent but keep text */
