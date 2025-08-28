@@ -39,23 +39,23 @@ const AnimatedBackground: React.FC = () => {
     );
     camera.position.z = 5;
 
-    // Renderer setup (alpha true so DOM translucency shows through)
+    // Optimized renderer setup for performance
     const renderer = new THREE.WebGLRenderer({ 
-      antialias: true,
+      antialias: window.devicePixelRatio <= 1, // disable antialias on high DPI for performance
       alpha: true, // IMPORTANT: makes canvas transparent
-      powerPreference: 'high-performance'
+      powerPreference: 'default' // use default instead of high-performance for battery life
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // cap pixel ratio for performance
     renderer.setClearColor(0x000000, 0); // fully transparent clear color
     rendererRef.current = renderer;
 
     // Add renderer to DOM
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create plus symbol grid
+    // Optimized grid - reduce size for better performance
     const gridGroup = new THREE.Group();
-    const gridSize = 20;
+    const gridSize = 15; // reduced from 20 to 15
     const gridSpacing = 0.5;
 
     for (let i = -gridSize; i <= gridSize; i++) {
@@ -104,8 +104,8 @@ const AnimatedBackground: React.FC = () => {
     // Create parametric heart shape using the equation from the image
     const heartGroup = new THREE.Group();
     
-    // Create multiple heart outlines for beating effect
-    const heartCount = 5;
+    // Optimized heart - reduce layers for performance
+    const heartCount = 3; // reduced from 5 to 3 for performance
     const m = 20; // Parameter from the equation
     
     for (let i = 0; i < heartCount; i++) {
@@ -150,11 +150,11 @@ const AnimatedBackground: React.FC = () => {
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
-    // Create spiral circles - hover state
+    // Optimized spiral - reduce circles for performance
     const spiralGroup = new THREE.Group();
     
-    // Create multiple circles for spiral effect
-    const circleCount = 8;
+    // Reduced circles for better performance
+    const circleCount = 5; // reduced from 8 to 5
     const radius = 2.5;
     
     for (let i = 0; i < circleCount; i++) {
@@ -249,23 +249,24 @@ const AnimatedBackground: React.FC = () => {
             }
           });
           
-          // Enhanced beating heart effect with realistic heartbeat pattern
+          // Smoother, more organic beating heart effect
           heartRef.current.children.forEach((child, index) => {
-            const beatOffset = index * 0.2; // Different timing for each outline
+            const beatOffset = index * 0.3; // More varied timing for organic feel
             
-            // Create realistic heartbeat pattern (lub-dub)
-            const heartbeatCycle = (time * 4) + beatOffset;
-            const beat1 = Math.max(0, Math.sin(heartbeatCycle)); // Main beat
-            const beat2 = Math.max(0, Math.sin(heartbeatCycle + Math.PI * 0.3)) * 0.6; // Secondary beat
-            const combinedBeat = beat1 + beat2;
+            // Smoother heartbeat pattern with organic variation
+            const heartbeatCycle = (time * 2.5) + beatOffset; // slower, more natural
+            const beat1 = Math.sin(heartbeatCycle) * 0.5 + 0.5; // smooth sine wave
+            const beat2 = Math.sin(heartbeatCycle * 1.618 + Math.PI * 0.4) * 0.3; // golden ratio variation
+            const organicPulse = Math.sin(heartbeatCycle * 0.7) * 0.1; // slow organic variation
+            const combinedBeat = (beat1 + beat2 + organicPulse) * 0.6;
             
-            const beatScale = 1 + combinedBeat * (0.2 - index * 0.03);
-            const pulseVariation = Math.sin((time * 2) + index) * 0.03;
+            const beatScale = 1 + combinedBeat * (0.15 - index * 0.02);
+            const breathingVariation = Math.sin((time * 0.8) + index * 0.5) * 0.02; // breathing effect
             
-            child.scale.set(beatScale + pulseVariation, beatScale + pulseVariation, 1);
+            child.scale.set(beatScale + breathingVariation, beatScale + breathingVariation, 1);
             
-            // Add slight rotation for organic movement
-            child.rotation.z = Math.sin((time * 1.5) + index) * 0.02;
+            // Subtle organic rotation with different frequencies
+            child.rotation.z = Math.sin((time * 0.9) + index * 1.2) * 0.015 + Math.cos((time * 0.4) + index) * 0.008;
           });
         }
       }
