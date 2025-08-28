@@ -12,18 +12,49 @@ const AnimatedBackground: React.FC = () => {
 
   const [webglSupported, setWebglSupported] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const [isLowPerformanceDevice, setIsLowPerformanceDevice] = useState(false);
   const mouseRef = useRef(new THREE.Vector2());
+
+  // Device performance detection
+  const detectDevicePerformance = () => {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') as WebGLRenderingContext || canvas.getContext('experimental-webgl') as WebGLRenderingContext;
+    if (!gl) return true; // assume low performance if no WebGL
+    
+    // Check various performance indicators
+    const renderer = gl.getParameter(gl.RENDERER) || '';
+    const vendor = gl.getParameter(gl.VENDOR) || '';
+    const isLowEndGPU = renderer.toLowerCase().includes('intel') || 
+                       renderer.toLowerCase().includes('software') ||
+                       vendor.toLowerCase().includes('microsoft');
+    
+    // Check device memory (if available)
+    const deviceMemory = (navigator as any).deviceMemory;
+    const isLowMemory = deviceMemory && deviceMemory <= 2;
+    
+    // Check hardware concurrency
+    const isLowCPU = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+    
+    // Check if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    return isLowEndGPU || isLowMemory || isLowCPU || isMobile;
+  };
 
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Check WebGL support
+    // Check WebGL support and device performance
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) {
       setWebglSupported(false);
       return;
     }
+
+    // Detect if this is a low performance device
+    const isLowPerf = detectDevicePerformance();
+    setIsLowPerformanceDevice(isLowPerf);
 
     // Scene setup (transparent background so DOM card can show canvas underneath)
     const scene = new THREE.Scene();
@@ -101,8 +132,10 @@ const AnimatedBackground: React.FC = () => {
     gridRef.current = gridGroup;
     scene.add(gridGroup);
 
-    // Create parametric heart shape using the equation from the image
-    const heartGroup = new THREE.Group();
+    // Only create heart and spiral on higher performance devices
+    if (!isLowPerf) {
+      // Create parametric heart shape using the equation from the image
+      const heartGroup = new THREE.Group();
     
     // Optimized heart - reduce layers for performance
     const heartCount = 3; // reduced from 5 to 3 for performance
@@ -171,11 +204,12 @@ const AnimatedBackground: React.FC = () => {
       spiralGroup.add(circle);
     }
     
-    // Position spiral behind the card (same as heart)
-    spiralGroup.position.set(0, 0, -1);
-    spiralGroup.scale.set(2, 2, 2); // Scale spiral appropriately
-    spiralRef.current = spiralGroup;
-    scene.add(spiralGroup);
+      // Position spiral behind the card (same as heart)
+      spiralGroup.position.set(0, 0, -1);
+      spiralGroup.scale.set(2, 2, 2); // Scale spiral appropriately
+      spiralRef.current = spiralGroup;
+      scene.add(spiralGroup);
+    } // End of high-performance device check
 
 
 
@@ -208,8 +242,8 @@ const AnimatedBackground: React.FC = () => {
 
       const time = Date.now() * 0.001;
 
-      // Animate heart and spiral transition
-      if (spiralRef.current && heartRef.current) {
+      // Animate heart and spiral transition (only on high-performance devices)
+      if (!isLowPerformanceDevice && spiralRef.current && heartRef.current) {
         if (isHovering) {
           // Transition to spiral
           heartRef.current.children.forEach((child, index) => {
