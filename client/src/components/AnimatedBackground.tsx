@@ -121,9 +121,9 @@ const AnimatedBackground: React.FC = () => {
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
         
-        // Simple scaling without viewport calculations
-        const scaledX = x * scale * 0.015;
-        const scaledY = (y * scale * 0.015) + 1.5; // Position so only top parts show above card
+        // Scaled to be bigger and centered
+        const scaledX = x * scale * 0.025;
+        const scaledY = y * scale * 0.025; // Center the heart, no fixed offset
         
         points.push(new THREE.Vector3(scaledX, scaledY, i * 0.02));
       }
@@ -140,9 +140,9 @@ const AnimatedBackground: React.FC = () => {
       heartGroup.add(heartLine);
     }
     
-    // Simple positioning - centered, only top visible above card
+    // Position heart to be centered and larger, encapsulating the card
     heartGroup.position.set(0, 0, -1);
-    heartGroup.scale.set(3, 3, 3); // Fixed scale, no calculations
+    heartGroup.scale.set(6, 6, 6); // Bigger scale to encapsulate the card
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
@@ -200,13 +200,13 @@ const AnimatedBackground: React.FC = () => {
           y: event.detail.centerY
         };
         
-        // Simple positioning - just follow the card position
-        heartRef.current.position.x = event.detail.centerX * 2;
-        heartRef.current.position.y = event.detail.centerY * 2;
+        // Center heart around the card position (reduced multiplier for better centering)
+        heartRef.current.position.x = event.detail.centerX * 1.2;
+        heartRef.current.position.y = event.detail.centerY * 1.2;
         
         if (spiralRef.current) {
-          spiralRef.current.position.x = event.detail.centerX * 2;
-          spiralRef.current.position.y = event.detail.centerY * 2;
+          spiralRef.current.position.x = event.detail.centerX * 1.2;
+          spiralRef.current.position.y = event.detail.centerY * 1.2;
         }
       }
     };
