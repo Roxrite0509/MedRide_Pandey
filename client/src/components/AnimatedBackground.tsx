@@ -70,8 +70,8 @@ const AnimatedBackground: React.FC = () => {
           new THREE.Vector3(-0.02, 0, 0),
           new THREE.Vector3(0.02, 0, 0)
         ]);
-        const softColor = 0xff0000;
-        const baseOpacity = 0.9;
+        const softColor = 0xcc0000;
+        const baseOpacity = 1.0;
         const hLineMaterial = new THREE.LineBasicMaterial({
           color: softColor,
           transparent: true,
@@ -330,8 +330,8 @@ const AnimatedBackground: React.FC = () => {
               new THREE.Vector3(-0.02, 0, 0),
               new THREE.Vector3(0.02, 0, 0)
             ]);
-            const softColor = 0xff0000;
-            const baseOpacity = 0.9;
+            const softColor = 0xcc0000;
+            const baseOpacity = 1.0;
             const hLineMaterial = new THREE.LineBasicMaterial({
               color: softColor,
               transparent: true,
