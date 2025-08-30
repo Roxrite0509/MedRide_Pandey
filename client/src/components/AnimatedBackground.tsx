@@ -67,8 +67,8 @@ const AnimatedBackground: React.FC = () => {
         
         // Horizontal line
         const hLineGeometry = new THREE.BufferGeometry().setFromPoints([
-          new THREE.Vector3(-0.02, 0, 0),
-          new THREE.Vector3(0.02, 0, 0)
+          new THREE.Vector3(-0.04, 0, 0),
+          new THREE.Vector3(0.04, 0, 0)
         ]);
         const softColor = 0xcc0000;
         const baseOpacity = 1.0;
@@ -82,8 +82,8 @@ const AnimatedBackground: React.FC = () => {
         
         // Vertical line
         const vLineGeometry = new THREE.BufferGeometry().setFromPoints([
-          new THREE.Vector3(0, -0.02, 0),
-          new THREE.Vector3(0, 0.02, 0)
+          new THREE.Vector3(0, -0.04, 0),
+          new THREE.Vector3(0, 0.04, 0)
         ]);
         const vLineMaterial = new THREE.LineBasicMaterial({
           color: softColor,
@@ -327,8 +327,8 @@ const AnimatedBackground: React.FC = () => {
             const plusGroup = new THREE.Group();
             
             const hLineGeometry = new THREE.BufferGeometry().setFromPoints([
-              new THREE.Vector3(-0.02, 0, 0),
-              new THREE.Vector3(0.02, 0, 0)
+              new THREE.Vector3(-0.04, 0, 0),
+              new THREE.Vector3(0.04, 0, 0)
             ]);
             const softColor = 0xcc0000;
             const baseOpacity = 1.0;
@@ -341,8 +341,8 @@ const AnimatedBackground: React.FC = () => {
             plusGroup.add(hLine);
             
             const vLineGeometry = new THREE.BufferGeometry().setFromPoints([
-              new THREE.Vector3(0, -0.02, 0),
-              new THREE.Vector3(0, 0.02, 0)
+              new THREE.Vector3(0, -0.04, 0),
+              new THREE.Vector3(0, 0.04, 0)
             ]);
             const vLineMaterial = new THREE.LineBasicMaterial({
               color: softColor,
