@@ -142,7 +142,7 @@ const AnimatedBackground: React.FC = () => {
     
     // Position heart to be centered and larger, encapsulating the card
     heartGroup.position.set(0, 0, -1);
-    heartGroup.scale.set(6, 6, 6); // Bigger scale to encapsulate the card
+    heartGroup.scale.set(8, 8, 8); // Even bigger scale to encapsulate the card
     heartRef.current = heartGroup;
     scene.add(heartGroup);
 
